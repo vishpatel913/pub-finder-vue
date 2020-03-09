@@ -28,7 +28,7 @@ jobs:
           name: Set up env
           command: |
             ./node_modules/.bin/firebase functions:config:unset env --token "$FIREBASE_DEPLOY_TOKEN"
-            ./node_modules/.bin/firebase functions:config:set env.GOOGLE_API_KEY="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
+            ./node_modules/.bin/firebase functions:config:set env.google.key="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
       - run:
           name: Build App
           command: yarn build

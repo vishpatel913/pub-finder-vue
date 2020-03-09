@@ -14,7 +14,7 @@ exports.geocoding = functions.https.onRequest((req, res) => {
 
     const params = {
       latlng: `${lat},${lng}`,
-      key: config.GOOGLE_API_KEY
+      key: config.google.key
     };
 
     return axios
