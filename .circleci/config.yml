@@ -33,6 +33,12 @@ jobs:
           name: Build App
           command: yarn build
       - run:
+          name: Install function dependencies # create seperate deployment job
+          command: |
+            cd functions
+            yarn install
+            cd ..
+      - run:
           name: Deploy To Firebase
           command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_DEPLOY_TOKEN"
 
