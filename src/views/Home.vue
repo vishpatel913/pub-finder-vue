@@ -1,18 +1,35 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <h1>Pub Finder</h1>
+    <h2 v-if="locationName">{{ locationName }}</h2>
+    <p><strong>Location</strong>: {{ JSON.stringify(coords) }}</p>
+    <a-button type="default" size="large" icon="environment" @click="getGeolocation">
+      Get Location
+    </a-button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import { mapState, mapActions } from 'vuex';
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld,
+  computed: {
+    ...mapState(['coords', 'locationName']),
+  },
+  methods: {
+    ...mapActions(['getGeolocation']),
   },
 };
 </script>
+
+<style lang="less" scoped>
+.container {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+</style>
