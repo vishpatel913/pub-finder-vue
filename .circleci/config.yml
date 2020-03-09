@@ -1,0 +1,46 @@
+# CircleCI Firebase Deployment Config
+version: 2.1
+
+jobs:
+  build-and-deploy:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/pub-finder-vue
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific yarn.lock
+            - v1-yarn-deps-{{ checksum "yarn.lock" }}
+            # Fallback cache to be used
+            - v1-yarn-deps-
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - save_cache:
+          key: v1-yarn-deps-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Install Firebase tools
+          command: yarn add -D firebase-tools
+      - run:
+          name: Set up env
+          command: |
+            ./node_modules/.bin/firebase functions:config:unset env
+            ./node_modules/.bin/firebase functions:config:set env.GOOGLE_API_KEY="$GOOGLE_API_KEY"
+      - run:
+          name: Build App
+          command: yarn build
+      - run:
+          name: Deploy To Firebase
+          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_DEPLOY_TOKEN"
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build-and-deploy:
+          filters:
+            branches:
+              only: master
