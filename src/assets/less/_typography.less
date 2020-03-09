@@ -1,0 +1,26 @@
+@import (css)
+  url(https://fonts.googleapis.com/css?family=Quicksand&display=swap);
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 300;
+  letter-spacing: 1.5px;
+}
+
+p {
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+a {
+  font-weight: 400;
+
+  &:active,
+  &:focus {
+    text-decoration: @link-hover-decoration;
+  }
+}
