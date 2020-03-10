@@ -3,7 +3,7 @@
     <h1>Pub Finder</h1>
     <h2 v-if="locationName">{{ locationName }}</h2>
     <p><strong>Location</strong>: {{ JSON.stringify(coords) }}</p>
-    <a-button type="default" size="large" icon="environment" @click="getGeolocation">
+    <a-button type="default" icon="environment" @click="getGeolocation">
       Get Location
     </a-button>
   </div>
