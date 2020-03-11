@@ -5,15 +5,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    coords: null,
+    coords: { lat: 54.995274, lng: -1.607735 },
     locationName: null,
   },
   mutations: {
     SET_COORDINATES(state, data) {
       const { latitude, longitude } = data;
-      state.coords = { latitude, longitude };
+      state.coords = { lat: latitude, lng: longitude };
     },
-    // SET_LOCATION_NAME(state, data) {},
   },
   actions: {
     async getGeolocation({ commit }) {
