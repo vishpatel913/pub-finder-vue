@@ -1,5 +1,5 @@
 const functions = require("firebase-functions");
-const cors = require("cors");
+const cors = require("cors")({ origin: true });
 const express = require("express");
 const { ApolloServer, gql } = require("apollo-server-express");
 const { resolvers } = require("./src/resolvers");
@@ -13,7 +13,7 @@ const dataSources = () => ({
 
 const app = express();
 
-app.use(cors({ origin: true }));
+app.use(cors);
 
 const server = new ApolloServer({
   typeDefs,
