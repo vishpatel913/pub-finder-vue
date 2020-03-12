@@ -2,8 +2,9 @@ const functions = require("firebase-functions");
 const cors = require("cors")({ origin: true });
 const express = require("express");
 const { ApolloServer, gql } = require("apollo-server-express");
-const { resolvers } = require("./src/resolvers");
+
 const { typeDefs } = require("./src/typeDefs");
+const { resolvers } = require("./src/resolvers");
 const { GoogleMaps } = require("./src/datasources");
 
 // const context = ({ req }) => ({ token: "token" });

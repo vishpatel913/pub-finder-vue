@@ -2,12 +2,15 @@ const { distanceBetweenCoords } = require("../utils/helpers");
 
 const pubResolvers = {
   Query: {
-    pubs: (parent, { coords }, { dataSources }, info) =>
-      dataSources.googleMaps.getPubsNearMe(coords)
-  },
-  Pub: {
-    distance: (parent, args, ctx, info) =>
-      distanceBetweenCoords(info.variableValues.coords, parent.coords)
+    pubs: async (parent, { coords }, { dataSources }, info) => {
+      const results = await dataSources.googleMaps.getPubsNearMe(coords);
+      return results
+        .map(item => ({
+          ...item,
+          distance: distanceBetweenCoords(coords, item.coords)
+        }))
+        .sort((a, b) => (a.distance > b.distance ? 1 : -1));
+    }
   }
 };
 
