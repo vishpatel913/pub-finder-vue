@@ -29,16 +29,34 @@ class GoogleMaps extends RESTDataSource {
     };
   }
 
-  async getPubsNearMe({ lat, lng }) {
-    // const params = {};
-    // const response = await this.get("place", params);
-    // return response;
+  async getPubsNearMe({ lat, lng }, data = {}) {
+    const params = {
+      location: `${lat},${lng}`,
+      radius: "1500",
+      keyword: "pub,bar",
+      opennow: true,
+      ...data,
+      key: config.google.key
+    };
+    const response = await this.get("place/nearbysearch/json", params);
+
+    return response.results.map(item => ({
+      id: item.place_id,
+      name: item.name,
+      coords: item.geometry.location,
+      address: item.vicinity,
+      rating: item.rating,
+      priceLevel: item.price_level
+    }));
   }
 
   async getPubDetails(id) {
-    // const params = {};
-    // const response = await this.get("place-details", params);
-    // return response;
+    const params = {
+      place_id: id,
+      fields: "opening_hours,photos",
+      key: config.GOOGLE_API_KEY
+    };
+    const response = await this.get("place/details/json", params);
   }
 }
 

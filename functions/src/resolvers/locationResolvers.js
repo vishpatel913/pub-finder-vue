@@ -1,7 +1,7 @@
 const locationResolvers = {
   Query: {
-    location: (parent, args, ctx, info) =>
-      ctx.dataSources.googleMaps.getGeocoding(args.coords)
+    location: (parent, { coords }, { dataSources }, info) =>
+      dataSources.googleMaps.getGeocoding(coords)
   }
 };
 

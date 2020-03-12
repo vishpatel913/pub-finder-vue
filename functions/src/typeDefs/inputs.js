@@ -1,9 +1,9 @@
 const { gql } = require("apollo-server-express");
 
 const inputs = gql`
-  input Coords {
-    lat: Float
-    lng: Float
+  input CoordsInput {
+    lat: Float!
+    lng: Float!
   }
 
   input StringFilter {

@@ -1,8 +1,17 @@
-{
-  "parserOptions": { "ecmaVersion": 2017 },
-  "plugins": ["promise"],
-  "extends": "eslint:recommended",
-  "rules": {
+module.exports = {
+  parserOptions: {
+    ecmaVersion: 2017
+  },
+  plugins: ["promise", "graphql"],
+  extends: "eslint:recommended",
+  rules: {
+    // "graphql/template-strings": [
+    //   "error",
+    //   {
+    //     env: "apollo",
+    //     schemaJson: require("./schema.js")
+    //   }
+    // ],
     "no-console": "off",
     "no-regex-spaces": "off",
     "no-debugger": "off",
@@ -12,7 +21,7 @@
     "no-template-curly-in-string": 1,
     "consistent-return": 1,
     "array-callback-return": 1,
-    "eqeqeq": 2,
+    eqeqeq: 2,
     "no-alert": 2,
     "no-caller": 2,
     "no-eq-null": 2,
@@ -41,4 +50,4 @@
     "promise/catch-or-return": 2,
     "promise/no-nesting": 1
   }
-}
+};

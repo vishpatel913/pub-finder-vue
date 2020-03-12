@@ -24,7 +24,7 @@ export default {
   apollo: {
     location: {
       query: gql`
-        query GetLocation($coords: Coords!) {
+        query GetLocation($coords: CoordsInput!) {
           location(coords: $coords) {
             address
             components {

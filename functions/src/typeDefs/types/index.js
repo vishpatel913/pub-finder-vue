@@ -1,5 +1,9 @@
 const { locationType } = require("./locationType");
+const { coordsType } = require("./coordsType");
+const { pubType } = require("./pubType");
 
 module.exports = {
-  locationType
+  locationType,
+  coordsType,
+  pubType
 };
