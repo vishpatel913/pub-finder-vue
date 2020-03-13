@@ -7,7 +7,7 @@ const config = require("../../config");
 class GoogleMaps extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = `${config.google.mapsUri}/`;
+    this.baseURL = `${config.google.maps_uri}/`;
   }
 
   async willSendRequest(request) {}

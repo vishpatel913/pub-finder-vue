@@ -29,7 +29,7 @@ jobs:
           command: |
             ./node_modules/.bin/firebase functions:config:unset env --token "$FIREBASE_DEPLOY_TOKEN"
             ./node_modules/.bin/firebase functions:config:set env.google.key="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
-            ./node_modules/.bin/firebase functions:config:set env.google.mapsUri="$GOOGLE_MAPS_URI" --token "$FIREBASE_DEPLOY_TOKEN"
+            ./node_modules/.bin/firebase functions:config:set env.google.maps_uri="$GOOGLE_MAPS_URI" --token "$FIREBASE_DEPLOY_TOKEN"
       - run:
           name: Build App
           command: yarn build
