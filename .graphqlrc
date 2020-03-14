@@ -1,0 +1,5 @@
+{
+  "request": {
+    "url": "http://http://localhost:5001/pubs-nearby/us-central1/api/graphql"
+  }
+}

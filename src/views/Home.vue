@@ -1,9 +1,17 @@
 <template>
   <div class="container">
-    <h1>Pub Finder</h1>
-    <h2 v-if="$apollo.loading">Loading...</h2>
-    <h2 v-else>{{ location.address }}</h2>
-    <p v-if="coords"><strong>Coords</strong>: {{ JSON.stringify(coords) }}</p>
+    <div class="header">
+      <h1>Pub Finder</h1>
+      <h2 v-if="$apollo.loading">Loading...</h2>
+      <h2 v-else>{{ location.address }}</h2>
+    </div>
+    <div v-if="!$apollo.loading" class="content">
+      <div v-for="pub in pubs" :key="pub.key">
+        <h3>{{ pub.name }} ({{ pub.distance }} mile)</h3>
+        <p>{{ pub.address }}</p>
+        <p>{{ sanitiseObject(pub.openingHours[dayId]) }}</p>
+      </div>
+    </div>
     <a-button type="default" icon="environment" @click="getGeolocation">
       Get Location
     </a-button>
@@ -13,22 +21,40 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import { gql } from 'apollo-boost';
+import moment from 'moment';
 
 export default {
+  data: () => ({
+    pubs: [],
+    dayId: moment().day(),
+  }),
   computed: {
     ...mapState(['coords']),
   },
   methods: {
     ...mapActions(['getGeolocation']),
+    sanitiseObject(obj) {
+      const key = '__typename';
+      delete obj[key];
+      return obj;
+    },
   },
   apollo: {
-    location: {
+    data: {
       query: gql`
-        query GetLocation($coords: CoordsInput!) {
+        query getLocation($coords: CoordsInput!) {
           location(coords: $coords) {
             address
-            components {
-              route
+          }
+          pubs(coords: $coords) {
+            name
+            address
+            rating
+            priceLevel
+            distance
+            openingHours {
+              opens
+              closes
             }
           }
         }
@@ -38,6 +64,11 @@ export default {
           coords: this.coords,
         };
       },
+      result({ data }) {
+        this.location = data.location;
+        this.pubs = data.pubs;
+      },
+      update: ({ data }) => data,
     },
   },
 };
@@ -46,11 +77,10 @@ export default {
 <style lang="less" scoped>
 .container {
   margin: 0 auto;
-  min-height: 100vh;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
 }
 </style>
