@@ -8,7 +8,9 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "env": "test -f .env.json && firebase functions:config:unset env && firebase functions:config:set env=\"$(cat .env.json)\""
+    "env": "test -f .env.json && firebase functions:config:unset env && firebase functions:config:set env=\"$(cat .env.json)\"",
+    "test": "jest --watch",
+    "test-ci": "jest --converage"
   },
   "engines": {
     "node": "10"
@@ -27,6 +29,7 @@
   "devDependencies": {
     "eslint": "^5.12.0",
     "eslint-plugin-graphql": "^3.1.1",
+    "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-promise": "^4.0.1",
     "firebase-functions-test": "^0.1.6"
   },
