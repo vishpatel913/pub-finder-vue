@@ -1,6 +1,4 @@
 const { RESTDataSource } = require("apollo-datasource-rest");
-const axios = require("axios");
-const qs = require("querystring");
 const moment = require("moment");
 const config = require("../../config");
 
@@ -10,7 +8,7 @@ class GoogleMaps extends RESTDataSource {
     this.baseURL = `${config.google.maps_uri}/`;
   }
 
-  async willSendRequest(request) {}
+  // async willSendRequest(request) {}
 
   async getGeocoding({ lat, lng }) {
     const params = {
@@ -54,9 +52,25 @@ class GoogleMaps extends RESTDataSource {
     const params = {
       place_id: id,
       fields: "opening_hours,photos",
-      key: config.GOOGLE_API_KEY
+      key: config.google.key
     };
     const response = await this.get("place/details/json", params);
+    const { opening_hours } = response.result;
+
+    return {
+      openingHours: await this.constructor.normaliseOpeningTimes(
+        opening_hours.periods
+      )
+    };
+  }
+
+  static async normaliseOpeningTimes(periods) {
+    const days = periods.reduce((p, c) => {
+      p["_" + c.open.day] = { opens: c.open.time, closes: c.close.time };
+      return p;
+    }, {});
+
+    return days;
   }
 }
 
