@@ -10,7 +10,7 @@
     "logs": "firebase functions:log",
     "env": "test -f .env.json && firebase functions:config:unset env && firebase functions:config:set env=\"$(cat .env.json)\"",
     "test": "jest --watch",
-    "test-ci": "jest --converage"
+    "test-ci": "jest --coverage"
   },
   "engines": {
     "node": "10"
