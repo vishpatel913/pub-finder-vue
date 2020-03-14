@@ -2,16 +2,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2017,
   },
-  plugins: ['promise', 'graphql', 'jest'],
+  plugins: ['promise', 'jest'],
   extends: ['eslint:recommended', 'plugin:jest/recommended'],
   rules: {
-    // "graphql/template-strings": [
-    //   "error",
-    //   {
-    //     env: "apollo",
-    //     schemaJson: require("./schema.js")
-    //   }
-    // ],
     'no-console': 'off',
     'no-regex-spaces': 'off',
     'no-debugger': 'off',
