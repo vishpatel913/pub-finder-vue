@@ -10,7 +10,7 @@ module.exports = {
 
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
-      // ...other Workbox options...
+      skipWaiting: true,
     },
     manifestPath: 'manifest.json',
     manifestOptions: {},
