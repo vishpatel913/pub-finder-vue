@@ -59,7 +59,7 @@ jobs:
     steps:
       - run:
           name: Change to functions directory
-          command: echo pwd
+          command: pwd
       - install_dependencies
       - run:
           name: Test functions
