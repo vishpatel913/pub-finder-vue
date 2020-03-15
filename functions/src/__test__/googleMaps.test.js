@@ -83,11 +83,25 @@ describe("[GoogleMaps.getPubDetails]", () => {
   });
 
   it("returns a day object in the correct format", () => {
-    expect(response.openingHours[0]).toEqual(
-      expect.objectContaining({ opens: "1200", closes: "2230" })
-    );
-    expect(response.openingHours[6]).toEqual(
-      expect.objectContaining({ opens: "1100", closes: "0200" })
-    );
+    expect(response.openingHours[0]).toMatchObject({
+      open: {
+        day: 0,
+        time: "1200"
+      },
+      close: {
+        day: 0,
+        time: "2230"
+      }
+    });
+    expect(response.openingHours[6]).toMatchObject({
+      open: {
+        day: 6,
+        time: "1100"
+      },
+      close: {
+        day: 0,
+        time: "0200"
+      }
+    });
   });
 });

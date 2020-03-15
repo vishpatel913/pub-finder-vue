@@ -13,21 +13,16 @@ const pubType = gql`
   }
 
   type OpeningHours {
-    opens: String
-    closes: String
+    open: DayTime
+    close: DayTime
+  }
+
+  type DayTime {
+    day: String
+    time: String
   }
 `;
 
 module.exports = {
   pubType
-};
-
-const days = {
-  "0": { open: "1200", close: "2230" },
-  "1": { open: "1200", close: "0000" },
-  "2": { open: "1200", close: "0000" },
-  "3": { open: "1200", close: "0000" },
-  "4": { open: "1200", close: "0000" },
-  "5": { open: "1200", close: "0200" },
-  "6": { open: "1100", close: "0200" }
 };

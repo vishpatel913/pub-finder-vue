@@ -61,19 +61,8 @@ class GoogleMaps extends RESTDataSource {
     const { opening_hours } = response.result;
 
     return {
-      openingHours: await this.constructor.normaliseOpeningTimes(
-        opening_hours.periods
-      )
+      openingHours: opening_hours.periods
     };
-  }
-
-  static async normaliseOpeningTimes(periods) {
-    const days = periods.reduce((p, c) => {
-      p.push({ opens: c.open.time, closes: c.close.time });
-      return p;
-    }, []);
-
-    return days;
   }
 }
 

@@ -13,7 +13,7 @@
         <p>
           {{ pub.address }}
         </p>
-        <pre><code>{{ pub.openingHours[dayId] }}</code></pre>
+        <pre><code>close: {{ pub.openingHours[dayId].close }}</code></pre>
       </div>
     </div>
     <a-button type="default" icon="environment" @click="getGeolocation">
@@ -52,8 +52,10 @@ export default {
             priceLevel
             distance
             openingHours {
-              opens
-              closes
+              close {
+                day
+                time
+              }
             }
           }
         }
