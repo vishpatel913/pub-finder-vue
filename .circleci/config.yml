@@ -24,7 +24,6 @@ jobs:
   configure_firebase:
     docker:
       - image: circleci/node:10
-    working_directory: ~/pub-finder-vue
     steps:
       - run:
           name: Install Firebase tools
@@ -38,7 +37,6 @@ jobs:
   build_app:
     docker:
       - image: circleci/node:10
-    working_directory: ~/pub-finder-vue
     steps:
       - install_dependencies
       - run:
@@ -48,7 +46,6 @@ jobs:
   deploy_app:
     docker:
       - image: circleci/node:10
-    working_directory: ~/pub-finder-vue
     steps:
       - run:
           name: Deploy To Firebase
@@ -58,7 +55,6 @@ jobs:
   test_functions:
     docker:
       - image: circleci/node:10
-    working_directory: ~/pub-finder-vue
     steps:
       - run:
           name: Change to functions directory
@@ -71,7 +67,6 @@ jobs:
   deploy_functions:
     docker:
       - image: circleci/node:10
-    working_directory: ~/pub-finder-vue
     steps:
       - run:
           name: Change to functions directory
