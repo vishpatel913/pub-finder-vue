@@ -60,8 +60,9 @@ jobs:
       - image: circleci/node:10
     working_directory: ~/pub-finder-vue/functions
     steps:
-      - checkout:
-          path: ~/pub-finder-vue
+      - run:
+          name: Change to functions directory
+          command: cd functions
       - install_dependencies
       - run:
           name: Test functions
@@ -72,6 +73,9 @@ jobs:
       - image: circleci/node:10
     working_directory: ~/pub-finder-vue/functions
     steps:
+      - run:
+          name: Change to functions directory
+          command: cd functions
       - install_dependencies
       - run:
           name: Deploy functions
