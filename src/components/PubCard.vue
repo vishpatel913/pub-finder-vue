@@ -1,30 +1,49 @@
 <template>
   <div class="card-container">
-    <h3>
-      {{ details.name }} <strong>({{ details.distance }} mile)</strong>
-    </h3>
-    <p>
-      {{ details.address }}
-    </p>
+    <a :href="routeLink" target="_blank" rel="noopener noreferrer">
+      <h3>
+        {{ details.name }} <strong>({{ walkingDistance }}min walk)</strong>
+      </h3>
+      <p>Closes: {{ openingHours.closes }}</p>
+    </a>
   </div>
 </template>
 
 <script>
 import moment from 'moment';
+import { mapState } from 'vuex';
 
 export default {
   name: 'PubCard',
   props: {
     details: Object,
   },
-  data: () => ({
-    dayId: moment().day(),
-  }),
+  data: () => ({}),
   computed: {
-    // closes() {
-    //   let time;
-    //   const data = this.details.openingHours.find((item) => item);
-    // },
+    ...mapState(['coords']),
+    openingHours() {
+      const data = this.details.openingHours.find((item) => {
+        const now = moment();
+        const { open, close } = item;
+        return (
+          moment(`${open.day} ${open.time}`, 'e HHmm').isBefore(now)
+          && moment(`${close.day} ${close.time}`, 'e HHmm').isAfter(now)
+        );
+      });
+
+      return {
+        opens: moment(data.open.time, 'HHmm').format('h:mm a'),
+        closes: moment(data.close.time, 'HHmm').format('h:mm a'),
+      };
+    },
+    walkingDistance() {
+      return Math.round((this.details.distance / 3.1) * 60);
+    },
+    routeLink() {
+      const current = `${this.coords.lat},${this.coords.lng}`;
+      const dest = `${this.details.coords.lat},${this.details.coords.lng}`;
+      return `https://www.google.com/maps/dir/${current}/${dest}/data=!4m2!4m1!3e2`;
+    },
   },
 };
 </script>
@@ -35,3 +54,6 @@ export default {
   text-align: left;
 }
 </style>
+
+https://www.google.com/maps/dir/51.4623756,-0.1524565/51.463192,-0.1406481/@51.4617458,-0.146631,16z/data=!4m2!4m1!3e2
+https://www.google.com/maps/dir/51.4623756,-0.1524565/51.463192,-0.1406481/@51.4627823,-0.1466586,16z/data=!4m2!4m1!3e0

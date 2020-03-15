@@ -46,10 +46,18 @@ export default {
           pubs(coords: $coords) {
             name
             address
+            coords {
+              lat
+              lng
+            }
             rating
             priceLevel
             distance
             openingHours {
+              open {
+                day
+                time
+              }
               close {
                 day
                 time
@@ -80,5 +88,8 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+.header {
+  align-self: start;
 }
 </style>
