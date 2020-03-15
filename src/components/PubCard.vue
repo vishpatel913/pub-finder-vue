@@ -10,7 +10,7 @@
       </h3>
       <p>{{ details.address }}</p>
       <p>
-        Closes: {{ openingHoursToday.closes }} <strong>({{ closesIn }})</strong>
+        Closes: {{ openToday.closes.time }} <strong>({{ closesIn }})</strong>
       </p>
       <div class="ratings">
         <a-rate
@@ -46,10 +46,11 @@ export default {
   data: () => ({}),
   computed: {
     ...mapState(['coords']),
-    openingHoursToday() {
+    openToday() {
       const data = this.details.openingHours.find((item) => {
         const now = moment();
         const { open, close } = item;
+
         return (
           moment(`${open.day} ${open.time}`, 'e HHmm').isBefore(now)
           && moment(`${close.day} ${close.time}`, 'e HHmm').isAfter(now)
@@ -57,12 +58,13 @@ export default {
       });
 
       return {
-        opens: moment(data.open.time, 'HHmm').format('h:mm a'),
-        closes: moment(data.close.time, 'HHmm').format('h:mm a'),
+        opens: { day: data.open.day, time: moment(data.open.time, 'HHmm').format('h:mm a') },
+        closes: { day: data.close.day, time: moment(data.close.time, 'HHmm').format('h:mm a') },
       };
     },
     closesIn() {
-      return moment(this.openingHoursToday.closes, 'h:mm a').fromNow();
+      const { closes } = this.openToday;
+      return moment(`${closes.day} ${closes.time}`, 'e h:mm a').fromNow();
     },
     walkingDistance() {
       return Math.round((this.details.distance / 3.1) * 60);
