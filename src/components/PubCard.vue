@@ -1,9 +1,14 @@
 <template>
   <div class="card-container">
-    <a :href="routeLink" target="_blank" rel="noopener noreferrer">
+    <a
+      :href="routeLink"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <h3>
         {{ details.name }} <strong>({{ walkingDistance }}min walk)</strong>
       </h3>
+      <p>{{ details.address }}</p>
       <p>Closes: {{ openingHours.closes }}</p>
     </a>
   </div>
@@ -16,7 +21,10 @@ import { mapState } from 'vuex';
 export default {
   name: 'PubCard',
   props: {
-    details: Object,
+    details: {
+      type: Object,
+      default: null,
+    },
   },
   data: () => ({}),
   computed: {
@@ -50,10 +58,7 @@ export default {
 
 <style scoped lang="less">
 .card-container {
-  margin: 1rem 0;
-  text-align: left;
+  padding: 0.5rem 0;
+  width: 100%;
 }
 </style>
-
-https://www.google.com/maps/dir/51.4623756,-0.1524565/51.463192,-0.1406481/@51.4617458,-0.146631,16z/data=!4m2!4m1!3e2
-https://www.google.com/maps/dir/51.4623756,-0.1524565/51.463192,-0.1406481/@51.4627823,-0.1466586,16z/data=!4m2!4m1!3e0

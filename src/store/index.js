@@ -6,21 +6,32 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     coords: { lat: 54.995274, lng: -1.607735 },
-    locationName: null,
+    loading: false,
+    error: false,
   },
   mutations: {
     SET_COORDINATES(state, data) {
       const { latitude, longitude } = data;
       state.coords = { lat: latitude, lng: longitude };
     },
+    SET_LOADING(state, data) {
+      state.loading = data;
+    },
+    SET_ERROR(state, data) {
+      state.error = data;
+    },
   },
   actions: {
     async getGeolocation({ commit }) {
       if (navigator.geolocation) {
+        commit('SET_LOADING', true);
         await navigator.geolocation.getCurrentPosition(
           (position) => {
-            const { coords } = position;
-            commit('SET_COORDINATES', coords);
+            setTimeout(() => {
+              const { coords } = position;
+              commit('SET_COORDINATES', coords);
+              commit('SET_LOADING', false);
+            }, 1000);
           },
           (error) => {
             console.error(error);

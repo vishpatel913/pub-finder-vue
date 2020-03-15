@@ -2,15 +2,33 @@
   <div class="container">
     <div class="header">
       <h1>Pub Finder</h1>
-      <h2 v-if="$apollo.loading">Loading...</h2>
-      <h2 v-else><a-icon type="environment" /> {{ location.area }}</h2>
+      <h2 v-if="isLoading">
+        Searching...
+      </h2>
+      <h2 v-else>
+        <a-icon type="environment" /> {{ location.area }}
+      </h2>
     </div>
-    <div v-if="!$apollo.loading" class="content">
-      <div class="card-container" v-for="pub in pubs" :key="pub.key">
-        <pub-card :details="pub"></pub-card>
-      </div>
+    <div class="content">
+      <a-list
+        :data-source="pubs"
+        :loading="isLoading"
+      >
+        <a-list-item
+          slot="renderItem"
+          slot-scope="item"
+        >
+          <pub-card :details="item" />
+        </a-list-item>
+        <a-empty v-if="allClosed" />
+      </a-list>
     </div>
-    <a-button type="default" icon="environment" @click="getGeolocation">
+    <a-button
+      class="location-button"
+      type="primary"
+      icon="environment"
+      @click="getGeolocation"
+    >
       Get Location
     </a-button>
   </div>
@@ -23,15 +41,21 @@ import moment from 'moment';
 import PubCard from '../components/PubCard.vue';
 
 export default {
+  components: {
+    PubCard,
+  },
   data: () => ({
     pubs: [],
     dayId: moment().day(),
   }),
-  components: {
-    PubCard,
-  },
   computed: {
-    ...mapState(['coords']),
+    ...mapState(['coords', 'loading']),
+    isLoading() {
+      return this.loading || this.$apollo.loading;
+    },
+    allClosed() {
+      return this.pubs.length < 1;
+    },
   },
   methods: {
     ...mapActions(['getGeolocation']),
@@ -91,5 +115,23 @@ export default {
 }
 .header {
   align-self: start;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.content {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.location-button {
+  position: fixed;
+  bottom: 2rem;
+}
+ul,
+li {
+  display: block;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 </style>
