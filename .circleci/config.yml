@@ -31,6 +31,7 @@ jobs:
       - run:
           name: Set up env
           command: |
+            ./node_modules/.bin/firebase use --token $FIREBASE_DEPLOY_TOKEN
             ./node_modules/.bin/firebase functions:config:unset env --token "$FIREBASE_DEPLOY_TOKEN"
             ./node_modules/.bin/firebase functions:config:set env.google.key="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
             ./node_modules/.bin/firebase functions:config:set env.google.maps_uri="$GOOGLE_MAPS_URI" --token "$FIREBASE_DEPLOY_TOKEN"
@@ -57,9 +58,9 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
-      # - run:
-      #     name: Change to functions directory
-      #     command: cd functions
+      - run:
+          name: Change to functions directory
+          command: cd functions
       - install_dependencies
       - run:
           name: Test functions
@@ -70,9 +71,9 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
-      # - run:
-      #     name: Change to functions directory
-      #     command: cd functions
+      - run:
+          name: Change to functions directory
+          command: cd functions
       - install_dependencies
       - run:
           name: Deploy functions
