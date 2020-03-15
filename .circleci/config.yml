@@ -58,7 +58,7 @@ jobs:
   test_functions:
     docker:
       - image: circleci/node:10
-    working_directory: ~/pub-finder-vue/functions
+    working_directory: ~/pub-finder-vue
     steps:
       - run:
           name: Change to functions directory
@@ -71,7 +71,7 @@ jobs:
   deploy_functions:
     docker:
       - image: circleci/node:10
-    working_directory: ~/pub-finder-vue/functions
+    working_directory: ~/pub-finder-vue
     steps:
       - run:
           name: Change to functions directory
