@@ -55,26 +55,26 @@ jobs:
           # command: ./node_modules/.bin/firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
           command: ./node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
 
-    test_functions:
-      docker:
-        - image: circleci/node:10
-      working_directory: ~/pub-finder-vue/functions
-      steps:
-        - install_dependencies
-        - run:
-            name: Test functions
-            command: yarn test-ci
+  test_functions:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/pub-finder-vue/functions
+    steps:
+      - install_dependencies
+      - run:
+          name: Test functions
+          command: yarn test-ci
 
-    deploy_functions:
-      docker:
-        - image: circleci/node:10
-      working_directory: ~/pub-finder-vue/functions
-      steps:
-        - install_dependencies
-        - run:
-            name: Deploy functions
-            # command: ./node_modules/.bin/firebase deploy --only functions --token "$FIREBASE_DEPLOY_TOKEN"
-            command: ./node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
+  deploy_functions:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/pub-finder-vue/functions
+    steps:
+      - install_dependencies
+      - run:
+          name: Deploy functions
+          # command: ./node_modules/.bin/firebase deploy --only functions --token "$FIREBASE_DEPLOY_TOKEN"
+          command: ./node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
 
 workflows:
   version: 2
