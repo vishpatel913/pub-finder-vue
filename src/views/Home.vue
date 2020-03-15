@@ -6,14 +6,8 @@
       <h2 v-else><a-icon type="environment" /> {{ location.area }}</h2>
     </div>
     <div v-if="!$apollo.loading" class="content">
-      <div v-for="pub in pubs" :key="pub.key">
-        <h3>
-          {{ pub.name }} <strong>({{ pub.distance }} mile)</strong>
-        </h3>
-        <p>
-          {{ pub.address }}
-        </p>
-        <pre><code>close: {{ pub.openingHours[dayId].close }}</code></pre>
+      <div class="card-container" v-for="pub in pubs" :key="pub.key">
+        <pub-card :details="pub"></pub-card>
       </div>
     </div>
     <a-button type="default" icon="environment" @click="getGeolocation">
@@ -26,12 +20,16 @@
 import { mapState, mapActions } from 'vuex';
 import { gql } from 'apollo-boost';
 import moment from 'moment';
+import PubCard from '../components/PubCard.vue';
 
 export default {
   data: () => ({
     pubs: [],
     dayId: moment().day(),
   }),
+  components: {
+    PubCard,
+  },
   computed: {
     ...mapState(['coords']),
   },
@@ -75,7 +73,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style scoped lang="less">
 .container {
   margin: 0 auto;
   display: flex;
