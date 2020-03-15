@@ -9,7 +9,7 @@
 </template>
 
 <style lang="less">
-@import 'assets/less/_variables.less';
+@import './assets/less/_variables.less';
 
 #app {
   font-family: Quicksand, Avenir, Helvetica, Arial, sans-serif;

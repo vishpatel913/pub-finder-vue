@@ -9,7 +9,24 @@
         {{ details.name }} <strong>({{ walkingDistance }}min walk)</strong>
       </h3>
       <p>{{ details.address }}</p>
-      <p>Closes: {{ openingHours.closes }}</p>
+      <p>
+        Closes: {{ openingHoursToday.closes }} <strong>({{ closesIn }})</strong>
+      </p>
+      <div class="ratings">
+        <a-rate
+          class="price"
+          :default-value="details.priceLevel"
+          :count="details.priceLevel"
+          character="£"
+          disabled
+        />
+        <a-rate
+          class="stars"
+          :default-value="details.rating"
+          allow-half
+          disabled
+        />
+      </div>
     </a>
   </div>
 </template>
@@ -29,7 +46,7 @@ export default {
   data: () => ({}),
   computed: {
     ...mapState(['coords']),
-    openingHours() {
+    openingHoursToday() {
       const data = this.details.openingHours.find((item) => {
         const now = moment();
         const { open, close } = item;
@@ -43,6 +60,9 @@ export default {
         opens: moment(data.open.time, 'HHmm').format('h:mm a'),
         closes: moment(data.close.time, 'HHmm').format('h:mm a'),
       };
+    },
+    closesIn() {
+      return moment(this.openingHoursToday.closes, 'h:mm a').fromNow();
     },
     walkingDistance() {
       return Math.round((this.details.distance / 3.1) * 60);
@@ -60,5 +80,15 @@ export default {
 .card-container {
   padding: 0.5rem 0;
   width: 100%;
+}
+.ratings {
+  display: flex;
+  justify-content: space-between;
+  .price {
+    color: @text-color-secondary;
+  }
+  .stars {
+    color: @gold-6;
+  }
 }
 </style>
