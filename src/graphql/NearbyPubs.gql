@@ -1,0 +1,26 @@
+query NearbyPubsQuery($coords: CoordsInput!) {
+  location(coords: $coords) {
+    area
+  }
+  pubs(coords: $coords) {
+    name
+    address
+    coords {
+      lat
+      lng
+    }
+    rating
+    priceLevel
+    distance
+    openingHours {
+      open {
+        day
+        time
+      }
+      close {
+        day
+        time
+      }
+    }
+  }
+}

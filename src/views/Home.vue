@@ -36,9 +36,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { gql } from 'apollo-boost';
 import moment from 'moment';
-import PubCard from '../components/PubCard.vue';
+import PubCard from '@/components/PubCard.vue';
+import NearbyPubsQuery from '@/graphql/NearbyPubs.gql';
 
 export default {
   components: {
@@ -62,34 +62,7 @@ export default {
   },
   apollo: {
     data: {
-      query: gql`
-        query getLocation($coords: CoordsInput!) {
-          location(coords: $coords) {
-            area
-          }
-          pubs(coords: $coords) {
-            name
-            address
-            coords {
-              lat
-              lng
-            }
-            rating
-            priceLevel
-            distance
-            openingHours {
-              open {
-                day
-                time
-              }
-              close {
-                day
-                time
-              }
-            }
-          }
-        }
-      `,
+      query: NearbyPubsQuery,
       variables() {
         return {
           coords: this.coords,
