@@ -1,6 +1,6 @@
 const { RESTDataSource } = require("apollo-datasource-rest");
-const moment = require("moment");
 const config = require("../../config");
+const { toCamelCase } = require("../utils/helpers");
 
 class GoogleMaps extends RESTDataSource {
   constructor() {
@@ -20,14 +20,17 @@ class GoogleMaps extends RESTDataSource {
 
     return {
       address: formatted_address,
+      area: response.results.find(item =>
+        item.formatted_address.match(/^([^0-9]*)$/g)
+      ).address_components[0].long_name,
       components: address_components.reduce((p, c) => {
-        p[c.types[0]] = c.long_name;
+        p[toCamelCase(c.types[0])] = c.long_name;
         return p;
       }, {})
     };
   }
 
-  async getPubsNearMe({ lat, lng }, data = {}) {
+  async getPubsNear({ lat, lng }, data = {}) {
     const params = {
       location: `${lat},${lng}`,
       radius: "1500",

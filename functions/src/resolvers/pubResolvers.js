@@ -3,7 +3,7 @@ const { distanceBetweenCoords } = require('../utils/helpers');
 const pubResolvers = {
   Query: {
     pubs: async (parent, { coords }, { dataSources }) => {
-      const results = await dataSources.googleMaps.getPubsNearMe(coords);
+      const results = await dataSources.googleMaps.getPubsNear(coords);
       return results
         .map((item) => ({
           ...item,

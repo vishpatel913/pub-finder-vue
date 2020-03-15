@@ -3,6 +3,7 @@ const { gql } = require("apollo-server-express");
 const locationType = gql`
   type Location {
     address: String!
+    area: String
     components: AddressComponent
   }
 
