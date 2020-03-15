@@ -53,24 +53,26 @@ jobs:
           command: ./node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
 
   test_functions:
+    working_directory: ~/project/functions
     docker:
       - image: circleci/node:10
     steps:
-      - run:
-          name: Change to functions directory
-          command: cd functions
+      # - run:
+      #     name: Change to functions directory
+      #     command: cd functions
       - install_dependencies
       - run:
           name: Test functions
           command: yarn test-ci
 
   deploy_functions:
+    working_directory: ~/project/functions
     docker:
       - image: circleci/node:10
     steps:
-      - run:
-          name: Change to functions directory
-          command: cd functions
+      # - run:
+      #     name: Change to functions directory
+      #     command: cd functions
       - install_dependencies
       - run:
           name: Deploy functions
