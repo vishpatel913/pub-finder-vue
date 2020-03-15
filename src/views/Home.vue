@@ -3,13 +3,17 @@
     <div class="header">
       <h1>Pub Finder</h1>
       <h2 v-if="$apollo.loading">Loading...</h2>
-      <h2 v-else>{{ location.address }}</h2>
+      <h2 v-else><a-icon type="environment" /> {{ location.area }}</h2>
     </div>
     <div v-if="!$apollo.loading" class="content">
       <div v-for="pub in pubs" :key="pub.key">
-        <h3>{{ pub.name }} ({{ pub.distance }} mile)</h3>
-        <p>{{ pub.address }}</p>
-        <p>{{ sanitiseObject(pub.openingHours[dayId]) }}</p>
+        <h3>
+          {{ pub.name }} <strong>({{ pub.distance }} mile)</strong>
+        </h3>
+        <p>
+          {{ pub.address }}
+        </p>
+        <pre><code>{{ pub.openingHours[dayId] }}</code></pre>
       </div>
     </div>
     <a-button type="default" icon="environment" @click="getGeolocation">
@@ -33,18 +37,13 @@ export default {
   },
   methods: {
     ...mapActions(['getGeolocation']),
-    sanitiseObject(obj) {
-      const key = '__typename';
-      delete obj[key];
-      return obj;
-    },
   },
   apollo: {
     data: {
       query: gql`
         query getLocation($coords: CoordsInput!) {
           location(coords: $coords) {
-            address
+            area
           }
           pubs(coords: $coords) {
             name
@@ -77,7 +76,6 @@ export default {
 <style lang="less" scoped>
 .container {
   margin: 0 auto;
-  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
