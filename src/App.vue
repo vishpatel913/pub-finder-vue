@@ -4,33 +4,33 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
-    <router-view />
+    <header-bar />
+    <div id="layout">
+      <router-view />
+    </div>
   </div>
 </template>
 
-<style lang="less">
-@import './assets/less/_variables.less';
+<script>
+import HeaderBar from '@/components/HeaderBar.vue';
 
+export default {
+  components: {
+    HeaderBar,
+  },
+};
+</script>
+
+<style lang="less">
 #app {
   font-family: Quicksand, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: @theme-grey;
-  padding: 0 2rem;
-  margin: 2rem 0;
 }
 
-#nav {
-  padding: 30px;
-
-  // a {
-  //   font-weight: bold;
-  //   color: @theme-grey;
-  //
-  //   &.router-link-exact-active {
-  //     color: @theme-primary-light;
-  //     text-decoration: none;
-  //   }
-  // }
+#layout {
+  padding: 0 2rem;
+  margin: 1rem 0;
 }
 </style>

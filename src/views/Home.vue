@@ -1,7 +1,6 @@
 <template>
-  <div class="container">
-    <div class="header">
-      <h1>Pub Finder</h1>
+  <div class="page-container">
+    <div class="location">
       <h2 v-if="isLoading">
         Searching...
       </h2>
@@ -57,9 +56,6 @@ export default {
       return this.pubs.length < 1;
     },
   },
-  methods: {
-    ...mapActions(['getGeolocation']),
-  },
   apollo: {
     data: {
       query: NearbyPubsQuery,
@@ -75,18 +71,24 @@ export default {
       update: ({ data }) => data,
     },
   },
+  mounted() {
+    this.getGeolocation();
+  },
+  methods: {
+    ...mapActions(['getGeolocation']),
+  },
 };
 </script>
 
 <style scoped lang="less">
-.container {
+.page-container {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
-.header {
+.location {
   align-self: start;
   width: 100%;
   margin-bottom: 1rem;
