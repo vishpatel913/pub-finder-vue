@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const inputs = gql`
   input CoordsInput {
@@ -21,5 +21,5 @@ const inputs = gql`
 `;
 
 module.exports = {
-  inputs,
+  inputs
 };
