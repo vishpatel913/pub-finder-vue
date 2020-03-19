@@ -4,17 +4,9 @@ const locationType = gql`
   type Location {
     address: String!
     area: String
-    components: AddressComponent
-  }
-
-  type AddressComponent {
-    street_number: String
-    route: String
-    postal_town: String
-    administrative_area_level_2: String
-    administrative_area_level_1: String
-    country: String
-    postal_code: String
+    borough: String
+    county: String
+    postalArea: String
   }
 `;
 
