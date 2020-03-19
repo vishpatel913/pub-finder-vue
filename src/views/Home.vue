@@ -1,10 +1,6 @@
 <template>
   <div class="page-container">
-    <div class="location">
-      <h2 v-if="location">
-        <a-icon type="environment" /> {{ location.area }}
-      </h2>
-    </div>
+    <location-heading :location="location" />
     <div class="content">
       <a-list
         :data-source="pubs"
@@ -17,10 +13,17 @@
           <pub-card :details="item" />
         </a-list-item>
         <a-empty
-          v-if="allClosed"
+          v-if="noResults"
           :image="emptyGlass"
         >
-          <span slot="description">No Pubs</span>
+          <span
+            v-if="isLoading"
+            slot="description"
+          >Searching</span>
+          <span
+            v-else
+            slot="description"
+          >No Pubs</span>
         </a-empty>
       </a-list>
     </div>
@@ -37,12 +40,15 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
+import LocationHeading from '@/components/LocationHeading.vue';
 import PubCard from '@/components/PubCard.vue';
 import emptyGlass from '@/assets/empty-glass.svg';
+
 import NearbyPubsQuery from '@/graphql/NearbyPubs.gql';
 
 export default {
   components: {
+    LocationHeading,
     PubCard,
   },
   data: () => ({
@@ -55,7 +61,7 @@ export default {
     isLoading() {
       return this.loading || this.$apollo.loading;
     },
-    allClosed() {
+    noResults() {
       return this.pubs.length < 1;
     },
   },
@@ -99,11 +105,6 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-}
-.location {
-  align-self: start;
-  width: 100%;
-  margin-bottom: 1rem;
 }
 .content {
   justify-content: space-between;

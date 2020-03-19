@@ -1,6 +1,8 @@
+#import "./LocationFragment.gql"
+
 query NearbyPubsQuery($coords: CoordsInput!) {
   location(coords: $coords) {
-    area
+    ...locationDetails
   }
   pubs(coords: $coords) {
     name

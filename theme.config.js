@@ -49,7 +49,7 @@ module.exports = {
   'code-family': "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
   'heading-color': 'fade(@primary-color, 85%)',
   'text-color': 'fade(@black, 65%)',
-  'text-color-secondary': 'fade(@theme-grey, 45%)',
+  'text-color-secondary': 'fade(@theme-grey, 60%)',
   'text-color-inverse': '@white',
   'icon-color-hover': 'fade(@black, 75%)',
   'heading-color-dark': 'fade(@white, 100%)',

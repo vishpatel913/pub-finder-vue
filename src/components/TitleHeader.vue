@@ -1,19 +1,19 @@
 <template>
-  <div class="header-container">
+  <header class="header-container">
     <h1>
       <img
         :src="logo"
         alt="Logo for Pubs Nearby"
       >{{ title }}
     </h1>
-  </div>
+  </header>
 </template>
 
 <script>
 import logo from '@/assets/logo.svg';
 
 export default {
-  name: 'HeaderBar',
+  name: 'TitleHeader',
   props: {
     title: {
       type: String,

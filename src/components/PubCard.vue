@@ -27,10 +27,18 @@
       </div>
       <div class="links">
         <a-button-group>
-          <a-button @click="share">
+          <a-button
+            ghost
+            type="primary"
+            @click="share"
+          >
             Send
           </a-button>
-          <a-button @click="openDirections">
+          <a-button
+            ghost
+            type="primary"
+            @click="openDirections"
+          >
             Go
           </a-button>
         </a-button-group>
@@ -54,6 +62,9 @@ export default {
   data: () => ({}),
   computed: {
     ...mapState(['coords']),
+    walkingDistance() {
+      return Math.round((this.details.distance / 3.1) * 60);
+    },
     openToday() {
       const data = this.details.openingHours.find((item) => {
         const now = moment();
@@ -73,9 +84,6 @@ export default {
     closesIn() {
       const { closes } = this.openToday;
       return moment(`${closes.day} ${closes.time}`, 'e h:mm a').fromNow();
-    },
-    walkingDistance() {
-      return Math.round((this.details.distance / 3.1) * 60);
     },
     directionsLink() {
       const current = `${this.coords.lat},${this.coords.lng}`;

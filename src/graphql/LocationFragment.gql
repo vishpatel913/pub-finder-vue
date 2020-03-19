@@ -1,0 +1,7 @@
+fragment locationDetails on Location {
+  address
+  area
+  borough
+  county
+  postalArea
+}

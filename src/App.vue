@@ -4,7 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
-    <header-bar />
+    <title-header />
     <a-alert
       v-if="error"
       class="error"
@@ -20,11 +20,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import HeaderBar from '@/components/HeaderBar.vue';
+import TitleHeader from '@/components/TitleHeader.vue';
 
 export default {
   components: {
-    HeaderBar,
+    TitleHeader,
   },
   computed: {
     ...mapState(['error']),
