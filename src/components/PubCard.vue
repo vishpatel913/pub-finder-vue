@@ -1,17 +1,15 @@
 <template>
   <div class="card-container">
-    <a
-      :href="routeLink"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <h3>
-        {{ details.name }} <strong>({{ walkingDistance }}min walk)</strong>
-      </h3>
+    <h3>
+      {{ details.name }} <strong>({{ walkingDistance }}min walk)</strong>
+    </h3>
+    <div class="content">
       <p>{{ details.address }}</p>
       <p>
         Closes: {{ openToday.closes.time }} <strong>({{ closesIn }})</strong>
       </p>
+    </div>
+    <div class="footer">
       <div class="ratings">
         <a-rate
           class="price"
@@ -27,13 +25,23 @@
           disabled
         />
       </div>
-    </a>
+      <div class="links">
+        <a-button-group>
+          <a-button @click="share">
+            Send
+          </a-button>
+          <a-button @click="openDirections">
+            Go
+          </a-button>
+        </a-button-group>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import moment from 'moment';
 import { mapState } from 'vuex';
+import moment from 'moment';
 
 export default {
   name: 'PubCard',
@@ -69,25 +77,28 @@ export default {
     walkingDistance() {
       return Math.round((this.details.distance / 3.1) * 60);
     },
-    routeLink() {
+    directionsLink() {
       const current = `${this.coords.lat},${this.coords.lng}`;
       const dest = `${this.details.coords.lat},${this.details.coords.lng}`;
       return `https://www.google.com/maps/dir/${current}/${dest}/data=!4m2!4m1!3e2`;
     },
   },
   methods: {
+    openDirections() {
+      window.open(this.directionsLink, '_blank');
+    },
     share() {
-      const text = "Let's go here...";
+      const text = "I'm going here...";
       if ('share' in navigator) {
         navigator.share({
           title: this.details.name,
           text,
-          url: this.routeLink,
+          url: this.directionsLink,
         });
       } else {
         window.location.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(
           `${text} - `,
-        )}${this.routeLink}`;
+        )}${this.directionsLink}`;
       }
     },
   },
@@ -99,14 +110,23 @@ export default {
   padding: 0.5rem 0;
   width: 100%;
 }
-.ratings {
+.content {
+  p {
+    marin-bottom: 0.5rem;
+  }
+}
+.footer {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   .price {
     color: @text-color-secondary;
+    font-size: 16px;
+    font-weight: 400;
   }
   .stars {
     color: @theme-gold;
+    font-size: 16px;
   }
 }
 </style>

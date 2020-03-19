@@ -1,0 +1,673 @@
+{
+  "data": {
+    "location": {
+      "area": "Ferndale"
+    },
+    "pubs": [
+      {
+        "name": "Trinity Arms",
+        "address": "45 Trinity Gardens, London",
+        "coords": {
+          "lat": 51.4617564,
+          "lng": -0.1193162
+        },
+        "rating": 4.2,
+        "priceLevel": 2,
+        "distance": 0.04,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1100"
+            },
+            "close": {
+              "day": "1",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1100"
+            },
+            "close": {
+              "day": "2",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1100"
+            },
+            "close": {
+              "day": "3",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1100"
+            },
+            "close": {
+              "day": "4",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1100"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "0000"
+            }
+          }
+        ]
+      },
+      {
+        "name": "The Prince of Wales Brixton",
+        "address": "467, 469 Brixton Rd, London",
+        "coords": {
+          "lat": 51.4615105,
+          "lng": -0.1149433
+        },
+        "rating": 3.5,
+        "priceLevel": 2,
+        "distance": 0.22,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1200"
+            },
+            "close": {
+              "day": "2",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1200"
+            },
+            "close": {
+              "day": "3",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1200"
+            },
+            "close": {
+              "day": "4",
+              "time": "0300"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1200"
+            },
+            "close": {
+              "day": "5",
+              "time": "0300"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1200"
+            },
+            "close": {
+              "day": "6",
+              "time": "0300"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "0300"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Hope & Anchor",
+        "address": "123 Acre Ln, London",
+        "coords": {
+          "lat": 51.459609,
+          "lng": -0.126682
+        },
+        "rating": 3.8,
+        "priceLevel": 2,
+        "distance": 0.35,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "2200"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1200"
+            },
+            "close": {
+              "day": "1",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1200"
+            },
+            "close": {
+              "day": "2",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1200"
+            },
+            "close": {
+              "day": "3",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1200"
+            },
+            "close": {
+              "day": "4",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1200"
+            },
+            "close": {
+              "day": "6",
+              "time": "0100"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "0100"
+            }
+          }
+        ]
+      },
+      {
+        "name": "The Landor",
+        "address": "70 Landor Rd, London",
+        "coords": {
+          "lat": 51.4656452,
+          "lng": -0.1261532
+        },
+        "rating": 4.1,
+        "priceLevel": 2,
+        "distance": 0.36,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "2230"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1200"
+            },
+            "close": {
+              "day": "1",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1200"
+            },
+            "close": {
+              "day": "2",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1200"
+            },
+            "close": {
+              "day": "3",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1200"
+            },
+            "close": {
+              "day": "5",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1200"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "0000"
+            }
+          }
+        ]
+      },
+      {
+        "name": "The Falcon",
+        "address": "33 Bedford Rd, London",
+        "coords": {
+          "lat": 51.4643194,
+          "lng": -0.1290139
+        },
+        "rating": 4,
+        "priceLevel": 2,
+        "distance": 0.42,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1200"
+            },
+            "close": {
+              "day": "1",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1200"
+            },
+            "close": {
+              "day": "2",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1200"
+            },
+            "close": {
+              "day": "3",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1200"
+            },
+            "close": {
+              "day": "4",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1200"
+            },
+            "close": {
+              "day": "5",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1200"
+            },
+            "close": {
+              "day": "6",
+              "time": "0100"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "0100"
+            }
+          }
+        ]
+      },
+      {
+        "name": "The Clapham North",
+        "address": "409 Clapham Rd, London",
+        "coords": {
+          "lat": 51.465399,
+          "lng": -0.129341
+        },
+        "rating": 4,
+        "priceLevel": 2,
+        "distance": 0.46,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1000"
+            },
+            "close": {
+              "day": "0",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1100"
+            },
+            "close": {
+              "day": "1",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1100"
+            },
+            "close": {
+              "day": "2",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1100"
+            },
+            "close": {
+              "day": "3",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1100"
+            },
+            "close": {
+              "day": "5",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1100"
+            },
+            "close": {
+              "day": "6",
+              "time": "0300"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1000"
+            },
+            "close": {
+              "day": "0",
+              "time": "0300"
+            }
+          }
+        ]
+      },
+      {
+        "name": "The Railway Tavern",
+        "address": "18 Clapham High St, London",
+        "coords": {
+          "lat": 51.4645591,
+          "lng": -0.1312161
+        },
+        "rating": 4.1,
+        "priceLevel": 2,
+        "distance": 0.52,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1200"
+            },
+            "close": {
+              "day": "1",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1200"
+            },
+            "close": {
+              "day": "2",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1200"
+            },
+            "close": {
+              "day": "3",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1200"
+            },
+            "close": {
+              "day": "5",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1200"
+            },
+            "close": {
+              "day": "6",
+              "time": "0100"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "0100"
+            }
+          }
+        ]
+      },
+      {
+        "name": "The Sun",
+        "address": "47 Old Town, London",
+        "coords": {
+          "lat": 51.4639835,
+          "lng": -0.1409826
+        },
+        "rating": 4.1,
+        "priceLevel": 2,
+        "distance": 0.92,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1200"
+            },
+            "close": {
+              "day": "1",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1200"
+            },
+            "close": {
+              "day": "2",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1200"
+            },
+            "close": {
+              "day": "3",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1200"
+            },
+            "close": {
+              "day": "5",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1200"
+            },
+            "close": {
+              "day": "6",
+              "time": "0100"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "0100"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
