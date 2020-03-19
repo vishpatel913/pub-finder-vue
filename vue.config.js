@@ -3,9 +3,9 @@ const themeConfig = require('./theme.config');
 module.exports = {
   pwa: {
     name: 'Pubs Nearby',
-    themeColor: themeConfig['theme-primary'],
-    backgroundColor: themeConfig['theme-beige'],
-    msTileColor: themeConfig['theme-grey'],
+    themeColor: themeConfig['@theme-primary'],
+    backgroundColor: themeConfig['@theme-grey'],
+    msTileColor: themeConfig['@theme-grey'],
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'green',
 
