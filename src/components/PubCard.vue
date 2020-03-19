@@ -74,21 +74,21 @@ export default {
       const dest = `${this.details.coords.lat},${this.details.coords.lng}`;
       return `https://www.google.com/maps/dir/${current}/${dest}/data=!4m2!4m1!3e2`;
     },
-    methods: {
-      share() {
-        const text = "Let's go here...";
-        if ('share' in navigator) {
-          navigator.share({
-            title: this.details.name,
-            text,
-            url: this.routeLink,
-          });
-        } else {
-          window.location.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(
-            `${text} - `,
-          )}${this.routeLink}`;
-        }
-      },
+  },
+  methods: {
+    share() {
+      const text = "Let's go here...";
+      if ('share' in navigator) {
+        navigator.share({
+          title: this.details.name,
+          text,
+          url: this.routeLink,
+        });
+      } else {
+        window.location.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+          `${text} - `,
+        )}${this.routeLink}`;
+      }
     },
   },
 };

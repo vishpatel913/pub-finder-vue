@@ -5,6 +5,13 @@
       <router-link to="/about">About</router-link>
     </div> -->
     <header-bar />
+    <a-alert
+      v-if="error"
+      class="error"
+      :message="error.message"
+      type="error"
+      show-icon
+    />
     <div id="layout">
       <router-view />
     </div>
@@ -12,11 +19,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import HeaderBar from '@/components/HeaderBar.vue';
 
 export default {
   components: {
     HeaderBar,
+  },
+  computed: {
+    ...mapState(['error']),
   },
 };
 </script>
@@ -32,5 +43,9 @@ export default {
 #layout {
   padding: 0 2rem;
   margin: 1rem 0;
+}
+
+.error {
+  margin: 0 2rem !important;
 }
 </style>

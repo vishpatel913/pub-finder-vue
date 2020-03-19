@@ -3,11 +3,11 @@ const themeConfig = require('./theme.config');
 module.exports = {
   pwa: {
     name: 'Pubs Nearby',
-    themeColor: themeConfig['primary-color'],
-    backgroundColor: themeConfig['white-6'],
-    msTileColor: themeConfig['grey-6'],
+    themeColor: themeConfig['theme-primary'],
+    backgroundColor: themeConfig['theme-beige'],
+    msTileColor: themeConfig['theme-grey'],
     appleMobileWebAppCapable: 'yes',
-    appleMobileWebAppStatusBarStyle: 'orange',
+    appleMobileWebAppStatusBarStyle: 'green',
 
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {

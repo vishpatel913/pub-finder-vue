@@ -1,10 +1,7 @@
 <template>
   <div class="page-container">
     <div class="location">
-      <h2 v-if="isLoading">
-        Searching...
-      </h2>
-      <h2 v-else>
+      <h2 v-if="location">
         <a-icon type="environment" /> {{ location.area }}
       </h2>
     </div>
@@ -19,7 +16,12 @@
         >
           <pub-card :details="item" />
         </a-list-item>
-        <a-empty v-if="allClosed" />
+        <a-empty
+          v-if="allClosed"
+          :image="emptyGlass"
+        >
+          <span slot="description">No Pubs</span>
+        </a-empty>
       </a-list>
     </div>
     <a-button
@@ -34,9 +36,9 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import moment from 'moment';
+import { mapState, mapMutations, mapActions } from 'vuex';
 import PubCard from '@/components/PubCard.vue';
+import emptyGlass from '@/assets/empty-glass.svg';
 import NearbyPubsQuery from '@/graphql/NearbyPubs.gql';
 
 export default {
@@ -45,7 +47,8 @@ export default {
   },
   data: () => ({
     pubs: [],
-    dayId: moment().day(),
+    location: null,
+    emptyGlass,
   }),
   computed: {
     ...mapState(['coords', 'loading']),
@@ -64,11 +67,19 @@ export default {
           coords: this.coords,
         };
       },
-      result({ data }) {
-        this.location = data.location;
-        this.pubs = data.pubs;
+      result({ data, error }) {
+        if (!error) {
+          this.location = data.location;
+          this.pubs = data.pubs;
+        }
       },
       update: ({ data }) => data,
+      error(error) {
+        this.SET_ERROR(error);
+      },
+      skip() {
+        return !this.coords;
+      },
     },
   },
   mounted() {
@@ -76,6 +87,7 @@ export default {
   },
   methods: {
     ...mapActions(['getGeolocation']),
+    ...mapMutations(['SET_ERROR']),
   },
 };
 </script>
@@ -97,6 +109,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  width: 100%;
 }
 .location-button {
   position: fixed;
