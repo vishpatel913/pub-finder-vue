@@ -31,20 +31,19 @@ jobs:
   configure_firebase:
     docker:
       - image: circleci/node:10
+    persist_to_workspace: ~/project
     steps:
-      - run:
-          name: Install Firebase tools
-          command: npm install -g firebase-tools
-      - run:
-          name: Set firebase alias
-          command: alias firebase="`npm config get prefix`/bin/firebase"
-      - run:
-          name: Set up env
-          command: |
-            firebase use pub-finder --token $FIREBASE_DEPLOY_TOKEN
-            firebase functions:config:unset env --token "$FIREBASE_DEPLOY_TOKEN"
-            firebase functions:config:set env.google.key="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
-            firebase functions:config:set env.google.maps_uri="$GOOGLE_MAPS_URI" --token "$FIREBASE_DEPLOY_TOKEN"
+      steps:
+        - run:
+            name: Install Firebase Tools
+            command: yarn install -D --prefix=./firebase-deploy firebase-tools
+        - run:
+            name: Set up env
+            command: |
+              ./firebase-deploy/node_modules/.bin/firebase use pub-finder --token $FIREBASE_DEPLOY_TOKEN
+              ./firebase-deploy/node_modules/.bin/firebase functions:config:unset env --token "$FIREBASE_DEPLOY_TOKEN"
+              ./firebase-deploy/node_modules/.bin/firebase functions:config:set env.google.key="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
+              ./firebase-deploy/node_modules/.bin/firebase functions:config:set env.google.maps_uri="$GOOGLE_MAPS_URI" --token "$FIREBASE_DEPLOY_TOKEN"
   build_app:
     docker:
       - image: circleci/node:10
@@ -61,8 +60,8 @@ jobs:
       - install_dependencies
       - run:
           name: Deploy To Firebase
-          # command: firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
-          command: firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
+          # command: ./firebase-deploy/node_modules/.bin/firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
+          command: ./firebase-deploy/node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
 
   test_functions:
     # working_directory: ~/project/functions
@@ -73,7 +72,9 @@ jobs:
           directory: functions
       - run:
           name: Debug
-          command: pwd
+          command: |
+            pwd
+            ls
       - run:
           name: Test functions
           command: yarn test-ci
@@ -88,8 +89,8 @@ jobs:
       - run: cd ./
       - run:
           name: Deploy functions
-          # command: firebase deploy --only functions --token "$FIREBASE_DEPLOY_TOKEN"
-          command: firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
+          # command: ./firebase-deploy/node_modules/.bin/firebase deploy --only functions --token "$FIREBASE_DEPLOY_TOKEN"
+          command: ./firebase-deploy/node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
 
 workflows:
   version: 2
