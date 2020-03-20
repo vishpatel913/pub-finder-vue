@@ -35,8 +35,9 @@ jobs:
             mkdir firebase-tools
             yarn --cwd ./firebase-tools add -D firebase-tools
       - persist_to_workspace:
-          root: /tmp/workspace
-          path: ./firebase-tools/*
+          root: .
+          paths:
+            - ./firebase-tools/*
       - run:
           name: Set up env
           command: |
