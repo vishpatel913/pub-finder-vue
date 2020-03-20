@@ -78,12 +78,13 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
+      - install_dependencies
       - install_dependencies:
           directory: functions
       - run:
           name: Deploy functions
           # command: ./node_modules/.bin/firebase deploy --only functions --token "$FIREBASE_DEPLOY_TOKEN"
-          command: .functions/node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
+          command: ./node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
 
 workflows:
   version: 2
