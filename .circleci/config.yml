@@ -58,6 +58,7 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
+      - install_dependencies
       - run:
           name: Deploy To Firebase
           # command: firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
@@ -68,11 +69,11 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
-      - run:
-          name: Change to functions directory
-          command: pwd
       - install_dependencies:
           directory: functions
+      - run:
+          name: Change to functions directory
+          command: echo pwd
       - run:
           name: Test functions
           command: yarn test-ci
