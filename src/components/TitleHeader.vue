@@ -31,14 +31,15 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 2rem 1rem;
   width: 100%;
 }
 h1 {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
   margin: 0;
+  font-size: 36px;
 }
 img {
   height: 2rem;

@@ -4,9 +4,11 @@
       {{ details.name }} <strong>({{ walkingDistance }}min walk)</strong>
     </h3>
     <div class="content">
-      <p>{{ details.address }}</p>
+      <p class="address">
+        {{ details.address }}
+      </p>
       <p>
-        Closes: {{ openToday.closes.time }} <strong>({{ closesIn }})</strong>
+        Closes: {{ openHours.closes.time }} <strong>({{ closesIn }})</strong>
       </p>
     </div>
     <div class="footer">
@@ -65,25 +67,22 @@ export default {
     walkingDistance() {
       return Math.round((this.details.distance / 3.1) * 60);
     },
-    openToday() {
-      const data = this.details.openingHours.find((item) => {
-        const now = moment();
-        const { open, close } = item;
-
-        return (
-          moment(`${open.day} ${open.time}`, 'e HHmm').isBefore(now)
-          && moment(`${close.day} ${close.time}`, 'e HHmm').isAfter(now)
-        );
-      });
-
+    openHours() {
+      const { open, close } = this.details.openingHoursToday;
       return {
-        opens: { day: data.open.day, time: moment(data.open.time, 'HHmm').format('h:mm a') },
-        closes: { day: data.close.day, time: moment(data.close.time, 'HHmm').format('h:mm a') },
+        opens: {
+          day: moment(open.day, 'e').format('ddd'),
+          time: moment(open.time, 'HHmm').format('h:mma'),
+        },
+        closes: {
+          day: moment(close.day, 'e').format('ddd'),
+          time: moment(close.time, 'HHmm').format('h:mma'),
+        },
       };
     },
     closesIn() {
-      const { closes } = this.openToday;
-      return moment(`${closes.day} ${closes.time}`, 'e h:mm a').fromNow();
+      const { closes } = this.openHours;
+      return moment(`${closes.day} ${closes.time}`, 'ddd h:mma').fromNow();
     },
     directionsLink() {
       const current = `${this.coords.lat},${this.coords.lng}`;
@@ -119,6 +118,10 @@ export default {
   width: 100%;
 }
 .content {
+  .address {
+    color: @text-color-secondary;
+    font-size: @font-size-sm;
+  }
   p {
     marin-bottom: 0.5rem;
   }
