@@ -4,33 +4,48 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
-    <router-view />
+    <title-header />
+    <a-alert
+      v-if="error"
+      class="error"
+      :message="error.message"
+      type="error"
+      show-icon
+    />
+    <div id="layout">
+      <router-view />
+    </div>
   </div>
 </template>
 
-<style lang="less">
-@import './assets/less/_variables.less';
+<script>
+import { mapState } from 'vuex';
+import TitleHeader from '@/components/TitleHeader.vue';
 
+export default {
+  components: {
+    TitleHeader,
+  },
+  computed: {
+    ...mapState(['error']),
+  },
+};
+</script>
+
+<style lang="less">
 #app {
   font-family: Quicksand, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: @theme-grey;
-  padding: 0 2rem;
-  margin: 2rem 0;
 }
 
-#nav {
-  padding: 30px;
+#layout {
+  padding: 0 2rem;
+  margin: 1rem 0;
+}
 
-  // a {
-  //   font-weight: bold;
-  //   color: @theme-grey;
-  //
-  //   &.router-link-exact-active {
-  //     color: @theme-primary-light;
-  //     text-decoration: none;
-  //   }
-  // }
+.error {
+  margin: 0 2rem !important;
 }
 </style>

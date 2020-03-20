@@ -1,0 +1,657 @@
+{
+  "data": {
+    "location": {
+      "address": "36 Cabul Rd, Battersea, London SW11 2PN, UK",
+      "area": "Battersea",
+      "borough": "London Borough of Wandsworth",
+      "county": "Greater London",
+      "postalArea": "London SW11, UK"
+    },
+    "pubs": [
+      {
+        "name": "Suburb SW11 Bar & Dining",
+        "address": "148 Falcon Rd, London",
+        "coords": {
+          "lat": 51.465958,
+          "lng": -0.169345
+        },
+        "rating": 4,
+        "priceLevel": 2,
+        "distance": 0.27,
+        "openingHours": [
+          {
+            "open": {
+              "day": "2",
+              "time": "1600"
+            },
+            "close": {
+              "day": "3",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1600"
+            },
+            "close": {
+              "day": "4",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1600"
+            },
+            "close": {
+              "day": "5",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1600"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "0000"
+            }
+          }
+        ]
+      },
+      {
+        "name": "The Lighthouse Battersea",
+        "address": "441 Battersea Park Rd, London",
+        "coords": {
+          "lat": 51.4726827,
+          "lng": -0.1625882
+        },
+        "rating": 4.2,
+        "priceLevel": 2,
+        "distance": 0.36,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1100"
+            },
+            "close": {
+              "day": "1",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1100"
+            },
+            "close": {
+              "day": "2",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1100"
+            },
+            "close": {
+              "day": "3",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1100"
+            },
+            "close": {
+              "day": "4",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1100"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1100"
+            },
+            "close": {
+              "day": "0",
+              "time": "0000"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Bar Social",
+        "address": "245 Lavender Hill, London",
+        "coords": {
+          "lat": 51.46419969999999,
+          "lng": -0.1629654
+        },
+        "rating": 4.3,
+        "priceLevel": 2,
+        "distance": 0.49,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1600"
+            },
+            "close": {
+              "day": "1",
+              "time": "0030"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1600"
+            },
+            "close": {
+              "day": "2",
+              "time": "0030"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1600"
+            },
+            "close": {
+              "day": "3",
+              "time": "0030"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1600"
+            },
+            "close": {
+              "day": "4",
+              "time": "0030"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1600"
+            },
+            "close": {
+              "day": "5",
+              "time": "0030"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1600"
+            },
+            "close": {
+              "day": "6",
+              "time": "0230"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1600"
+            },
+            "close": {
+              "day": "0",
+              "time": "0230"
+            }
+          }
+        ]
+      },
+      {
+        "name": "The Four Thieves",
+        "address": "51 Lavender Gardens, London",
+        "coords": {
+          "lat": 51.4640999,
+          "lng": -0.162515
+        },
+        "rating": 3.6,
+        "priceLevel": 2,
+        "distance": 0.51,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "2230"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1200"
+            },
+            "close": {
+              "day": "2",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1200"
+            },
+            "close": {
+              "day": "3",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1200"
+            },
+            "close": {
+              "day": "4",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1200"
+            },
+            "close": {
+              "day": "5",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1200"
+            },
+            "close": {
+              "day": "6",
+              "time": "0200"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1100"
+            },
+            "close": {
+              "day": "0",
+              "time": "0200"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Hawkins Forge",
+        "address": "110 Battersea Rise, London",
+        "coords": {
+          "lat": 51.4607146,
+          "lng": -0.1690515
+        },
+        "rating": 4.2,
+        "priceLevel": 2,
+        "distance": 0.64,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "2200"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1600"
+            },
+            "close": {
+              "day": "1",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1600"
+            },
+            "close": {
+              "day": "2",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1600"
+            },
+            "close": {
+              "day": "3",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1200"
+            },
+            "close": {
+              "day": "4",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1200"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "0000"
+            }
+          }
+        ]
+      },
+      {
+        "name": "The Northcote",
+        "address": "2 Northcote Rd, London",
+        "coords": {
+          "lat": 51.460745,
+          "lng": -0.167186
+        },
+        "rating": 4,
+        "priceLevel": 2,
+        "distance": 0.64,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1000"
+            },
+            "close": {
+              "day": "0",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1000"
+            },
+            "close": {
+              "day": "1",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1000"
+            },
+            "close": {
+              "day": "2",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1000"
+            },
+            "close": {
+              "day": "4",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1000"
+            },
+            "close": {
+              "day": "5",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1000"
+            },
+            "close": {
+              "day": "6",
+              "time": "0100"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1000"
+            },
+            "close": {
+              "day": "0",
+              "time": "0100"
+            }
+          }
+        ]
+      },
+      {
+        "name": "The Merchant",
+        "address": "23-25 Battersea Rise, London",
+        "coords": {
+          "lat": 51.460849,
+          "lng": -0.1635124
+        },
+        "rating": 4,
+        "priceLevel": 2,
+        "distance": 0.68,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "1200"
+            },
+            "close": {
+              "day": "1",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "1200"
+            },
+            "close": {
+              "day": "2",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "1200"
+            },
+            "close": {
+              "day": "3",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "1200"
+            },
+            "close": {
+              "day": "4",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "1200"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "1200"
+            },
+            "close": {
+              "day": "0",
+              "time": "0000"
+            }
+          }
+        ]
+      },
+      {
+        "name": "The Old Bank, Battersea",
+        "address": "31-37 Northcote Rd, London",
+        "coords": {
+          "lat": 51.4597363,
+          "lng": -0.1662692
+        },
+        "rating": 4.1,
+        "priceLevel": 2,
+        "distance": 0.72,
+        "openingHours": [
+          {
+            "open": {
+              "day": "0",
+              "time": "0900"
+            },
+            "close": {
+              "day": "0",
+              "time": "2230"
+            }
+          },
+          {
+            "open": {
+              "day": "1",
+              "time": "0900"
+            },
+            "close": {
+              "day": "1",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "2",
+              "time": "0900"
+            },
+            "close": {
+              "day": "2",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "3",
+              "time": "0900"
+            },
+            "close": {
+              "day": "3",
+              "time": "2300"
+            }
+          },
+          {
+            "open": {
+              "day": "4",
+              "time": "0900"
+            },
+            "close": {
+              "day": "5",
+              "time": "0000"
+            }
+          },
+          {
+            "open": {
+              "day": "5",
+              "time": "0900"
+            },
+            "close": {
+              "day": "6",
+              "time": "0100"
+            }
+          },
+          {
+            "open": {
+              "day": "6",
+              "time": "0900"
+            },
+            "close": {
+              "day": "0",
+              "time": "0100"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

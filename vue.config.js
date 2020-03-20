@@ -3,23 +3,24 @@ const themeConfig = require('./theme.config');
 module.exports = {
   pwa: {
     name: 'Pubs Nearby',
-    themeColor: themeConfig['primary-color'],
-    msTileColor: '#222840',
+    themeColor: themeConfig['@theme-primary'],
+    msTileColor: themeConfig['@theme-grey'],
     appleMobileWebAppCapable: 'yes',
-    appleMobileWebAppStatusBarStyle: 'orange',
+    appleMobileWebAppStatusBarStyle: 'green',
 
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
       skipWaiting: true,
     },
-    manifestPath: 'manifest.json',
-    manifestOptions: {},
+    manifestOptions: {
+      background_color: themeConfig['@theme-grey'],
+    },
     iconPaths: {
-      // favicon32: 'img/icons/favicon-32x32.png',
-      // favicon16: 'img/icons/favicon-16x16.png',
-      // appleTouchIcon: 'img/icons/apple-touch-icon-152x152.png',
-      // maskIcon: 'img/icons/safari-pinned-tab.svg',
-      // msTileImage: 'img/icons/msapplication-icon-144x144.png'
+      favicon32: 'img/icons/favicon-32x32.png',
+      favicon16: 'img/icons/favicon-16x16.png',
+      appleTouchIcon: 'img/icons/apple-touch-icon-152x152.png',
+      maskIcon: 'img/icons/safari-pinned-tab.svg',
+      msTileImage: 'img/icons/msapplication-icon-144x144.png',
     },
   },
   css: {

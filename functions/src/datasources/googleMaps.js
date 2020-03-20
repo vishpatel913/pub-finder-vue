@@ -1,6 +1,5 @@
 const { RESTDataSource } = require("apollo-datasource-rest");
 const config = require("../../config");
-const { toCamelCase } = require("../utils/helpers");
 
 class GoogleMaps extends RESTDataSource {
   constructor() {
@@ -16,17 +15,44 @@ class GoogleMaps extends RESTDataSource {
       key: config.google.key
     };
     const response = await this.get("geocode/json", params);
-    const { formatted_address, address_components } = response.results[0];
+    const { formatted_address } = response.results[0];
+
+    const normalisedResult = response.results.reduce((result, item) => {
+      if (item.types.includes("administrative_area_level_3"))
+        result.borough = item.address_components[0].long_name;
+      if (item.types.includes("administrative_area_level_2"))
+        result.county = item.address_components[0].long_name;
+      if (item.types.includes("postal_code_prefix"))
+        result.postalArea = item.formatted_address;
+      if (item.types.includes("neighborhood"))
+        result.neighborhood = item.address_components[0].long_name;
+      // NOTE: The brixton area problem lol
+      // if (item.types.includes("street_address"))
+      //   result.neighborhood = item.address_components.find(item =>
+      //     item.types.includes("neighborhood")
+      //   ).long_name;
+      if (item.types.includes("sublocality"))
+        result.area = item.address_components[0].long_name;
+      else if (!result.area && item.types.includes("locality"))
+        result.area = item.address_components[0].long_name;
+
+      return result;
+    }, {});
+
+    const {
+      borough,
+      county,
+      postalArea,
+      area,
+      neighborhood
+    } = normalisedResult;
 
     return {
       address: formatted_address,
-      area: response.results.find(item =>
-        item.formatted_address.match(/^([^0-9]*)$/g)
-      ).address_components[0].long_name,
-      components: address_components.reduce((p, c) => {
-        p[toCamelCase(c.types[0])] = c.long_name;
-        return p;
-      }, {})
+      borough,
+      county,
+      postalArea,
+      area: neighborhood || area
     };
   }
 

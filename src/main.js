@@ -6,7 +6,6 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
-import './assets/less/_variables.less';
 import 'ant-design-vue/dist/antd.less';
 import './assets/less/_typography.less';
 

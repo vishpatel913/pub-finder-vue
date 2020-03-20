@@ -1,14 +1,6 @@
 <template>
-  <div class="container">
-    <div class="header">
-      <h1>Pub Finder</h1>
-      <h2 v-if="isLoading">
-        Searching...
-      </h2>
-      <h2 v-else>
-        <a-icon type="environment" /> {{ location.area }}
-      </h2>
-    </div>
+  <div class="page-container">
+    <location-heading :location="location" />
     <div class="content">
       <a-list
         :data-source="pubs"
@@ -20,7 +12,19 @@
         >
           <pub-card :details="item" />
         </a-list-item>
-        <a-empty v-if="allClosed" />
+        <a-empty
+          v-if="noResults"
+          :image="emptyGlass"
+        >
+          <span
+            v-if="isLoading"
+            slot="description"
+          >Searching</span>
+          <span
+            v-else
+            slot="description"
+          >No Pubs</span>
+        </a-empty>
       </a-list>
     </div>
     <a-button
@@ -35,30 +39,31 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import moment from 'moment';
+import { mapState, mapMutations, mapActions } from 'vuex';
+import LocationHeading from '@/components/LocationHeading.vue';
 import PubCard from '@/components/PubCard.vue';
+import emptyGlass from '@/assets/empty-glass.svg';
+
 import NearbyPubsQuery from '@/graphql/NearbyPubs.gql';
 
 export default {
   components: {
+    LocationHeading,
     PubCard,
   },
   data: () => ({
     pubs: [],
-    dayId: moment().day(),
+    location: null,
+    emptyGlass,
   }),
   computed: {
     ...mapState(['coords', 'loading']),
     isLoading() {
       return this.loading || this.$apollo.loading;
     },
-    allClosed() {
+    noResults() {
       return this.pubs.length < 1;
     },
-  },
-  methods: {
-    ...mapActions(['getGeolocation']),
   },
   apollo: {
     data: {
@@ -68,33 +73,44 @@ export default {
           coords: this.coords,
         };
       },
-      result({ data }) {
-        this.location = data.location;
-        this.pubs = data.pubs;
+      result({ data, error }) {
+        if (!error) {
+          this.location = data.location;
+          this.pubs = data.pubs;
+        }
       },
       update: ({ data }) => data,
+      error(error) {
+        this.SET_ERROR(error);
+      },
+      skip() {
+        return !this.coords;
+      },
     },
+  },
+  mounted() {
+    this.getGeolocation();
+  },
+  methods: {
+    ...mapActions(['getGeolocation']),
+    ...mapMutations(['SET_ERROR']),
   },
 };
 </script>
 
 <style scoped lang="less">
-.container {
+.page-container {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
-.header {
-  align-self: start;
-  width: 100%;
-  margin-bottom: 1rem;
-}
 .content {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  width: 100%;
 }
 .location-button {
   position: fixed;

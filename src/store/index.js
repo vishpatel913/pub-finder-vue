@@ -5,20 +5,19 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    coords: { lat: 54.995274, lng: -1.607735 },
+    coords: undefined,
     loading: false,
-    error: false,
+    error: null,
   },
   mutations: {
-    SET_COORDINATES(state, data) {
-      const { latitude, longitude } = data;
+    SET_COORDINATES(state, { latitude, longitude }) {
       state.coords = { lat: latitude, lng: longitude };
     },
-    SET_LOADING(state, data) {
-      state.loading = data;
+    SET_LOADING(state, loading) {
+      state.loading = loading;
     },
-    SET_ERROR(state, data) {
-      state.error = data;
+    SET_ERROR(state, error) {
+      state.error = error;
     },
   },
   actions: {
@@ -26,19 +25,20 @@ export default new Vuex.Store({
       if (navigator.geolocation) {
         commit('SET_LOADING', true);
         await navigator.geolocation.getCurrentPosition(
-          (position) => {
+          ({ coords }) => {
             setTimeout(() => {
-              const { coords } = position;
               commit('SET_COORDINATES', coords);
               commit('SET_LOADING', false);
             }, 1000);
           },
           (error) => {
-            console.error(error);
+            commit('SET_ERROR', error);
+            commit('SET_LOADING', false);
           },
         );
       } else {
-        console.error('Geolocation is not supported by your browser');
+        commit('SET_ERROR', { message: 'Geolocation not supported by browser' });
+        commit('SET_LOADING', false);
       }
     },
   },

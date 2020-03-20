@@ -20,7 +20,13 @@ describe("[GoogleMaps.getGeocoding]", () => {
 
   it("returns an object with the correct keys", () => {
     expect(Object.keys(response)).toEqual(
-      expect.arrayContaining(["address", "components"])
+      expect.arrayContaining([
+        "address",
+        "area",
+        "borough",
+        "county",
+        "postalArea"
+      ])
     );
   });
 
@@ -28,16 +34,11 @@ describe("[GoogleMaps.getGeocoding]", () => {
     expect(response).toEqual(
       expect.objectContaining({
         address: "66 Sisters Ave, London SW11 5SN, UK",
-        area: "London Borough of Wandsworth"
+        area: "London",
+        borough: "London Borough of Wandsworth",
+        county: "Greater London",
+        postalArea: "London SW11, UK"
       })
-    );
-    expect(Object.keys(response.components)).toEqual(
-      expect.arrayContaining([
-        "streetNumber",
-        "route",
-        "postalTown",
-        "postalCode"
-      ])
     );
   });
 });
