@@ -23,12 +23,6 @@ commands:
           key: v1-yarn-<< parameters.directory >>deps-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
-  check-changed-files-or-halt:
-    parameters:
-      path:
-        type: string
-    steps:
-      - run: FOLDER=<< parameters.path >> sh check-files.sh
 
 jobs:
   configure_firebase:
@@ -67,11 +61,9 @@ jobs:
       - install_dependencies
       - run:
           name: Deploy To Firebase
-          # command: ./node_modules/.bin/firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
-          command: ./node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
+          command: ./node_modules/.bin/firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
 
   test_functions:
-    # working_directory: ~/project/functions
     docker:
       - image: circleci/node:10
     steps:
@@ -82,7 +74,6 @@ jobs:
           command: yarn test-functions
 
   deploy_functions:
-    # working_directory: ~/project/functions
     docker:
       - image: circleci/node:10
     steps:
@@ -104,10 +95,10 @@ workflows:
           requires:
             - configure_firebase
             - build_app
+          filters:
+            branches:
+              only: master
       - deploy_functions:
           requires:
             - configure_firebase
             - test_functions
-          # filters:
-          #   branches:
-          #     only: master
