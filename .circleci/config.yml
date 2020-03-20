@@ -34,7 +34,10 @@ jobs:
     steps:
       - run:
           name: Install Firebase tools
-          command: yarn add global firebase-tools
+          command: npm install -g firebase-tools
+      - run:
+          name: Set firebase alias
+          command: alias firebase="`npm config get prefix`/bin/firebase"
       - run:
           name: Set up env
           command: |
