@@ -32,21 +32,20 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
-      steps:
-        - run:
-            name: Install Firebase Tools
-            command: yarn install -D --prefix=./firebase-tools firebase-tools
-        # - persist_to_workspace:
-        #     root: /tmp/dir
-        #     paths:
-        #       - ./firebase-tools
-        - run:
-            name: Set up env
-            command: |
-              ./firebase-tools/node_modules/.bin/firebase use pub-finder --token $FIREBASE_DEPLOY_TOKEN
-              ./firebase-tools/node_modules/.bin/firebase functions:config:unset env --token "$FIREBASE_DEPLOY_TOKEN"
-              ./firebase-tools/node_modules/.bin/firebase functions:config:set env.google.key="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
-              ./firebase-tools/node_modules/.bin/firebase functions:config:set env.google.maps_uri="$GOOGLE_MAPS_URI" --token "$FIREBASE_DEPLOY_TOKEN"
+      - run:
+          name: Install Firebase Tools
+          command: yarn install -D --prefix=./firebase-tools firebase-tools
+      # - persist_to_workspace:
+      #     root: /tmp/dir
+      #     paths:
+      #       - ./firebase-tools
+      - run:
+          name: Set up env
+          command: |
+            ./firebase-tools/node_modules/.bin/firebase use pub-finder --token $FIREBASE_DEPLOY_TOKEN
+            ./firebase-tools/node_modules/.bin/firebase functions:config:unset env --token "$FIREBASE_DEPLOY_TOKEN"
+            ./firebase-tools/node_modules/.bin/firebase functions:config:set env.google.key="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
+            ./firebase-tools/node_modules/.bin/firebase functions:config:set env.google.maps_uri="$GOOGLE_MAPS_URI" --token "$FIREBASE_DEPLOY_TOKEN"
   build_app:
     docker:
       - image: circleci/node:10
