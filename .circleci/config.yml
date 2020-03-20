@@ -45,6 +45,7 @@ jobs:
             ./node_modules/.bin/firebase functions:config:unset env --token "$FIREBASE_DEPLOY_TOKEN"
             ./node_modules/.bin/firebase functions:config:set env.google.key="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
             ./node_modules/.bin/firebase functions:config:set env.google.maps_uri="$GOOGLE_MAPS_URI" --token "$FIREBASE_DEPLOY_TOKEN"
+
   build_app:
     docker:
       - image: circleci/node:10
@@ -53,15 +54,6 @@ jobs:
       - run:
           name: Build App
           command: yarn build
-
-  deploy_app:
-    docker:
-      - image: circleci/node:10
-    steps:
-      - install_dependencies
-      - run:
-          name: Deploy To Firebase
-          command: ./node_modules/.bin/firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
 
   test_functions:
     docker:
@@ -73,6 +65,15 @@ jobs:
           name: Test functions
           command: yarn test-functions
 
+  deploy_app:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - install_dependencies
+      - run:
+          name: Deploy To Firebase
+          command: ./node_modules/.bin/firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
+
   deploy_functions:
     docker:
       - image: circleci/node:10
@@ -82,7 +83,7 @@ jobs:
       - run:
           name: Deploy functions
           # command: ./node_modules/.bin/firebase deploy --only functions --token "$FIREBASE_DEPLOY_TOKEN"
-          command: ./node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
+          command: .functions/node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
 
 workflows:
   version: 2
