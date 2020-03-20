@@ -1,4 +1,5 @@
-const { distanceBetweenCoords } = require("../utils/helpers");
+const moment = require("moment");
+const { distanceBetweenCoords } = require("../utils");
 
 const pubResolvers = {
   Query: {
@@ -16,6 +17,17 @@ const pubResolvers = {
     openingHours: async ({ id }, args, { dataSources }) => {
       const details = await dataSources.googleMaps.getPubDetails(id);
       return details.openingHours;
+    },
+    openingHoursToday: async ({ id }, args, { dataSources }) => {
+      const details = await dataSources.googleMaps.getPubDetails(id);
+      const now = moment();
+      return details.openingHours.find(item => {
+        const { open, close } = item;
+        return (
+          moment(`${open.day} ${open.time}`, "e HHmm").isBefore(now) &&
+          moment(`${close.day} ${close.time}`, "e HHmm").isAfter(now)
+        );
+      });
     }
   }
 };

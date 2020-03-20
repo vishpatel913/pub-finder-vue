@@ -1,6 +1,5 @@
 const { RESTDataSource } = require("apollo-datasource-rest");
 const config = require("../../config");
-const { toCamelCase } = require("../utils/helpers");
 
 class GoogleMaps extends RESTDataSource {
   constructor() {
