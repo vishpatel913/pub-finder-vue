@@ -34,6 +34,7 @@
             type="primary"
             @click="share"
           >
+            <a-icon type="message" />
             Send
           </a-button>
           <a-button
@@ -41,6 +42,7 @@
             type="primary"
             @click="openDirections"
           >
+            <a-icon type="pushpin" />
             Go
           </a-button>
         </a-button-group>
@@ -129,15 +131,22 @@ export default {
 .footer {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  .price {
-    color: @text-color-secondary;
-    font-size: 12px;
-    font-weight: 400;
-  }
-  .stars {
-    color: @theme-gold;
-    font-size: 12px;
+  align-items: flex-end;
+  .ratings {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    .price {
+      color: @text-color-secondary;
+      font-size: 12px;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+    .stars {
+      color: @theme-gold;
+      font-size: 12px;
+    }
   }
 }
 </style>
