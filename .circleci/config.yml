@@ -90,11 +90,12 @@ workflows:
   build_and_deploy:
     jobs:
       - configure_firebase
-      - build_app
       - test_functions
-      - deploy_app:
+      - build_app:
           requires:
             - configure_firebase
+      - deploy_app:
+          requires:
             - build_app
           filters:
             branches:
