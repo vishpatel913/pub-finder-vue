@@ -31,7 +31,9 @@ jobs:
     steps:
       - run:
           name: Install Firebase Tools
-          command: yarn --cwd ./firebase-tools add -D firebase-tools
+          command: |
+            mkdir firebase-tools
+            yarn --cwd ./firebase-tools add -D firebase-tools
       - persist_to_workspace:
           root: /tmp/workspace
           path: ./firebase-tools/*
