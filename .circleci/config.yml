@@ -29,6 +29,7 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
+      - checkout
       - run:
           name: Install Firebase Tools
           command: |
