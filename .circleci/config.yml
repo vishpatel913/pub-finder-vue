@@ -65,8 +65,6 @@ jobs:
       - image: circleci/node:10
     steps:
       - install_dependencies
-      - attach_workspace:
-          at: /tmp/workspace
       - run:
           name: Deploy To Firebase
           # command: ./node_modules/.bin/firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
@@ -79,8 +77,6 @@ jobs:
     steps:
       - install_dependencies:
           directory: functions
-      - attach_workspace:
-          at: /tmp/workspace
       - run:
           name: Test functions
           command: yarn test-functions
@@ -92,8 +88,6 @@ jobs:
     steps:
       - install_dependencies:
           directory: functions
-      - attach_workspace:
-          at: /tmp/workspace
       - run:
           name: Deploy functions
           # command: ./node_modules/.bin/firebase deploy --only functions --token "$FIREBASE_DEPLOY_TOKEN"
