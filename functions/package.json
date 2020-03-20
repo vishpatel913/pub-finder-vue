@@ -5,9 +5,8 @@
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "env": "test -f .env.json && firebase functions:config:unset env && firebase functions:config:set env=\"$(cat .env.json)\"",
+    "setup-env": "test -f .env.json && firebase functions:config:unset env && firebase functions:config:set env=\"$(cat .env.json)\"",
     "lint": "eslint .",
     "test": "jest --watch",
     "test-ci": "jest --coverage"

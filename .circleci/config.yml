@@ -13,17 +13,14 @@ commands:
       - restore_cache:
           keys:
             # Find a cache corresponding to this specific yarn.lock
-            - v1-yarn-deps-{{ checksum "yarn.lock" }}
+            - v1-yarn-<< parameters.directory >>deps-{{ checksum "yarn.lock" }}
             # Fallback cache to be used
             - v1-yarn-deps-
       - run:
-          name: Set directory
-          command: cd ./<< parameters.directory >>
-      - run:
           name: Install Dependencies
-          command: yarn install
+          command: yarn --cwd ./<< parameters.directory >> install
       - save_cache:
-          key: v1-yarn-deps-{{ checksum "yarn.lock" }}
+          key: v1-yarn-<< parameters.directory >>deps-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
 
@@ -36,7 +33,8 @@ jobs:
           name: Install Firebase Tools
           command: yarn --cwd ./firebase-tools add -D firebase-tools
       - persist_to_workspace:
-          path: ./firebase-tools
+          root: /tmp/workspace
+          path: ./firebase-tools/*
       - run:
           name: Set up env
           command: |
@@ -58,6 +56,8 @@ jobs:
       - image: circleci/node:10
     steps:
       - install_dependencies
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
           name: Deploy To Firebase
           # command: ./firebase-tools/node_modules/.bin/firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
@@ -70,14 +70,11 @@ jobs:
     steps:
       - install_dependencies:
           directory: functions
-      - run:
-          name: Debug
-          command: |
-            pwd
-            ls
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
           name: Test functions
-          command: yarn test-ci
+          command: yarn test-functions
 
   deploy_functions:
     # working_directory: ~/project/functions
@@ -86,7 +83,6 @@ jobs:
     steps:
       - install_dependencies:
           directory: functions
-      - run: cd ./
       - run:
           name: Deploy functions
           # command: ./firebase-tools/node_modules/.bin/firebase deploy --only functions --token "$FIREBASE_DEPLOY_TOKEN"

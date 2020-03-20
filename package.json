@@ -5,10 +5,13 @@
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
+    "serve": "yarn --cwd functions run serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit",
-    "deploy": "firebase deploy --only hosting"
+    "test-app": "vue-cli-service test:unit",
+    "test-functions": "yarn --cwd functions run test-ci",
+    "deploy": "firebase deploy --only hosting",
+    "deploy-functions": "firebase deploy --only functions"
   },
   "dependencies": {
     "ant-design-vue": "^1.4.12",
