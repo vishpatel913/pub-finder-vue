@@ -5,6 +5,8 @@ module.exports = {
   '@theme-primary': '#1da57a',
   '@theme-primary-light': '#42b983',
   '@theme-primary-dark': '#3b8070',
+  '@theme-secondary': '#ffc72d',
+  '@theme-secondary-light': '#ffeb3b',
   '@theme-red': '#fc224c',
   '@theme-yellow': '#ffeb3b',
   '@theme-gold': '#ffc72d',

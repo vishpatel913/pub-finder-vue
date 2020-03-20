@@ -119,9 +119,11 @@ export default {
   padding: 0.5rem 0;
   width: 100%;
 }
+h3 {
+  color: fade(@theme-grey, 85%);
+}
 .content {
   .address {
-    color: @text-color-secondary;
     font-size: @font-size-sm;
   }
   p {
