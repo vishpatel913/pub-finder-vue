@@ -1,4 +1,5 @@
 #import "./LocationFragment.gql"
+#import "./OpenHoursFragment.gql"
 
 query NearbyPubsQuery($coords: CoordsInput!) {
   location(coords: $coords) {
@@ -14,25 +15,11 @@ query NearbyPubsQuery($coords: CoordsInput!) {
     rating
     priceLevel
     distance
-    openingHoursToday {
-      open {
-        day
-        time
-      }
-      close {
-        day
-        time
-      }
+    openTimesToday {
+      ...openHours
     }
-    openingHours {
-      open {
-        day
-        time
-      }
-      close {
-        day
-        time
-      }
+    openTimes {
+      ...openHours
     }
   }
 }

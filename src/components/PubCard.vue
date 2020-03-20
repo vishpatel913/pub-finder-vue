@@ -68,7 +68,7 @@ export default {
       return Math.round((this.details.distance / 3.1) * 60);
     },
     openHours() {
-      const { open, close } = this.details.openingHoursToday;
+      const { open, close } = this.details.openTimesToday;
       return {
         opens: {
           day: moment(open.day, 'e').format('ddd'),
@@ -132,12 +132,12 @@ export default {
   align-items: baseline;
   .price {
     color: @text-color-secondary;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 400;
   }
   .stars {
     color: @theme-gold;
-    font-size: 16px;
+    font-size: 12px;
   }
 }
 </style>

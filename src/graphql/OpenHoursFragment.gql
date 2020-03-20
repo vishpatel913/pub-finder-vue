@@ -1,0 +1,10 @@
+fragment openHours on OpenTimes {
+  open {
+    day
+    time
+  }
+  close {
+    day
+    time
+  }
+}

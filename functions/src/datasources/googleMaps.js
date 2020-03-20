@@ -87,7 +87,7 @@ class GoogleMaps extends RESTDataSource {
     const { opening_hours } = response.result;
 
     return {
-      openingHours: opening_hours.periods
+      openTimes: opening_hours.periods
     };
   }
 }

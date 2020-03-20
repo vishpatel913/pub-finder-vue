@@ -73,18 +73,18 @@ describe("[GoogleMaps.getPubDetails]", () => {
 
   it("returns an object with the correct keys", async () => {
     expect(Object.keys(response)).toEqual(
-      expect.arrayContaining(["openingHours"])
+      expect.arrayContaining(["openTimes"])
     );
   });
 
   it("returns the opening hours with the correct keys", () => {
-    expect(Object.keys(response.openingHours)).toEqual(
+    expect(Object.keys(response.openTimes)).toEqual(
       expect.arrayContaining(["0", "1", "2", "3", "4", "5", "6"])
     );
   });
 
   it("returns a day object in the correct format", () => {
-    expect(response.openingHours[0]).toMatchObject({
+    expect(response.openTimes[0]).toMatchObject({
       open: {
         day: 0,
         time: "1200"
@@ -94,7 +94,7 @@ describe("[GoogleMaps.getPubDetails]", () => {
         time: "2230"
       }
     });
-    expect(response.openingHours[6]).toMatchObject({
+    expect(response.openTimes[6]).toMatchObject({
       open: {
         day: 6,
         time: "1100"

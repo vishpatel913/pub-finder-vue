@@ -18,7 +18,7 @@
         "rating": 4,
         "priceLevel": 2,
         "distance": 0.27,
-        "openingHours": [
+        "openTimes": [
           {
             "open": {
               "day": "2",
@@ -81,7 +81,7 @@
         "rating": 4.2,
         "priceLevel": 2,
         "distance": 0.36,
-        "openingHours": [
+        "openTimes": [
           {
             "open": {
               "day": "0",
@@ -164,7 +164,7 @@
         "rating": 4.3,
         "priceLevel": 2,
         "distance": 0.49,
-        "openingHours": [
+        "openTimes": [
           {
             "open": {
               "day": "0",
@@ -247,7 +247,7 @@
         "rating": 3.6,
         "priceLevel": 2,
         "distance": 0.51,
-        "openingHours": [
+        "openTimes": [
           {
             "open": {
               "day": "0",
@@ -330,7 +330,7 @@
         "rating": 4.2,
         "priceLevel": 2,
         "distance": 0.64,
-        "openingHours": [
+        "openTimes": [
           {
             "open": {
               "day": "0",
@@ -413,7 +413,7 @@
         "rating": 4,
         "priceLevel": 2,
         "distance": 0.64,
-        "openingHours": [
+        "openTimes": [
           {
             "open": {
               "day": "0",
@@ -496,7 +496,7 @@
         "rating": 4,
         "priceLevel": 2,
         "distance": 0.68,
-        "openingHours": [
+        "openTimes": [
           {
             "open": {
               "day": "0",
@@ -579,7 +579,7 @@
         "rating": 4.1,
         "priceLevel": 2,
         "distance": 0.72,
-        "openingHours": [
+        "openTimes": [
           {
             "open": {
               "day": "0",

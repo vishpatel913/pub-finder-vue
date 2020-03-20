@@ -9,11 +9,11 @@ const pubType = gql`
     rating: Float
     priceLevel: Int
     distance: Float
-    openingHours: [OpeningHours]
-    openingHoursToday: OpeningHours
+    openTimes: [OpenTimes]
+    openTimesToday: OpenTimes
   }
 
-  type OpeningHours {
+  type OpenTimes {
     open: DayTime
     close: DayTime
   }

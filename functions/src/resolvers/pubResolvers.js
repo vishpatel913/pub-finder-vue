@@ -14,14 +14,14 @@ const pubResolvers = {
     }
   },
   Pub: {
-    openingHours: async ({ id }, args, { dataSources }) => {
+    openTimes: async ({ id }, args, { dataSources }) => {
       const details = await dataSources.googleMaps.getPubDetails(id);
-      return details.openingHours;
+      return details.openTimes;
     },
-    openingHoursToday: async ({ id }, args, { dataSources }) => {
+    openTimesToday: async ({ id }, args, { dataSources }) => {
       const details = await dataSources.googleMaps.getPubDetails(id);
       const now = moment();
-      return details.openingHours.find(item => {
+      return details.openTimes.find(item => {
         const { open, close } = item;
         return (
           moment(`${open.day} ${open.time}`, "e HHmm").isBefore(now) &&

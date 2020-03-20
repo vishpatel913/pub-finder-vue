@@ -75,6 +75,7 @@ export default {
       },
       result({ data, error }) {
         if (!error) {
+          this.SET_ERROR(false);
           this.location = data.location;
           this.pubs = data.pubs;
         }

@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     coords: undefined,
     loading: false,
-    error: null,
+    error: false,
   },
   mutations: {
     SET_COORDINATES(state, { latitude, longitude }) {
@@ -23,13 +23,13 @@ export default new Vuex.Store({
   actions: {
     async getGeolocation({ commit }) {
       if (navigator.geolocation) {
+        commit('SET_ERROR', false);
         commit('SET_LOADING', true);
         await navigator.geolocation.getCurrentPosition(
           ({ coords }) => {
-            setTimeout(() => {
-              commit('SET_COORDINATES', coords);
-              commit('SET_LOADING', false);
-            }, 1000);
+            commit('SET_ERROR', false);
+            commit('SET_COORDINATES', coords);
+            commit('SET_LOADING', false);
           },
           (error) => {
             commit('SET_ERROR', error);
