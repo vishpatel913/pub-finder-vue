@@ -4,6 +4,10 @@ version: 2.1
 commands:
   install_dependencies:
     description: 'Install project dependencies'
+    parameters:
+      directory:
+        type: string
+        default: ''
     steps:
       - checkout
       - restore_cache:
@@ -12,6 +16,9 @@ commands:
             - v1-yarn-deps-{{ checksum "yarn.lock" }}
             # Fallback cache to be used
             - v1-yarn-deps-
+      - run:
+          name: Set directory
+          command: cd ./<< parameters.to >>
       - run:
           name: Install Dependencies
           command: yarn install
@@ -27,14 +34,14 @@ jobs:
     steps:
       - run:
           name: Install Firebase tools
-          command: yarn add -D firebase-tools
+          command: yarn add global firebase-tools
       - run:
           name: Set up env
           command: |
-            ./node_modules/.bin/firebase use pub-finder --token $FIREBASE_DEPLOY_TOKEN
-            ./node_modules/.bin/firebase functions:config:unset env --token "$FIREBASE_DEPLOY_TOKEN"
-            ./node_modules/.bin/firebase functions:config:set env.google.key="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
-            ./node_modules/.bin/firebase functions:config:set env.google.maps_uri="$GOOGLE_MAPS_URI" --token "$FIREBASE_DEPLOY_TOKEN"
+            firebase use pub-finder --token $FIREBASE_DEPLOY_TOKEN
+            firebase functions:config:unset env --token "$FIREBASE_DEPLOY_TOKEN"
+            firebase functions:config:set env.google.key="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
+            firebase functions:config:set env.google.maps_uri="$GOOGLE_MAPS_URI" --token "$FIREBASE_DEPLOY_TOKEN"
   build_app:
     docker:
       - image: circleci/node:10
@@ -50,8 +57,8 @@ jobs:
     steps:
       - run:
           name: Deploy To Firebase
-          # command: ./node_modules/.bin/firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
-          command: ./node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
+          # command: firebase deploy --only hosting --token "$FIREBASE_DEPLOY_TOKEN"
+          command: firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
 
   test_functions:
     working_directory: ~/project/functions
@@ -61,7 +68,8 @@ jobs:
       - run:
           name: Change to functions directory
           command: pwd
-      - install_dependencies
+      - install_dependencies:
+          directory: functions
       - run:
           name: Test functions
           command: yarn test-ci
@@ -71,14 +79,13 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
-      - run:
-          name: Change to functions directory
-          command: cd functions
-      - install_dependencies
+      - install_dependencies:
+          directory: functions
+      - run: cd ./
       - run:
           name: Deploy functions
-          # command: ./node_modules/.bin/firebase deploy --only functions --token "$FIREBASE_DEPLOY_TOKEN"
-          command: ./node_modules/.bin/firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
+          # command: firebase deploy --only functions --token "$FIREBASE_DEPLOY_TOKEN"
+          command: firebase apps:list --token "$FIREBASE_DEPLOY_TOKEN"
 
 workflows:
   version: 2
