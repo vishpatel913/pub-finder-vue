@@ -23,10 +23,11 @@ const pubResolvers = {
       const now = moment();
       return details.openTimes.find(item => {
         const { open, close } = item;
-        return (
-          moment(`${open.day} ${open.time}`, "e HHmm").isBefore(now) &&
-          moment(`${close.day} ${close.time}`, "e HHmm").isAfter(now)
-        );
+        const openMoment = moment(`${open.day} ${open.time}`, "e HHmm");
+        const closeMoment = moment(`${close.day} ${close.time}`, "e HHmm");
+        if (close.day < open.day) closeMoment.add(1, "w");
+
+        return openMoment.isBefore(now) && closeMoment.isAfter(now);
       });
     }
   }
