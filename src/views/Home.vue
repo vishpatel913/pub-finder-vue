@@ -12,23 +12,14 @@
         >
           <pub-card :details="item" />
         </a-list-item>
-        <a-empty
-          v-if="noResults"
-          :image="emptyGlass"
-        >
-          <span
-            v-if="isLoading"
-            slot="description"
-          >Searching</span>
-          <span
-            v-else
-            slot="description"
-          >No Pubs</span>
-        </a-empty>
+        <empty-list
+          :empty="noResults"
+          :loading="isLoading"
+        />
       </a-list>
     </div>
     <a-button
-      class="location-button"
+      class="search-button"
       type="primary"
       icon="environment"
       @click="getGeolocation"
@@ -42,7 +33,7 @@
 import { mapState, mapMutations, mapActions } from 'vuex';
 import LocationHeading from '@/components/LocationHeading.vue';
 import PubCard from '@/components/PubCard.vue';
-import emptyGlass from '@/assets/empty-glass.svg';
+import EmptyList from '@/components/EmptyList.vue';
 
 import NearbyPubsQuery from '@/graphql/NearbyPubs.gql';
 
@@ -50,11 +41,11 @@ export default {
   components: {
     LocationHeading,
     PubCard,
+    EmptyList,
   },
   data: () => ({
     pubs: [],
     location: null,
-    emptyGlass,
   }),
   computed: {
     ...mapState(['coords', 'loading']),
@@ -113,15 +104,8 @@ export default {
   margin-bottom: 1rem;
   width: 100%;
 }
-.location-button {
+.search-button {
   position: fixed;
   bottom: 2rem;
-}
-ul,
-li {
-  display: block;
-  padding: 0;
-  margin: 0;
-  width: 100%;
 }
 </style>
