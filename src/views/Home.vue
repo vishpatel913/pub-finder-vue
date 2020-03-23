@@ -13,7 +13,7 @@
           <pub-card :details="item" />
         </a-list-item>
         <empty-list
-          :show="noResults"
+          v-if="noResults"
           :loading="isLoading"
         />
       </a-list>
@@ -66,14 +66,14 @@ export default {
       },
       result({ data, error }) {
         if (!error) {
-          this.SET_ERROR(false);
+          this.setError(false);
           this.location = data.location;
           this.pubs = data.pubs;
         }
       },
       update: ({ data }) => data,
       error(error) {
-        this.SET_ERROR(error);
+        this.setError(error);
       },
       skip() {
         return !this.coords;
@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     ...mapActions(['getGeolocation']),
-    ...mapMutations(['SET_ERROR']),
+    ...mapMutations({ setError: 'SET_ERROR' }),
   },
 };
 </script>
@@ -101,7 +101,7 @@ export default {
 .content {
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   width: 100%;
 }
 .search-button {

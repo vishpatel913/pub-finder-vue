@@ -1,28 +1,23 @@
 <template>
   <header class="header-container">
-    <h1>
-      <img
-        :src="logo"
-        alt="Logo for Pubs Nearby"
-      >{{ title }}
-    </h1>
+    <h1><logo class="logo" />{{ title }}</h1>
   </header>
 </template>
 
 <script>
-import logo from '@/assets/svg/logo.svg';
+import Logo from '@/assets/svg/logo.svg';
 
 export default {
   name: 'TitleHeader',
+  components: {
+    Logo,
+  },
   props: {
     title: {
       type: String,
       default: 'Pubs Nearby',
     },
   },
-  data: () => ({
-    logo,
-  }),
 };
 </script>
 
@@ -37,11 +32,10 @@ export default {
 h1 {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   margin: 0;
-  font-size: 36px;
 }
-img {
+.logo {
   height: 2rem;
   margin-right: 0.5rem;
 }

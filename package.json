@@ -36,6 +36,7 @@
     "@vue/test-utils": "1.0.0-beta.31",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^25.1.0",
+    "babel-loader": "^8.1.0",
     "babel-plugin-import": "^1.13.0",
     "eslint": "^6.7.2",
     "eslint-plugin-graphql": "^3.1.1",
@@ -44,6 +45,7 @@
     "firebase-tools": "^7.15.1",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
+    "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [

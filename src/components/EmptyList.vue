@@ -1,35 +1,36 @@
 <template>
-  <a-empty
-    v-if="show"
-    :image="glassIcon"
-  >
-    <span slot="description">{{ loading ? 'Searching' : text }}</span>
-  </a-empty>
+  <div>
+    <a-empty>
+      <span slot="description">{{ loading ? 'Searching' : text }}</span>
+      <div
+        slot="image"
+        class="empty-image"
+      >
+        <glass-loading v-if="loading" />
+        <glass-empty v-else />
+      </div>
+    </a-empty>
+  </div>
 </template>
 
 <script>
 import GlassEmpty from '@/assets/svg/glass-empty.svg';
-import GlassFull from '@/assets/svg/glass-full.svg';
+import GlassLoading from './GlassLoading.vue';
 
 export default {
   name: 'EmptyList',
+  components: {
+    'glass-loading': GlassLoading,
+    'glass-empty': GlassEmpty,
+  },
   props: {
     text: {
       type: String,
       default: 'No Pubs',
     },
-    show: {
-      type: Boolean,
-      default: true,
-    },
     loading: {
       type: Boolean,
       default: false,
-    },
-  },
-  computed: {
-    glassIcon() {
-      return !this.loading ? GlassEmpty : GlassFull;
     },
   },
 };
@@ -50,8 +51,10 @@ h1 {
   margin: 0;
   font-size: 36px;
 }
-img {
-  height: 2rem;
-  margin-right: 0.5rem;
+.empty-image {
+  height: 100px;
+  svg {
+    height: inherit;
+  }
 }
 </style>
