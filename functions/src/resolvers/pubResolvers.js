@@ -25,7 +25,9 @@ const pubResolvers = {
         const { open, close } = item;
         const openMoment = moment(`${open.day} ${open.time}`, "e HHmm");
         const closeMoment = moment(`${close.day} ${close.time}`, "e HHmm");
-        if (close.day < open.day) closeMoment.add(1, "w");
+        if (open.day !== 6 && close.day < open.day) closeMoment.add(1, "w");
+        if (close.day === 0 && close.day < open.day)
+          openMoment.subtract(1, "w");
 
         return openMoment.isBefore(now) && closeMoment.isAfter(now);
       });

@@ -13,7 +13,7 @@
           <pub-card :details="item" />
         </a-list-item>
         <empty-list
-          :empty="noResults"
+          :show="noResults"
           :loading="isLoading"
         />
       </a-list>

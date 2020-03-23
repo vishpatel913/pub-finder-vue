@@ -83,10 +83,11 @@ export default {
       };
     },
     closesIn() {
-      const { opens, closes } = this.openHours;
-      const closeMoment = moment(`${closes.day} ${closes.time}`, 'ddd h:mma');
-      const isNextWeek = closeMoment.isBefore(moment(opens.day, 'ddd'));
-      return closeMoment.add(isNextWeek ? 1 : 0, 'w').fromNow();
+      const { closes } = this.openHours;
+      const closeMoment = moment(`${closes.time}`, 'h:mma');
+      if (closeMoment.format('a') === 'am' && moment().format('a') !== 'am') closeMoment.add(1, 'd');
+
+      return closeMoment.fromNow();
     },
     directionsLink() {
       const current = `${this.coords.lat},${this.coords.lng}`;

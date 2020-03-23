@@ -1,14 +1,15 @@
 <template>
   <a-empty
-    v-if="empty"
-    :image="emptyGlass"
+    v-if="show"
+    :image="glassIcon"
   >
     <span slot="description">{{ loading ? 'Searching' : text }}</span>
   </a-empty>
 </template>
 
 <script>
-import emptyGlass from '@/assets/empty-glass.svg';
+import GlassEmpty from '@/assets/svg/glass-empty.svg';
+import GlassFull from '@/assets/svg/glass-full.svg';
 
 export default {
   name: 'EmptyList',
@@ -17,18 +18,20 @@ export default {
       type: String,
       default: 'No Pubs',
     },
-    empty: {
+    show: {
       type: Boolean,
       default: true,
     },
     loading: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
-  data: () => ({
-    emptyGlass,
-  }),
+  computed: {
+    glassIcon() {
+      return !this.loading ? GlassEmpty : GlassFull;
+    },
+  },
 };
 </script>
 
