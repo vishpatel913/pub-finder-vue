@@ -108,11 +108,11 @@ describe("[GoogleMaps.getPubDetails]", () => {
 
   it("returns the photo references in the correct format", () => {
     expect(Object.keys(response.photos[0])).toEqual(
-      expect.arrayContaining(["reference", "width", "height", "attributions"])
+      expect.arrayContaining(["reference", "width", "height", "attribution"])
     );
   });
 
   it("returns the attributers in the correct format", () => {
-    expect(response.photos[0].attributions[0]).toBe("Osbornes");
+    expect(response.photos[0].attribution).toBe("Osbornes");
   });
 });

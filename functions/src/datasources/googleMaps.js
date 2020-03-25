@@ -67,8 +67,7 @@ class GoogleMaps extends RESTDataSource {
       coords: item.geometry.location,
       address: item.vicinity,
       rating: item.rating,
-      priceLevel: item.price_level,
-      photos: item.photos.map(GoogleMaps.normalisePhoto)
+      priceLevel: item.price_level
     }));
   }
 
@@ -104,11 +103,12 @@ class GoogleMaps extends RESTDataSource {
     };
   }
 
-  static normalisePhoto(photo) {
+  static normalisePhoto({ photo_reference, height, width, html_attributions }) {
     return {
-      reference: photo.photo_reference,
-      height: photo.height,
-      width: photo.width
+      reference: photo_reference,
+      height,
+      width,
+      attribution: html_attributions[0].replace(/<\s*a[^>]*>|<\s*\/\s*a>/g, "")
     };
   }
 }

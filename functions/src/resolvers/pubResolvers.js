@@ -21,9 +21,9 @@ const pubResolvers = {
       const details = await dataSources.googleMaps.getPubDetails(id);
       return details.openTimes;
     },
-    photos: async ({ id, photos }, args, { dataSources }) => {
+    photos: async ({ id }, args, { dataSources }) => {
       const details = await dataSources.googleMaps.getPubDetails(id);
-      return photos.concat(details.photos);
+      return details.photos;
     },
     openTimesToday: async ({ id }, args, { dataSources }) => {
       const details = await dataSources.googleMaps.getPubDetails(id);

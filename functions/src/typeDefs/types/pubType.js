@@ -18,6 +18,7 @@ const pubType = gql`
     reference: String
     height: Int
     width: Int
+    attribution: String
   }
 
   type OpenTimes {
