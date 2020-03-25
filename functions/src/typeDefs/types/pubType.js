@@ -10,7 +10,15 @@ const pubType = gql`
     priceLevel: Int
     distance: Float
     openTimes: [OpenTimes]
+    photos: [Photo]
     openTimesToday: OpenTimes
+  }
+
+  type Photo {
+    reference: String
+    height: Int
+    width: Int
+    attribution: String
   }
 
   type OpenTimes {

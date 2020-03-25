@@ -3,7 +3,8 @@ const { gql } = require("apollo-server-express");
 const query = gql`
   type Query {
     location(coords: CoordsInput): Location
-    pubs(coords: CoordsInput): [Pub]
+    pubs(coords: CoordsInput, first: Int): [Pub]
+    pub(id: String): Pub
   }
 `;
 

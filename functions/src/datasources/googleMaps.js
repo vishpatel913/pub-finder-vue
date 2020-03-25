@@ -26,11 +26,6 @@ class GoogleMaps extends RESTDataSource {
         result.postalArea = item.formatted_address;
       if (item.types.includes("neighborhood"))
         result.neighborhood = item.address_components[0].long_name;
-      // NOTE: The brixton area problem lol
-      // if (item.types.includes("street_address"))
-      //   result.neighborhood = item.address_components.find(item =>
-      //     item.types.includes("neighborhood")
-      //   ).long_name;
       if (item.types.includes("sublocality"))
         result.area = item.address_components[0].long_name;
       else if (!result.area && item.types.includes("locality"))
@@ -66,7 +61,6 @@ class GoogleMaps extends RESTDataSource {
       key: config.google.key
     };
     const response = await this.get("place/nearbysearch/json", params);
-
     return response.results.map(item => ({
       id: item.place_id,
       name: item.name,
@@ -80,14 +74,41 @@ class GoogleMaps extends RESTDataSource {
   async getPubDetails(id) {
     const params = {
       place_id: id,
-      fields: "opening_hours,photos",
+      fields:
+        "place_id,name,geometry,vicinity,rating,price_level,opening_hours,opening_hours,photos",
       key: config.google.key
     };
     const response = await this.get("place/details/json", params);
-    const { opening_hours } = response.result;
+
+    const {
+      place_id,
+      name,
+      geometry,
+      vicinity,
+      rating,
+      price_level,
+      opening_hours,
+      photos
+    } = response.result;
 
     return {
-      openTimes: opening_hours.periods
+      id: place_id,
+      name,
+      coords: geometry.location,
+      address: vicinity,
+      rating,
+      priceLevel: price_level,
+      openTimes: opening_hours.periods,
+      photos: photos.map(GoogleMaps.normalisePhoto)
+    };
+  }
+
+  static normalisePhoto({ photo_reference, height, width, html_attributions }) {
+    return {
+      reference: photo_reference,
+      height,
+      width,
+      attribution: html_attributions[0].replace(/<\s*a[^>]*>|<\s*\/\s*a>/g, "")
     };
   }
 }
