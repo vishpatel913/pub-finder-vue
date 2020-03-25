@@ -1,18 +1,19 @@
 const GoogleMaps = require("../datasources/googleMaps");
 const {
   placesMockResponse,
-  placeDetailsMockResponse
-} = require("./mocks/placesMock");
-const { geocodingMockResponse } = require("./mocks/geocodeMock");
+  placeDetailsMockResponse,
+  geocodingMockResponse,
+  directionsMockResponse
+} = require("./mocks/googleMaps");
 
 const gm = new GoogleMaps();
 const mocks = {
   get: jest.fn()
 };
 gm.get = mocks.get;
-let response;
 
 describe("[GoogleMaps.getGeocoding]", () => {
+  let response;
   beforeEach(async () => {
     mocks.get.mockReturnValueOnce(geocodingMockResponse);
     response = await gm.getGeocoding({ lat: 7, lng: 12 });
@@ -44,6 +45,7 @@ describe("[GoogleMaps.getGeocoding]", () => {
 });
 
 describe("[GoogleMaps.getPubsNear]", () => {
+  let response;
   beforeEach(async () => {
     mocks.get.mockReturnValueOnce(placesMockResponse);
     response = await gm.getPubsNear({ lat: 7, lng: 12 });
@@ -66,6 +68,7 @@ describe("[GoogleMaps.getPubsNear]", () => {
 });
 
 describe("[GoogleMaps.getPubDetails]", () => {
+  let response;
   beforeEach(async () => {
     mocks.get.mockReturnValueOnce(placeDetailsMockResponse);
     response = await gm.getPubDetails("uuiid");
@@ -114,5 +117,31 @@ describe("[GoogleMaps.getPubDetails]", () => {
 
   it("returns the attributers in the correct format", () => {
     expect(response.photos[0].attribution).toBe("Osbornes");
+  });
+});
+
+describe("[GoogleMaps.getDirections]", () => {
+  let response;
+  beforeEach(async () => {
+    mocks.get.mockReturnValueOnce(directionsMockResponse);
+    response = await gm.getDirections(
+      { lat: 7, lng: 12 },
+      { lat: 19, lng: 95 }
+    );
+  });
+
+  it("returns the direction object in the correct format", () => {
+    expect(Object.keys(response)).toEqual(
+      expect.arrayContaining(["distance", "duration"])
+    );
+  });
+
+  it("returns the direction with the correct values", () => {
+    expect(response).toEqual(
+      expect.objectContaining({
+        distance: 398,
+        duration: 114
+      })
+    );
   });
 });

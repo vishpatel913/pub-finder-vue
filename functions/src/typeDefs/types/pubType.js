@@ -8,7 +8,7 @@ const pubType = gql`
     address: String!
     rating: Float
     priceLevel: Int
-    distance: Float
+    distance(from: CoordsInput): Float
     openTimes: [OpenTimes]
     photos: [Photo]
     openTimesToday: OpenTimes

@@ -11,7 +11,7 @@ const toCamelCase = string =>
     .join("");
 
 const distanceBetweenCoords = (from, to, dp = 2) => {
-  const earthRadius = 3958; // mi
+  const earthRadius = 6371; // mi
   const x1 = parseFloat(from.lat);
   const x2 = parseFloat(to.lat);
   const y1 = parseFloat(from.lng);

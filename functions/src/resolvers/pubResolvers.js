@@ -6,11 +6,12 @@ const pubResolvers = {
     pubs: async (parent, { coords, first }, { dataSources }) => {
       const results = await dataSources.googleMaps.getPubsNear(coords);
       return results
-        .map(item => ({
-          ...item,
-          distance: distanceBetweenCoords(coords, item.coords)
-        }))
-        .sort((a, b) => (a.distance > b.distance ? 1 : -1))
+        .sort((a, b) =>
+          distanceBetweenCoords(coords, a.coords) >
+          distanceBetweenCoords(coords, b.coords)
+            ? 1
+            : -1
+        )
         .slice(0, first || results.length);
     },
     pub: async (parent, { id }, { dataSources }) => {
@@ -18,6 +19,22 @@ const pubResolvers = {
     }
   },
   Pub: {
+    distance: async (
+      { coords },
+      { from },
+      { dataSources },
+      { variableValues }
+    ) => {
+      try {
+        const directions = await dataSources.googleMaps.getDirections(
+          from || variableValues.coords,
+          coords
+        );
+        return directions.distance;
+      } catch {
+        return null;
+      }
+    },
     openTimes: async ({ id }, args, { dataSources }) => {
       const details = await dataSources.googleMaps.getPubDetails(id);
       return details.openTimes;
