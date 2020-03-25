@@ -9,6 +9,10 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: {
+      // title: 'Home Page - Example App',
+      // metaTags: [],
+    },
   },
   // {
   //   path: '/about',

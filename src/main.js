@@ -1,7 +1,8 @@
 import Vue from 'vue';
-import Antd from 'ant-design-vue';
+import VueMeta from 'vue-meta';
 import ApolloClient from 'apollo-boost';
 import VueApollo from 'vue-apollo';
+import Antd from 'ant-design-vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -11,8 +12,11 @@ import './assets/less/_typography.less';
 
 Vue.config.productionTip = false;
 
-Vue.use(Antd);
+Vue.use(VueMeta, {
+  refreshOnceOnNavigation: true,
+});
 Vue.use(VueApollo);
+Vue.use(Antd);
 
 const apolloClient = new ApolloClient({
   uri:
