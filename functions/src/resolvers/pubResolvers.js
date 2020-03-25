@@ -3,14 +3,15 @@ const { distanceBetweenCoords } = require("../utils");
 
 const pubResolvers = {
   Query: {
-    pubs: async (parent, { coords }, { dataSources }) => {
+    pubs: async (parent, { coords, first }, { dataSources }) => {
       const results = await dataSources.googleMaps.getPubsNear(coords);
       return results
         .map(item => ({
           ...item,
           distance: distanceBetweenCoords(coords, item.coords)
         }))
-        .sort((a, b) => (a.distance > b.distance ? 1 : -1));
+        .sort((a, b) => (a.distance > b.distance ? 1 : -1))
+        .slice(0, first || results.length);
     },
     pub: async (parent, { id }, { dataSources }) => {
       return dataSources.googleMaps.getPubDetails(id);
