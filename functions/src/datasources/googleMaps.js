@@ -106,16 +106,13 @@ class GoogleMaps extends RESTDataSource {
   async getDirections(origin, dest) {
     const params = {
       key: config.google.key,
+      mode: "walking",
       origin: Object.values(origin).join(","),
       destination: Object.values(dest).join(",")
     };
 
     const response = await this.get("directions/json", params);
     const { legs } = response.routes[0];
-    console.log("directions", {
-      distance: legs[0].distance.value,
-      duration: legs[0].duration.value
-    });
 
     return {
       distance: legs[0].distance.value,
