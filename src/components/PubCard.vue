@@ -67,7 +67,7 @@ export default {
   computed: {
     ...mapState(['coords']),
     walkingDistance() {
-      return Math.round((this.details.distance / 3.1) * 60);
+      return Math.round(this.details.distance / 1.34 / 60);
     },
     openHours() {
       const { open, close } = this.details.openTimesToday;
@@ -124,6 +124,7 @@ export default {
 }
 h3 {
   color: fade(@theme-grey, 85%);
+  line-height: 1.5;
 }
 .content {
   .address {
