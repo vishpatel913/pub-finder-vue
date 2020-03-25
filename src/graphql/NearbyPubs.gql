@@ -18,8 +18,5 @@ query NearbyPubsQuery($coords: CoordsInput!) {
     openTimesToday {
       ...openHours
     }
-    openTimes {
-      ...openHours
-    }
   }
 }

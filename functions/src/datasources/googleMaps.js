@@ -26,11 +26,6 @@ class GoogleMaps extends RESTDataSource {
         result.postalArea = item.formatted_address;
       if (item.types.includes("neighborhood"))
         result.neighborhood = item.address_components[0].long_name;
-      // NOTE: The brixton area problem lol
-      // if (item.types.includes("street_address"))
-      //   result.neighborhood = item.address_components.find(item =>
-      //     item.types.includes("neighborhood")
-      //   ).long_name;
       if (item.types.includes("sublocality"))
         result.area = item.address_components[0].long_name;
       else if (!result.area && item.types.includes("locality"))
@@ -66,28 +61,54 @@ class GoogleMaps extends RESTDataSource {
       key: config.google.key
     };
     const response = await this.get("place/nearbysearch/json", params);
-
     return response.results.map(item => ({
       id: item.place_id,
       name: item.name,
       coords: item.geometry.location,
       address: item.vicinity,
       rating: item.rating,
-      priceLevel: item.price_level
+      priceLevel: item.price_level,
+      photos: item.photos.map(GoogleMaps.normalisePhoto)
     }));
   }
 
   async getPubDetails(id) {
     const params = {
       place_id: id,
-      fields: "opening_hours,photos",
+      fields:
+        "place_id,name,geometry,vicinity,rating,price_level,opening_hours,opening_hours,photos",
       key: config.google.key
     };
     const response = await this.get("place/details/json", params);
-    const { opening_hours } = response.result;
+
+    const {
+      place_id,
+      name,
+      geometry,
+      vicinity,
+      rating,
+      price_level,
+      opening_hours,
+      photos
+    } = response.result;
 
     return {
-      openTimes: opening_hours.periods
+      id: place_id,
+      name,
+      coords: geometry.location,
+      address: vicinity,
+      rating,
+      priceLevel: price_level,
+      openTimes: opening_hours.periods,
+      photos: photos.map(GoogleMaps.normalisePhoto)
+    };
+  }
+
+  static normalisePhoto(photo) {
+    return {
+      reference: photo.photo_reference,
+      height: photo.height,
+      width: photo.width
     };
   }
 }
