@@ -1,9 +1,9 @@
 const GoogleMaps = require("../datasources/googleMaps");
 const {
-  geocodingMockResponse,
-  placeDetailsMockResponse,
-  placesMockResponse
+  placesMockResponse,
+  placeDetailsMockResponse
 } = require("./mocks/placesMock");
+const { geocodingMockResponse } = require("./mocks/geocodeMock");
 
 const gm = new GoogleMaps();
 const mocks = {
@@ -87,7 +87,7 @@ describe("[GoogleMaps.getPubDetails]", () => {
     expect(response.openTimes[0]).toMatchObject({
       open: {
         day: 0,
-        time: "1200"
+        time: "1000"
       },
       close: {
         day: 0,
@@ -97,12 +97,22 @@ describe("[GoogleMaps.getPubDetails]", () => {
     expect(response.openTimes[6]).toMatchObject({
       open: {
         day: 6,
-        time: "1100"
+        time: "1000"
       },
       close: {
-        day: 0,
-        time: "0200"
+        day: 6,
+        time: "2300"
       }
     });
+  });
+
+  it("returns the photo references in the correct format", () => {
+    expect(Object.keys(response.photos[0])).toEqual(
+      expect.arrayContaining(["reference", "width", "height", "attributions"])
+    );
+  });
+
+  it("returns the attributers in the correct format", () => {
+    expect(response.photos[0].attributions[0]).toBe("Osbornes");
   });
 });
