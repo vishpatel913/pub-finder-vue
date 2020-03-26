@@ -13,7 +13,6 @@ class GoogleMaps extends RESTDataSource {
     let body = await this.parseBody(response);
     if (response.url.includes("googleusercontent")) {
       body = { url: await response.url };
-      console.log("HIT PHOTO", body);
     }
 
     return { ...body };

@@ -1,5 +1,8 @@
 <template>
-  <div class="card-container">
+  <div
+    class="card-container"
+    @click="handleModal"
+  >
     <h3>
       {{ details.name }} <strong>({{ walkingDistance }}min walk)</strong>
     </h3>
@@ -48,6 +51,21 @@
         </a-button-group>
       </div>
     </div>
+    <a-modal
+      v-model="imageModal"
+      centered
+      destroy-on-close
+      :footer="null"
+      :body-style="{ padding: '1rem' }"
+      :closable="false"
+    >
+      <img
+        class="modal-image"
+        :src="image.url"
+        :alt="image.alt"
+      >
+      <span class="modal-image-author"> <a-icon type="camera" /> {{ image.attribution }} </span>
+    </a-modal>
   </div>
 </template>
 
@@ -63,7 +81,9 @@ export default {
       default: null,
     },
   },
-  data: () => ({}),
+  data: () => ({
+    imageModal: false,
+  }),
   computed: {
     ...mapState(['coords']),
     walkingDistance() {
@@ -105,6 +125,9 @@ export default {
     openDirections() {
       window.open(this.directionsLink, '_blank');
     },
+    handleModal() {
+      this.imageModal = !this.imageModal;
+    },
     share() {
       const text = "I'm going here...";
       if ('share' in navigator) {
@@ -138,6 +161,19 @@ h3 {
   }
   p {
     marin-bottom: 0.5rem;
+  }
+}
+.modal-image {
+  max-width: 100%;
+  &-author {
+    position: absolute;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    font-weight: lighter;
+    font-size: 8px;
+    padding: 0.5rem;
+    bottom: 1rem;
+    right: 1rem;
   }
 }
 .footer {
