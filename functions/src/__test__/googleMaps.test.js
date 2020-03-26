@@ -108,16 +108,6 @@ describe("[GoogleMaps.getPubDetails]", () => {
       }
     });
   });
-
-  it("returns the photo references in the correct format", () => {
-    expect(Object.keys(response.photos[0])).toEqual(
-      expect.arrayContaining(["reference", "width", "height", "attribution"])
-    );
-  });
-
-  it("returns the attributers in the correct format", () => {
-    expect(response.photos[0].attribution).toBe("Osbornes");
-  });
 });
 
 describe("[GoogleMaps.getDirections]", () => {
@@ -143,5 +133,26 @@ describe("[GoogleMaps.getDirections]", () => {
         duration: 114
       })
     );
+  });
+});
+
+describe("[GoogleMaps.getPhotoSrcUrl]", () => {
+  let response;
+  beforeEach(async () => {
+    mocks.get.mockReturnValueOnce("image-source-code");
+    response = await gm.getPhotoSrcUrl({
+      photo_reference: "imagereference",
+      html_attributions: ['<a href="test">John Smith</a>']
+    });
+  });
+
+  it("returns the photo references in the correct format", () => {
+    expect(Object.keys(response)).toEqual(
+      expect.arrayContaining(["url", "attribution"])
+    );
+  });
+
+  it("returns the attributers in the correct format", () => {
+    expect(response.attribution).toBe("John Smith");
   });
 });

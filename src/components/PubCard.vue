@@ -69,6 +69,13 @@ export default {
     walkingDistance() {
       return Math.round(this.details.distance / 1.34 / 60);
     },
+    image() {
+      const { url, attribution } = this.details.photos[0];
+      return {
+        url,
+        attribution,
+      };
+    },
     openHours() {
       const { open, close } = this.details.openTimesToday;
       return {
@@ -86,7 +93,6 @@ export default {
       const { closes } = this.openHours;
       const closeMoment = moment(`${closes.time}`, 'h:mma');
       if (closeMoment.format('a') === 'am' && moment().format('a') !== 'am') closeMoment.add(1, 'd');
-
       return closeMoment.fromNow();
     },
     directionsLink() {

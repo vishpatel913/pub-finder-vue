@@ -5,6 +5,7 @@ const pubResolvers = {
   Query: {
     pubs: async (parent, { coords, first }, { dataSources }) => {
       const results = await dataSources.googleMaps.getPubsNear(coords);
+
       return results
         .sort((a, b) =>
           distanceBetweenCoords(coords, a.coords) >
@@ -30,6 +31,7 @@ const pubResolvers = {
           from || variableValues.coords,
           coords
         );
+
         return directions.distance;
       } catch {
         return null;
@@ -37,18 +39,22 @@ const pubResolvers = {
     },
     openTimes: async ({ id }, args, { dataSources }) => {
       const details = await dataSources.googleMaps.getPubDetails(id);
+
       return details.openTimes;
     },
-    photos: async ({ id }, args, { dataSources }) => {
-      const details = await dataSources.googleMaps.getPubDetails(id);
-      return details.photos;
+    photos: async ({ photos }, { size }, { dataSources }) => {
+      const images = photos.map(item =>
+        dataSources.googleMaps.getPhotoSrcUrl(item, size)
+      );
+
+      return images;
     },
     openTimesToday: async ({ id }, args, { dataSources }) => {
       const details = await dataSources.googleMaps.getPubDetails(id);
       const now = moment();
+
       return details.openTimes.find(item => {
         const { open, close } = item;
-
         const openMoment = moment(`${open.day} ${open.time}`, "e HHmm");
         const closeMoment = moment(`${close.day} ${close.time}`, "e HHmm");
         if (open.day !== 6 && close.day < open.day) closeMoment.add(1, "w");

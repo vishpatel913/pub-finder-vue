@@ -9,10 +9,20 @@ class GoogleMaps extends RESTDataSource {
 
   // async willSendRequest(request) {}
 
+  async didReceiveResponse(response) {
+    let body = await this.parseBody(response);
+    if (response.url.includes("googleusercontent")) {
+      body = { url: await response.url };
+      console.log("HIT PHOTO", body);
+    }
+
+    return { ...body };
+  }
+
   async getGeocoding({ lat, lng }) {
     const params = {
-      latlng: `${lat},${lng}`,
-      key: config.google.key
+      key: config.google.key,
+      latlng: `${lat},${lng}`
     };
     const response = await this.get("geocode/json", params);
     const { formatted_address } = response.results[0];
@@ -53,30 +63,32 @@ class GoogleMaps extends RESTDataSource {
 
   async getPubsNear({ lat, lng }, data = {}) {
     const params = {
+      key: config.google.key,
       location: `${lat},${lng}`,
       radius: "1500",
       keyword: "pub,bar",
       opennow: true,
-      ...data,
-      key: config.google.key
+      ...data
     };
     const response = await this.get("place/nearbysearch/json", params);
+
     return response.results.map(item => ({
       id: item.place_id,
       name: item.name,
       coords: item.geometry.location,
       address: item.vicinity,
       rating: item.rating,
-      priceLevel: item.price_level
+      priceLevel: item.price_level,
+      photos: item.photos
     }));
   }
 
   async getPubDetails(id) {
     const params = {
+      key: config.google.key,
       place_id: id,
       fields:
-        "place_id,name,geometry,vicinity,rating,price_level,opening_hours,opening_hours,photos",
-      key: config.google.key
+        "place_id,name,geometry,vicinity,rating,price_level,opening_hours,opening_hours,photos"
     };
     const response = await this.get("place/details/json", params);
 
@@ -99,7 +111,7 @@ class GoogleMaps extends RESTDataSource {
       rating,
       priceLevel: price_level,
       openTimes: opening_hours.periods,
-      photos: photos.map(GoogleMaps.normalisePhoto)
+      photos
     };
   }
 
@@ -120,11 +132,18 @@ class GoogleMaps extends RESTDataSource {
     };
   }
 
-  static normalisePhoto({ photo_reference, height, width, html_attributions }) {
+  async getPhotoSrcUrl({ photo_reference, html_attributions }, size = 500) {
+    const params = {
+      key: config.google.key,
+      photoreference: photo_reference,
+      maxwidth: size,
+      maxheight: size
+    };
+
+    const response = await this.get("place/photo", params);
+
     return {
-      reference: photo_reference,
-      height,
-      width,
+      url: response.url,
       attribution: html_attributions[0].replace(/<\s*a[^>]*>|<\s*\/\s*a>/g, "")
     };
   }

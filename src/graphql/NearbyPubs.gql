@@ -15,6 +15,10 @@ query NearbyPubsQuery($coords: CoordsInput!) {
     rating
     priceLevel
     distance
+    photos {
+      url
+      attribution
+    }
     openTimesToday {
       ...openHours
     }
