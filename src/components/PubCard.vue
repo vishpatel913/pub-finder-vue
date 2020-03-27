@@ -1,18 +1,17 @@
 <template>
-  <div
-    class="card-container"
-    @click="handleModal"
-  >
-    <h3>
-      {{ details.name }} <strong>({{ walkingDistance }}min walk)</strong>
-    </h3>
-    <div class="content">
-      <p class="address">
-        {{ details.address }}
-      </p>
-      <p>
-        Closes: {{ openHours.closes.time }} <strong>({{ closesIn }})</strong>
-      </p>
+  <div class="card-container">
+    <div @click="handleModal">
+      <h3>
+        {{ details.name }} <strong>({{ walkingDistance }}min walk)</strong>
+      </h3>
+      <div class="content">
+        <p class="address">
+          {{ details.address }}
+        </p>
+        <p>
+          Closes: {{ openHours.closes.time }} <strong>({{ closesIn }})</strong>
+        </p>
+      </div>
     </div>
     <div class="footer">
       <div class="ratings">
@@ -59,11 +58,10 @@
       :body-style="{ padding: '1rem' }"
       :closable="false"
     >
-      <img
-        class="modal-image"
-        :src="image.url"
+      <lazy-image
+        :source="image.url"
         :alt="image.alt"
-      >
+      />
       <span class="modal-image-author"> <a-icon type="camera" /> {{ image.attribution }} </span>
     </a-modal>
   </div>
@@ -72,9 +70,13 @@
 <script>
 import { mapState } from 'vuex';
 import moment from 'moment';
+import LazyImage from './LazyImage.vue';
 
 export default {
   name: 'PubCard',
+  components: {
+    'lazy-image': LazyImage,
+  },
   props: {
     details: {
       type: Object,
