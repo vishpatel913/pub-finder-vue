@@ -63,11 +63,17 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
+      - run:
+          name: Check for updates
+          command: sh update-to-functions.sh
       - install_dependencies:
           directory: functions
       - run:
+          name: Lint functions
+          command: yarn --cwd functions run lint
+      - run:
           name: Test functions
-          command: yarn test-functions
+          command: yarn --cwd functions run test-ci
 
   deploy_app:
     docker:
@@ -84,6 +90,9 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
+      - run:
+          name: Check for updates
+          command: sh update-to-functions.sh
       - install_dependencies
       - install_dependencies:
           directory: functions
