@@ -9,7 +9,6 @@ commands:
         type: string
         default: ''
     steps:
-      - checkout
       - restore_cache:
           keys:
             # Find a cache corresponding to this specific yarn.lock
@@ -50,6 +49,7 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
+      - checkout
       - install_dependencies
       - run:
           name: Build App
@@ -63,6 +63,7 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
+      - checkout
       - run:
           name: Check for updates
           command: bash ./scripts/check-functions-commit.sh
@@ -79,6 +80,7 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
+      - checkout
       - install_dependencies
       - attach_workspace:
           at: .
@@ -90,9 +92,10 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
+      - checkout
       - run:
           name: Check for updates
-          command: sh update-to-functions.sh
+          command: bash ./scripts/check-functions-commit.sh
       - install_dependencies
       - install_dependencies:
           directory: functions
