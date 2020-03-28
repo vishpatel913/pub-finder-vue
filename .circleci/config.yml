@@ -65,7 +65,7 @@ jobs:
     steps:
       - run:
           name: Check for updates
-          command: sh update-to-functions.sh
+          command: sh ./update-to-functions.sh
       - install_dependencies:
           directory: functions
       - run:
