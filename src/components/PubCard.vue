@@ -2,13 +2,13 @@
   <div class="card-container">
     <div @click="handleModal">
       <h3>
-        {{ details.name }} <strong>({{ walkingDistance }}min walk)</strong>
+        {{ details.name }} <span class="distance">({{ walkingDistance }}min walk)</span>
       </h3>
       <div class="content">
         <p class="address">
           {{ details.address }}
         </p>
-        <p>
+        <p v-if="details.openTimesToday">
           Closes: {{ openHours.closes.time }} <strong>({{ closesIn }})</strong>
         </p>
       </div>
@@ -89,7 +89,8 @@ export default {
   computed: {
     ...mapState(['coords']),
     walkingDistance() {
-      return Math.round(this.details.distance / 1.34 / 60);
+      const { distance } = this.details.directions;
+      return Math.round(distance / 1.34 / 60);
     },
     image() {
       const { url, attribution } = this.details.photos[0];
@@ -156,6 +157,10 @@ export default {
 h3 {
   color: fade(@theme-grey, 85%);
   line-height: 1.5;
+  .distance {
+    font-size: @font-size-sm;
+    font-weight: 400;
+  }
 }
 .content {
   .address {

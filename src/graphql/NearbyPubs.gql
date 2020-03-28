@@ -14,7 +14,10 @@ query NearbyPubsQuery($coords: CoordsInput!) {
     }
     rating
     priceLevel
-    distance
+    directions {
+      distance
+      bearing
+    }
     photos(size: 800) {
       url
       attribution

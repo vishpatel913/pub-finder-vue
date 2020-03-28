@@ -17,7 +17,6 @@ const distanceBetweenCoords = (from, to, dp = 2) => {
   const y1 = parseFloat(from.lng);
   const y2 = parseFloat(to.lng);
 
-  const toRad = num => (num * Math.PI) / 180;
   const dx = toRad(x2 - x1);
   const dy = toRad(y2 - y1);
   const x1r = toRad(x1);
@@ -32,4 +31,29 @@ const distanceBetweenCoords = (from, to, dp = 2) => {
   return Math.round(d * Math.pow(10, dp)) / Math.pow(10, dp);
 };
 
-module.exports = { toTitleCase, toCamelCase, distanceBetweenCoords };
+const bearingBetweenCoords = (from, to) => {
+  const x1 = toRad(from.lat);
+  const x2 = toRad(to.lat);
+  const y1 = toRad(from.lng);
+  const y2 = toRad(to.lng);
+
+  const y = Math.sin(y2 - y1) * Math.cos(x2);
+  const x =
+    Math.cos(x1) * Math.sin(x2) -
+    Math.sin(x1) * Math.cos(x2) * Math.cos(y2 - y1);
+  const brng = toDeg(Math.atan2(y, x));
+  return (brng + 360) % 360;
+};
+
+// Converts from degrees to radians.
+const toRad = deg => (deg * Math.PI) / 180;
+
+// Converts from radians to degrees.
+const toDeg = rad => (rad * 180) / Math.PI;
+
+module.exports = {
+  toTitleCase,
+  toCamelCase,
+  distanceBetweenCoords,
+  bearingBetweenCoords
+};

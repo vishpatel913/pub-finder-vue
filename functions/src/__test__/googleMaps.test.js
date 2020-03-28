@@ -122,7 +122,7 @@ describe("[GoogleMaps.getDirections]", () => {
 
   it("returns the direction object in the correct format", () => {
     expect(Object.keys(response)).toEqual(
-      expect.arrayContaining(["distance", "duration"])
+      expect.arrayContaining(["distance", "duration", "bearing"])
     );
   });
 
@@ -133,6 +133,11 @@ describe("[GoogleMaps.getDirections]", () => {
         duration: 114
       })
     );
+  });
+
+  it("returns a valid bearing", () => {
+    const { bearing } = response;
+    expect(bearing >= 0 && bearing <= 360).toBeTruthy();
   });
 });
 

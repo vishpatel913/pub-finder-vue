@@ -20,7 +20,7 @@ const pubResolvers = {
     }
   },
   Pub: {
-    distance: async (
+    directions: async (
       { coords },
       { from },
       { dataSources },
@@ -32,7 +32,7 @@ const pubResolvers = {
           coords
         );
 
-        return directions.distance;
+        return directions;
       } catch {
         return null;
       }
@@ -55,11 +55,15 @@ const pubResolvers = {
 
       return details.openTimes.find(item => {
         const { open, close } = item;
+        const today = moment().day();
         const openMoment = moment(`${open.day} ${open.time}`, "e HHmm");
         const closeMoment = moment(`${close.day} ${close.time}`, "e HHmm");
-        if (open.day !== 6 && close.day < open.day) closeMoment.add(1, "w");
-        if (close.day === 0 && close.day < open.day)
-          openMoment.subtract(1, "w");
+
+        // If opens on Sat and closes on Sun
+        if (close.day < open.day) {
+          if (today === 6) closeMoment.add(1, "w"); // closes 'next week'
+          if (today === 0) openMoment.subtract(1, "w"); // opened 'last week'
+        }
 
         return openMoment.isBefore(now) && closeMoment.isAfter(now);
       });

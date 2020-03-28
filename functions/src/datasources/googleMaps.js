@@ -1,5 +1,6 @@
 const { RESTDataSource } = require("apollo-datasource-rest");
 const config = require("../../config");
+const { bearingBetweenCoords } = require("../utils");
 
 class GoogleMaps extends RESTDataSource {
   constructor() {
@@ -127,7 +128,8 @@ class GoogleMaps extends RESTDataSource {
 
     return {
       distance: legs[0].distance.value,
-      duration: legs[0].duration.value
+      duration: legs[0].duration.value,
+      bearing: bearingBetweenCoords(origin, dest)
     };
   }
 
