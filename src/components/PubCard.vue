@@ -155,7 +155,7 @@ export default {
   padding: @padding-sm 0;
   width: 100%;
   h3 {
-    color: @text-color-secondary;
+    color: @heading-black-color;
     line-height: 1.5;
     .distance {
       font-size: @font-size-sm;

@@ -9,6 +9,7 @@ export default {
           }, 100);
         });
         imageElement.addEventListener('error', () => {
+          context.loading = false;
           context.error = true;
         });
         imageElement.src = imageElement.dataset.url;

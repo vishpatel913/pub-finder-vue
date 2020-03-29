@@ -6,9 +6,17 @@
       :tip="tip"
     >
       <img
+        v-if="!error"
         :data-url="source"
         :alt="alt"
       >
+      <a-alert
+        v-else
+        message="Error"
+        description="Google doesn't want you seeing this. Spooky."
+        type="error"
+        show-icon
+      />
     </a-spin>
   </figure>
 </template>

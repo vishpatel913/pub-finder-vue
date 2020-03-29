@@ -45,8 +45,9 @@
 @font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 @code-family: "SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace";
 @heading-color: fade(@primary-color, 85%);
+@heading-black-color: fade(@black, 75%);
 @text-color: fade(@black, 65%);
-@text-color-secondary: fade(@theme-grey, 85%);
+@text-color-secondary: fade(@theme-grey, 75%);
 @text-color-inverse: @white;
 @icon-color-hover: fade(@black, 75%);
 @heading-color-dark: fade(@white, 100%);
@@ -87,5 +88,8 @@
 // Skeleton color
 @skeleton-color: #f2f2f2;
 @skeleton-to-color: shade(@skeleton-color, 5%);
+
+// Alert colors
+@alert-message-color: @heading-black-color;
 
 @import './_variablesDark';
