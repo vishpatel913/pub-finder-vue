@@ -1,15 +1,15 @@
 export default {
-  inserted: (el) => {
+  inserted: (el, binding, { context }) => {
     const loadImage = () => {
-      const imageElement = Array.from(el.children).find((item) => item.nodeName === 'IMG');
+      const imageElement = el.querySelector('img');
       if (imageElement) {
         imageElement.addEventListener('load', () => {
           setTimeout(() => {
-            el.classList.add('loaded');
+            context.loading = false;
           }, 100);
         });
         imageElement.addEventListener('error', () => {
-          el.classList.add('failed');
+          context.error = true;
         });
         imageElement.src = imageElement.dataset.url;
       }

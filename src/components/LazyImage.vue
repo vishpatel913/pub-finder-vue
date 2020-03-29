@@ -1,10 +1,15 @@
 <template>
   <figure v-lazyload>
-    <a-spin class="spinner" />
-    <img
-      :data-url="source"
-      :alt="alt"
+    <a-spin
+      wrapper-class-name="image-container"
+      :spinning="loading"
+      :tip="tip"
     >
+      <img
+        :data-url="source"
+        :alt="alt"
+      >
+    </a-spin>
   </figure>
 </template>
 
@@ -26,6 +31,16 @@ export default {
       default: 'image',
     },
   },
+  data: () => ({
+    loading: true,
+    error: false,
+  }),
+  computed: {
+    tip() {
+      const messages = ['Loading', 'Hopefully it has a garden', 'Thirsty?', 'Beer garden?'];
+      return messages[Math.floor(Math.random() * messages.length)];
+    },
+  },
 };
 </script>
 
@@ -36,16 +51,12 @@ figure {
   img {
     max-width: 100%;
   }
-  .spinner {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-  }
-  &.loaded .spinner {
-    display: none;
+}
+.image-container {
+  min-height: 10rem;
+  height: auto;
+  ::v-deep .ant-spin-text {
+    padding-top: @padding-sm !important;
   }
 }
 </style>
