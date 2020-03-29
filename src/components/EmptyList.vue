@@ -37,20 +37,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.header-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 1.5rem 2rem 1rem;
-  width: 100%;
-}
-h1 {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  margin: 0;
-  font-size: 36px;
-}
 .empty-image {
   height: 100px;
   svg {

@@ -99,15 +99,15 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-}
-.content {
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 3rem;
-  width: 100%;
-}
-.search-button {
-  position: fixed;
-  bottom: 2rem;
+  .content {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    width: 100%;
+  }
+  .search-button {
+    position: fixed;
+    bottom: @padding-xl;
+  }
 }
 </style>

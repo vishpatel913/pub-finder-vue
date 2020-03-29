@@ -14,11 +14,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.loading {
-  clipPath path {
-    animation: filling-pint linear 2s infinite;
-    transform-origin: bottom;
-  }
+.loading clipPath path {
+  animation: filling-pint linear 2s infinite;
+  transform-origin: bottom;
 }
 
 @keyframes filling-pint {

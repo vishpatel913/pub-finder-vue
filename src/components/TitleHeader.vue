@@ -26,17 +26,17 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 1.5rem 2rem 1rem;
+  padding: @padding-lg @padding-xl @padding-md;
   width: 100%;
-}
-h1 {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 0;
-}
-.logo {
-  height: 2rem;
-  margin-right: 0.5rem;
+  .logo {
+    height: @padding-xl;
+    margin-right: @padding-sm;
+  }
+  h1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+  }
 }
 </style>

@@ -74,11 +74,11 @@ export default {
 }
 
 #layout {
-  padding: 0 2rem;
-  margin: 1rem 0;
+  padding: 0 @padding-xl;
+  margin: @padding-md 0;
 }
 
 .error {
-  margin: 0 2rem !important;
+  margin: 0 @padding-xl !important;
 }
 </style>

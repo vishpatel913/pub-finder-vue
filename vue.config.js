@@ -28,6 +28,7 @@ module.exports = {
       less: {
         modifyVars: {
           ...themeConfig,
+          hack: `true;@import "${require.resolve('./src/assets/less/_variables.less')}";`,
         },
         javascriptEnabled: true,
       },

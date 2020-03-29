@@ -33,20 +33,18 @@ export default {
 figure {
   position: relative;
   margin: 0;
-}
-img {
-  max-width: 100%;
-}
-.spinner {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  justify-content: center;
-  align-items: center;
-}
-.loaded {
+  img {
+    max-width: 100%;
+  }
   .spinner {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+  }
+  &.loaded .spinner {
     display: none;
   }
 }

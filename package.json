@@ -8,6 +8,7 @@
     "serve": "yarn --cwd functions run serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "lint-style": "stylelint '**/*.(vue|less)' --syntax less",
     "test-app": "vue-cli-service test:unit",
     "test-func": "yarn --cwd functions run test",
     "deploy": "firebase deploy --only hosting",
@@ -46,6 +47,9 @@
     "firebase-tools": "^7.16.1",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
+    "stylelint": "^13.2.1",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-processor-html": "^1.0.0",
     "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.6.11"
   },

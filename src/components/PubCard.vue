@@ -63,7 +63,7 @@
         :source="image.url"
         :alt="image.alt"
       />
-      <span class="modal-image-author"> <a-icon type="camera" /> {{ image.attribution }} </span>
+      <span class="image-author"> <a-icon type="camera" /> {{ image.attribution }} </span>
     </a-modal>
   </div>
 </template>
@@ -152,58 +152,56 @@ export default {
 
 <style scoped lang="less">
 .card-container {
-  padding: 0.5rem 0;
+  padding: @padding-sm 0;
   width: 100%;
-}
-h3 {
-  color: fade(@theme-grey, 85%);
-  line-height: 1.5;
-  .distance {
-    font-size: @font-size-sm;
-    font-weight: 400;
+  h3 {
+    color: fade(@theme-grey, 85%);
+    line-height: 1.5;
+    .distance {
+      font-size: @font-size-sm;
+      font-weight: 400;
+    }
+  }
+  .content {
+    .address {
+      font-size: @font-size-sm;
+    }
+    p {
+      marin-bottom: @padding-sm;
+    }
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .ratings {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+      .price {
+        color: @text-color-secondary;
+        font-size: 12px;
+        font-weight: 400;
+        margin-bottom: @padding-sm;
+      }
+      .stars {
+        color: @theme-gold;
+        font-size: 12px;
+      }
+    }
   }
 }
-.content {
-  .address {
-    font-size: @font-size-sm;
-  }
-  p {
-    marin-bottom: 0.5rem;
-  }
-}
-
 .modal {
-  // max-width: 100%;
-  &-image-author {
+  .image-author {
     position: absolute;
-    color: white;
+    color: #fff;
     background: rgba(0, 0, 0, 0.3);
     font-weight: lighter;
     font-size: 8px;
-    padding: 0.5rem;
-    bottom: 1rem;
-    right: 1rem;
-  }
-}
-.footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  .ratings {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    .price {
-      color: @text-color-secondary;
-      font-size: 12px;
-      font-weight: 400;
-      margin-bottom: 0.5rem;
-    }
-    .stars {
-      color: @theme-gold;
-      font-size: 12px;
-    }
+    padding: @padding-sm;
+    bottom: @padding-md;
+    right: @padding-md;
   }
 }
 </style>
