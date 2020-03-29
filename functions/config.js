@@ -5,6 +5,7 @@ let config;
 switch (process.env.NODE_ENV) {
   case "production":
     config = functions.config().env;
+    config.mocks = false;
     break;
   case "test":
     config = {
