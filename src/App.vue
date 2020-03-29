@@ -70,7 +70,6 @@ export default {
   font-family: Quicksand, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: @theme-grey;
 }
 
 #layout {

@@ -155,7 +155,7 @@ export default {
   padding: @padding-sm 0;
   width: 100%;
   h3 {
-    color: fade(@theme-grey, 85%);
+    color: @text-color-secondary;
     line-height: 1.5;
     .distance {
       font-size: @font-size-sm;
@@ -167,7 +167,7 @@ export default {
       font-size: @font-size-sm;
     }
     p {
-      marin-bottom: @padding-sm;
+      margin-bottom: @padding-sm;
     }
   }
   .footer {

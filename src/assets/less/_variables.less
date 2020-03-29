@@ -1,5 +1,5 @@
 @theme-primary: #1da57a;
-@theme-primary-light: #42b983;
+@theme-primary-light: #5ce8a8;
 @theme-primary-dark: #3b8070;
 @theme-secondary: #ffc72d;
 @theme-secondary-light: #ffeb3b;
@@ -39,14 +39,14 @@
 @link-hover-decoration: none;
 
 // Background color for `<body>`
-@body-background: #fff; // af1;
+@body-background: @white; // af1;
 // Base background color for most components
-@component-background: #fff;
+@component-background: @white;
 @font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 @code-family: "SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace";
 @heading-color: fade(@primary-color, 85%);
 @text-color: fade(@black, 65%);
-@text-color-secondary: fade(@theme-grey, 60%);
+@text-color-secondary: fade(@theme-grey, 85%);
 @text-color-inverse: @white;
 @icon-color-hover: fade(@black, 75%);
 @heading-color-dark: fade(@white, 100%);
@@ -71,10 +71,15 @@
 @control-padding-horizontal: 8px;
 @control-padding-horizontal-sm: 4px;
 
-// // The background colors for active and hover states for things like
-// // list items or table cells.
-// @item-active-bg: @primary-1;
-// @item-hover-bg: @primary-1;
-//
-// // Iconfont
-// @iconfont-css-prefix: anticon;
+// Border color
+@border-color-base: lighten(@white, 85%); // base border outline a component
+@border-color-split: lighten(@white, 94%); // split border inside a component
+@border-color-inverse: @white;
+
+@background-color-light: lighten(@white, 98%); // background of header and selected item
+@background-color-base: lighten(@white, 96%); // Default grey background color
+
+@skeleton-color: #f2f2f2;
+@skeleton-to-color: shade(@skeleton-color, 5%);
+
+@import './_variablesDark';
