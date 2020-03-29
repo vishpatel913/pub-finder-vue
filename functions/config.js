@@ -11,7 +11,8 @@ switch (process.env.NODE_ENV) {
       google: {
         key: "meh",
         maps_uri: "httpsomething"
-      }
+      },
+      mocks: true
     };
     break;
   default:

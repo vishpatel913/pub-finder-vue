@@ -6,7 +6,9 @@ const { ApolloServer } = require("apollo-server-express");
 const { typeDefs } = require("./src/typeDefs");
 const { resolvers } = require("./src/resolvers");
 const { GoogleMaps } = require("./src/datasources");
+const { mocks } = require("./src/mocks");
 
+const config = require("./config");
 // const context = ({ req }) => ({ token: "token" });
 const dataSources = () => ({
   googleMaps: new GoogleMaps()
@@ -19,7 +21,8 @@ app.use(cors);
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  dataSources
+  dataSources,
+  mocks: config.mocks ? mocks : false
   // context
 });
 server.applyMiddleware({ app });
