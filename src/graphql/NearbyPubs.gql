@@ -1,7 +1,7 @@
 #import "./LocationFragment.gql"
 #import "./OpenHoursFragment.gql"
 
-query NearbyPubsQuery($coords: CoordsInput!) {
+query NearbyPubsQuery($coords: CoordsInput!, $now: String) {
   location(coords: $coords) {
     ...locationDetails
   }
@@ -22,7 +22,7 @@ query NearbyPubsQuery($coords: CoordsInput!) {
       url
       attribution
     }
-    openTimesToday {
+    openTimes(now: $now) {
       ...openHours
     }
   }

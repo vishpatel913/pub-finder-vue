@@ -37,10 +37,29 @@ const pubResolvers = {
         return null;
       }
     },
-    openTimes: async ({ id }, args, { dataSources }) => {
+    openTimes: async ({ id }, { now }, { dataSources }) => {
       const details = await dataSources.googleMaps.getPubDetails(id);
 
-      return details.openTimes;
+      return now
+        ? [
+            details.openTimes.find(item => {
+              const { open, close } = item;
+              const today = moment(now);
+              const openMoment = moment(`${open.day} ${open.time}`, "e HHmm");
+              const closeMoment = moment(
+                `${close.day} ${close.time}`,
+                "e HHmm"
+              );
+              // If opens on Sat and closes on Sun
+              if (close.day < open.day) {
+                if (today.day() === 6) closeMoment.add(1, "w"); // closes 'next week'
+                if (today.day() === 0) openMoment.subtract(1, "w"); // opened 'last week'
+              }
+
+              return openMoment.isBefore(now) && closeMoment.isAfter(now);
+            })
+          ]
+        : details.openTimes;
     },
     photos: async ({ photos }, { size }, { dataSources }) => {
       const images = photos.map(item =>
@@ -48,25 +67,6 @@ const pubResolvers = {
       );
 
       return images;
-    },
-    openTimesToday: async ({ id }, args, { dataSources }) => {
-      const details = await dataSources.googleMaps.getPubDetails(id);
-      const now = moment();
-
-      return details.openTimes.find(item => {
-        const { open, close } = item;
-        const today = moment().day();
-        const openMoment = moment(`${open.day} ${open.time}`, "e HHmm");
-        const closeMoment = moment(`${close.day} ${close.time}`, "e HHmm");
-
-        // If opens on Sat and closes on Sun
-        if (close.day < open.day) {
-          if (today === 6) closeMoment.add(1, "w"); // closes 'next week'
-          if (today === 0) openMoment.subtract(1, "w"); // opened 'last week'
-        }
-
-        return openMoment.isBefore(now) && closeMoment.isAfter(now);
-      });
     }
   }
 };

@@ -8,7 +8,7 @@
         <p class="address">
           {{ details.address }}
         </p>
-        <p v-if="details.openTimesToday">
+        <p v-if="details.openTimes[0]">
           Closes: {{ openHours.closes.time }} <strong>({{ closesIn }})</strong>
         </p>
       </div>
@@ -52,6 +52,7 @@
     </div>
     <a-modal
       v-model="imageModal"
+      class="modal"
       centered
       destroy-on-close
       :footer="null"
@@ -100,7 +101,7 @@ export default {
       };
     },
     openHours() {
-      const { open, close } = this.details.openTimesToday;
+      const { open, close } = this.details.openTimes[0];
       return {
         opens: {
           day: moment(open.day, 'e').format('ddd'),
@@ -170,9 +171,10 @@ h3 {
     marin-bottom: 0.5rem;
   }
 }
-.modal-image {
-  max-width: 100%;
-  &-author {
+
+.modal {
+  // max-width: 100%;
+  &-image-author {
     position: absolute;
     color: white;
     background: rgba(0, 0, 0, 0.3);

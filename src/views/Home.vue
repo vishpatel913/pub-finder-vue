@@ -31,6 +31,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
+import moment from 'moment';
 import LocationHeading from '@/components/LocationHeading.vue';
 import PubCard from '@/components/PubCard.vue';
 import EmptyList from '@/components/EmptyList.vue';
@@ -62,6 +63,7 @@ export default {
       variables() {
         return {
           coords: this.coords,
+          now: moment().format(),
         };
       },
       result({ data, error }) {

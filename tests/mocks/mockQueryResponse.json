@@ -23,16 +23,18 @@
             "attribution": "Alex Rutherford"
           }
         ],
-        "openTimesToday": {
-          "open": {
-            "day": "4",
-            "time": "1000"
-          },
-          "close": {
-            "day": "5",
-            "time": "0000"
+        "openTimes": [
+          {
+            "open": {
+              "day": "5",
+              "time": "1000"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
           }
-        }
+        ]
       },
       {
         "name": "The Northcote",
@@ -49,16 +51,18 @@
             "attribution": "Youngs Driver2"
           }
         ],
-        "openTimesToday": {
-          "open": {
-            "day": "4",
-            "time": "1000"
-          },
-          "close": {
-            "day": "5",
-            "time": "0000"
+        "openTimes": [
+          {
+            "open": {
+              "day": "5",
+              "time": "1000"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
           }
-        }
+        ]
       },
       {
         "name": "Scratch Bar",
@@ -75,16 +79,18 @@
             "attribution": "Scratch Bar"
           }
         ],
-        "openTimesToday": {
-          "open": {
-            "day": "4",
-            "time": "1000"
-          },
-          "close": {
-            "day": "4",
-            "time": "2200"
+        "openTimes": [
+          {
+            "open": {
+              "day": "5",
+              "time": "1000"
+            },
+            "close": {
+              "day": "5",
+              "time": "2200"
+            }
           }
-        }
+        ]
       },
       {
         "name": "Wetherspoon Free House",
@@ -101,16 +107,18 @@
             "attribution": "A Google User"
           }
         ],
-        "openTimesToday": {
-          "open": {
-            "day": "4",
-            "time": "0800"
-          },
-          "close": {
-            "day": "5",
-            "time": "0000"
+        "openTimes": [
+          {
+            "open": {
+              "day": "5",
+              "time": "0800"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
           }
-        }
+        ]
       },
       {
         "name": "The Asparagus",
@@ -127,16 +135,18 @@
             "attribution": "Mick Hicks"
           }
         ],
-        "openTimesToday": {
-          "open": {
-            "day": "4",
-            "time": "0800"
-          },
-          "close": {
-            "day": "5",
-            "time": "0000"
+        "openTimes": [
+          {
+            "open": {
+              "day": "5",
+              "time": "0800"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
           }
-        }
+        ]
       },
       {
         "name": "PubLove @ The Crown",
@@ -153,16 +163,18 @@
             "attribution": "Giulio Bontadini"
           }
         ],
-        "openTimesToday": {
-          "open": {
-            "day": "4",
-            "time": "1000"
-          },
-          "close": {
-            "day": "4",
-            "time": "2300"
+        "openTimes": [
+          {
+            "open": {
+              "day": "5",
+              "time": "1000"
+            },
+            "close": {
+              "day": "5",
+              "time": "2300"
+            }
           }
-        }
+        ]
       },
       {
         "name": "The Alma Pub",
@@ -179,16 +191,18 @@
             "attribution": "A Google User"
           }
         ],
-        "openTimesToday": {
-          "open": {
-            "day": "4",
-            "time": "0700"
-          },
-          "close": {
-            "day": "5",
-            "time": "0000"
+        "openTimes": [
+          {
+            "open": {
+              "day": "5",
+              "time": "0700"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
           }
-        }
+        ]
       },
       {
         "name": "The Magic Garden",
@@ -205,16 +219,18 @@
             "attribution": "Fernando De Franceschi"
           }
         ],
-        "openTimesToday": {
-          "open": {
-            "day": "4",
-            "time": "1030"
-          },
-          "close": {
-            "day": "5",
-            "time": "0000"
+        "openTimes": [
+          {
+            "open": {
+              "day": "5",
+              "time": "1030"
+            },
+            "close": {
+              "day": "6",
+              "time": "0000"
+            }
           }
-        }
+        ]
       }
     ]
   }
