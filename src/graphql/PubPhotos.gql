@@ -1,0 +1,10 @@
+query PubPhotosQuery($id: String!) {
+  pub(id: $id) {
+    id
+    name
+    photos(size: 800) {
+      url
+      attribution
+    }
+  }
+}

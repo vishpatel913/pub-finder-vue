@@ -72,7 +72,7 @@ export default {
           this.pubs = data.pubs;
         }
       },
-      update: ({ data }) => data,
+      update: ({ pubs, location }) => ({ pubs, location }),
       error(error) {
         this.setError(error);
       },

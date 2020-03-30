@@ -6,6 +6,7 @@ query NearbyPubsQuery($coords: CoordsInput!, $now: String) {
     ...locationDetails
   }
   pubs(coords: $coords) {
+    id
     name
     address
     coords {

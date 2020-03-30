@@ -61,11 +61,10 @@
       :body-style="{ padding: '1rem' }"
       :closable="false"
     >
-      <lazy-image
-        :source="image.url"
-        :alt="image.alt"
+      <image-gallery
+        :id="details.id"
+        :preview="image"
       />
-      <span class="image-author"> <a-icon type="camera" /> {{ image.attribution }} </span>
     </a-modal>
   </div>
 </template>
@@ -73,12 +72,12 @@
 <script>
 import { mapState } from 'vuex';
 import moment from 'moment';
-import LazyImage from './LazyImage.vue';
+import ImageGallery from './ImageGallery.vue';
 
 export default {
   name: 'PubCard',
   components: {
-    'lazy-image': LazyImage,
+    ImageGallery,
   },
   props: {
     details: {
@@ -160,9 +159,11 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    color: @heading-black-color;
     margin-bottom: @padding-sm;
     // line-height: 1.5;
+    h3 {
+      color: @heading-black-color;
+    }
     .distance {
       font-size: @font-size-sm;
       font-weight: 400;
@@ -196,18 +197,6 @@ export default {
         font-size: 12px;
       }
     }
-  }
-}
-.modal {
-  .image-author {
-    position: absolute;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.3);
-    font-weight: lighter;
-    font-size: 8px;
-    padding: @padding-sm;
-    bottom: @padding-md;
-    right: @padding-md;
   }
 }
 </style>
