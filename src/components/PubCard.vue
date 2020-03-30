@@ -1,9 +1,11 @@
 <template>
   <div class="card-container">
     <div @click="handleModal">
-      <h3>
-        {{ details.name }} <span class="distance">({{ walkingDistance }}min walk)</span>
-      </h3>
+      <div class="header">
+        <h3>
+          {{ details.name }} <span class="distance">({{ walkingDistance }}min walk)</span>
+        </h3>
+      </div>
       <div class="content">
         <p class="address">
           {{ details.address }}
@@ -154,9 +156,13 @@ export default {
 .card-container {
   padding: @padding-sm 0;
   width: 100%;
-  h3 {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
     color: @heading-black-color;
-    line-height: 1.5;
+    margin-bottom: @padding-sm;
+    // line-height: 1.5;
     .distance {
       font-size: @font-size-sm;
       font-weight: 400;

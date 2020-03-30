@@ -20,8 +20,8 @@ import GlassLoading from './GlassLoading.vue';
 export default {
   name: 'EmptyList',
   components: {
-    'glass-loading': GlassLoading,
-    'glass-empty': GlassEmpty,
+    GlassLoading,
+    GlassEmpty,
   },
   props: {
     text: {

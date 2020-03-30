@@ -29,7 +29,7 @@ export default {
   padding: @padding-lg @padding-xl @padding-md;
   width: 100%;
   .logo {
-    height: @padding-xl;
+    height: 2rem;
     margin-right: @padding-sm;
   }
   h1 {

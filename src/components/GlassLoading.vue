@@ -8,7 +8,7 @@ import GlassFull from '@/assets/svg/glass-full.svg';
 export default {
   name: 'GlassLoading',
   components: {
-    'glass-full': GlassFull,
+    GlassFull,
   },
 };
 </script>

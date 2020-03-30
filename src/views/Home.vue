@@ -35,7 +35,6 @@ import moment from 'moment';
 import LocationHeading from '@/components/LocationHeading.vue';
 import PubCard from '@/components/PubCard.vue';
 import EmptyList from '@/components/EmptyList.vue';
-
 import NearbyPubsQuery from '@/graphql/NearbyPubs.gql';
 
 export default {
