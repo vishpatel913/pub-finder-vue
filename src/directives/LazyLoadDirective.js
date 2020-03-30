@@ -4,9 +4,7 @@ export default {
       const imageElement = el.querySelector('img');
       if (imageElement) {
         imageElement.addEventListener('load', () => {
-          setTimeout(() => {
-            context.loading = false;
-          }, 100);
+          context.loading = false;
         });
         imageElement.addEventListener('error', () => {
           context.loading = false;

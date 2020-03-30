@@ -61,7 +61,7 @@
       :body-style="{ padding: '1rem' }"
       :closable="false"
     >
-      <image-gallery
+      <pub-image-gallery
         :id="details.id"
         :preview="image"
       />
@@ -72,12 +72,12 @@
 <script>
 import { mapState } from 'vuex';
 import moment from 'moment';
-import ImageGallery from './ImageGallery.vue';
+import PubImageGallery from './PubImageGallery.vue';
 
 export default {
   name: 'PubCard',
   components: {
-    ImageGallery,
+    PubImageGallery,
   },
   props: {
     details: {

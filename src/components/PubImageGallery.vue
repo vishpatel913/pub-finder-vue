@@ -23,7 +23,7 @@
       >
         <lazy-image
           :source="image.url"
-          alt="First image of the pub"
+          :alt="`Photo of ${name}, by ${image.attribution.slice(0, 7)}...`"
         />
         <span class="image-author"> <a-icon type="camera" /> {{ image.attribution }} </span>
       </div>
@@ -53,8 +53,10 @@ export default {
   data() {
     return {
       images: [this.preview],
+      name: null,
     };
   },
+  computed: {},
   methods: {
     async updateHeight(current) {
       const imageElement = await this.$el.querySelectorAll('.image img')[current + 1];
@@ -72,9 +74,10 @@ export default {
       result({ data, error }) {
         if (!error) {
           this.images = data.pub.photos;
+          this.name = data.pub.name;
         }
       },
-      update: ({ pub }) => pub.images,
+      update: ({ pub }) => pub.photos,
       error() {
         this.images = [this.preview];
         this.$message.error('Issues pulling the rest of the images');

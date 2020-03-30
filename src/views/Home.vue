@@ -1,5 +1,8 @@
 <template>
-  <div class="page-container">
+  <div
+    v-infinite-scroll="loadMoreResults"
+    class="page-container"
+  >
     <location-heading :location="location" />
     <div class="content">
       <a-list
@@ -18,20 +21,22 @@
         />
       </a-list>
     </div>
+    <a-spin v-if="location && first <= 20" />
     <a-button
       class="search-button"
       type="primary"
+      shape="circle"
+      size="large"
       icon="environment"
       @click="getGeolocation"
-    >
-      Get Location
-    </a-button>
+    />
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
 import moment from 'moment';
+import infiniteScroll from 'vue-infinite-scroll';
 import LocationHeading from '@/components/LocationHeading.vue';
 import PubCard from '@/components/PubCard.vue';
 import EmptyList from '@/components/EmptyList.vue';
@@ -43,9 +48,11 @@ export default {
     PubCard,
     EmptyList,
   },
+  directives: { infiniteScroll },
   data: () => ({
     pubs: [],
     location: null,
+    first: 5,
   }),
   computed: {
     ...mapState(['coords', 'loading']),
@@ -63,6 +70,7 @@ export default {
         return {
           coords: this.coords,
           now: moment().format(),
+          first: this.first,
         };
       },
       result({ data, error }) {
@@ -87,13 +95,16 @@ export default {
   methods: {
     ...mapActions(['getGeolocation']),
     ...mapMutations({ setError: 'SET_ERROR' }),
+    loadMoreResults() {
+      if (this.first <= 20) this.first += 5;
+    },
   },
 };
 </script>
 
 <style scoped lang="less">
 .page-container {
-  margin: 0 auto;
+  margin: 0 auto 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -107,6 +118,7 @@ export default {
   .search-button {
     position: fixed;
     bottom: @padding-xl;
+    right: @padding-xl;
   }
 }
 </style>
