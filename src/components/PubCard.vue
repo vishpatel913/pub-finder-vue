@@ -5,6 +5,10 @@
         <h3>
           {{ details.name }} <span class="distance">({{ walkingDistance }}min walk)</span>
         </h3>
+        <!-- <compass-direction
+          class="compass"
+          :bearing="details.directions.bearing"
+        /> -->
       </div>
       <div class="content">
         <p class="address">
@@ -73,11 +77,13 @@
 import { mapState } from 'vuex';
 import moment from 'moment';
 import PubImageGallery from './PubImageGallery.vue';
+// import CompassDirection from './CompassDirection.vue';
 
 export default {
   name: 'PubCard',
   components: {
     PubImageGallery,
+    // CompassDirection,
   },
   props: {
     details: {

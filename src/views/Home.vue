@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-infinite-scroll="loadMoreResults"
-    class="page-container"
-  >
+  <div class="page-container">
     <location-heading :location="location" />
     <div class="content">
       <a-list
@@ -21,15 +18,15 @@
         />
       </a-list>
     </div>
-    <a-spin v-if="location && first <= 20" />
+    <!-- <a-spin v-if="location && first <= 20" /> -->
     <a-button
       class="search-button"
       type="primary"
-      shape="circle"
-      size="large"
       icon="environment"
       @click="getGeolocation"
-    />
+    >
+      Get Location
+    </a-button>
   </div>
 </template>
 
@@ -52,7 +49,7 @@ export default {
   data: () => ({
     pubs: [],
     location: null,
-    first: 5,
+    // first: 5,
   }),
   computed: {
     ...mapState(['coords', 'loading']),
@@ -70,7 +67,7 @@ export default {
         return {
           coords: this.coords,
           now: moment().format(),
-          first: this.first,
+          // first: this.first,
         };
       },
       result({ data, error }) {
@@ -118,7 +115,6 @@ export default {
   .search-button {
     position: fixed;
     bottom: @padding-xl;
-    right: @padding-xl;
   }
 }
 </style>

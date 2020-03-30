@@ -23,7 +23,7 @@
       >
         <lazy-image
           :source="image.url"
-          :alt="`Photo of ${name}, by ${image.attribution.slice(0, 7)}...`"
+          :alt="`Photo of ${name}, by ${image.attribution}`"
         />
         <span class="image-author"> <a-icon type="camera" /> {{ image.attribution }} </span>
       </div>
@@ -59,8 +59,9 @@ export default {
   computed: {},
   methods: {
     async updateHeight(current) {
-      const imageElement = await this.$el.querySelectorAll('.image img')[current + 1];
-      this.$el.querySelector('.slick-list').style = `height: ${imageElement.height}px`;
+      // const imageElement = await this.$el.querySelectorAll('.image img')[current + 1];
+      // this.$el.querySelector('.slick-list').style = `height: ${imageElement.height}px`;
+      if (current === -1) console.log('current', current);
     },
   },
   apollo: {
@@ -73,7 +74,7 @@ export default {
       },
       result({ data, error }) {
         if (!error) {
-          this.images = data.pub.photos;
+          // this.images = data.pub.photos;
           this.name = data.pub.name;
         }
       },

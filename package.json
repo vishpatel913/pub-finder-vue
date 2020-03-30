@@ -11,7 +11,8 @@
     "lint-style": "stylelint '**/*.(vue|less)' --syntax less",
     "test-app": "vue-cli-service test:unit",
     "test-func": "yarn --cwd functions run test",
-    "deploy": "firebase deploy --only hosting",
+    "deploy": "firebase deploy",
+    "deploy-app": "firebase deploy --only hosting",
     "deploy-func": "firebase deploy --only functions"
   },
   "dependencies": {
