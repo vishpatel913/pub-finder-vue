@@ -5,14 +5,15 @@
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
-    "serve": "yarn --cwd functions run serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "lint-style": "stylelint '**/*.(vue|less)' --syntax less",
     "test-app": "vue-cli-service test:unit",
-    "test-func": "yarn --cwd functions run test",
     "deploy": "firebase deploy",
     "deploy-app": "firebase deploy --only hosting",
+    "serve": "yarn --cwd functions run serve",
+    "serve-mock": "MOCK=true yarn --cwd functions run serve",
+    "test-func": "yarn --cwd functions run test",
     "deploy-func": "firebase deploy --only functions"
   },
   "dependencies": {
