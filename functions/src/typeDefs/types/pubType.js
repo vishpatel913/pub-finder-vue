@@ -9,7 +9,7 @@ const pubType = gql`
     rating: Float
     priceLevel: Int
     directions(from: CoordsInput): Direction
-    openTimes(now: String): [OpenTimes]
+    openTimes(date: String): [OpenTimes]
     photos(size: Int): [Photo]
   }
 

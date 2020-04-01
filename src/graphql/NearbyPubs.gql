@@ -23,7 +23,7 @@ query NearbyPubsQuery($coords: CoordsInput!, $first: Int, $now: String) {
       url
       attribution
     }
-    openTimes(now: $now) {
+    openTimes(date: $now) {
       ...openHours
     }
   }

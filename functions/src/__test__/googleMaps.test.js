@@ -47,46 +47,60 @@ describe("[GoogleMaps.getGeocoding]", () => {
 describe("[GoogleMaps.getPubsNear]", () => {
   let response;
   beforeEach(async () => {
-    mocks.get.mockReturnValueOnce(placesMockResponse);
+    mocks.get.mockReturnValue(placesMockResponse);
     response = await gm.getPubsNear({ lat: 7, lng: 12 });
   });
 
-  it("returns a list with the correct amount of pubs", () => {
-    expect(response).toHaveLength(2);
+  it("returns all of the pubs", () => {
+    expect(response).toHaveLength(3);
   });
 
-  it("returns a list of pubs in the correct format", () => {
-    expect(response[0]).toEqual(
-      expect.objectContaining({
-        name: "Osbornes",
-        address: "61-73 Osborne Rd, Jesmond, Newcastle upon Tyne",
-        rating: 4.1,
-        priceLevel: 2
-      })
+  it("returns the pubs in the correct format", () => {
+    expect(response).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          name: "Osbornes",
+          address: "61-73 Osborne Rd, Jesmond, Newcastle upon Tyne",
+          rating: 4.1,
+          priceLevel: 2
+        })
+      ])
     );
+  });
+
+  it("returns the first n amount of pubs", async () => {
+    response = await gm.getPubsNear({ lat: 7, lng: 12 }, { first: 2 });
+    expect(response).toHaveLength(2);
   });
 });
 
 describe("[GoogleMaps.getPubDetails]", () => {
   let response;
   beforeEach(async () => {
-    mocks.get.mockReturnValueOnce(placeDetailsMockResponse);
+    mocks.get.mockReturnValue(placeDetailsMockResponse);
     response = await gm.getPubDetails("uuiid");
   });
 
   it("returns an object with the correct keys", async () => {
     expect(Object.keys(response)).toEqual(
-      expect.arrayContaining(["openTimes"])
+      expect.arrayContaining([
+        "id",
+        "name",
+        "coords",
+        "address",
+        "rating",
+        "priceLevel",
+        "openTimes",
+        "photos"
+      ])
     );
   });
 
-  it("returns the opening hours with the correct keys", () => {
-    expect(Object.keys(response.openTimes)).toEqual(
-      expect.arrayContaining(["0", "1", "2", "3", "4", "5", "6"])
-    );
+  it("returns the opening hours for every day of the week", () => {
+    expect(response.openTimes).toHaveLength(7);
   });
 
-  it("returns a day object in the correct format", () => {
+  it("returns a day times in the correct format", () => {
     expect(response.openTimes[0]).toMatchObject({
       open: {
         day: 0,
@@ -104,6 +118,29 @@ describe("[GoogleMaps.getPubDetails]", () => {
       },
       close: {
         day: 6,
+        time: "2300"
+      }
+    });
+  });
+
+  it("returns one opentime when given a moment", async () => {
+    const response = await gm.getPubDetails("uuid", {
+      today: "2020-03-31T20:47:41+01:00"
+    });
+    expect(response.openTimes).toHaveLength(1);
+  });
+
+  it("returns the correct opentime when given a moment", async () => {
+    const response = await gm.getPubDetails("uuid", {
+      today: "2020-03-31T20:47:41+01:00"
+    });
+    expect(response.openTimes[0]).toMatchObject({
+      open: {
+        day: 2,
+        time: "1100"
+      },
+      close: {
+        day: 2,
         time: "2300"
       }
     });

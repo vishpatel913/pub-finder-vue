@@ -1,6 +1,7 @@
 const { RESTDataSource } = require("apollo-datasource-rest");
+const moment = require("moment");
+const { distanceBetweenCoords, bearingBetweenCoords } = require("../utils");
 const config = require("../../config");
-const { bearingBetweenCoords } = require("../utils");
 
 class GoogleMaps extends RESTDataSource {
   constructor() {
@@ -61,37 +62,43 @@ class GoogleMaps extends RESTDataSource {
     };
   }
 
-  async getPubsNear({ lat, lng }, data = {}) {
+  async getPubsNear({ lat, lng }, options = {}) {
     const params = {
       key: config.google.key,
       location: `${lat},${lng}`,
       radius: "1500",
       keyword: "pub,bar",
-      opennow: true,
-      ...data
+      opennow: true
     };
     const response = await this.get("place/nearbysearch/json", params);
 
-    return response.results.map(item => ({
-      id: item.place_id,
-      name: item.name,
-      coords: item.geometry.location,
-      address: item.vicinity,
-      rating: item.rating,
-      priceLevel: item.price_level,
-      photos: item.photos
-    }));
+    return response.results
+      .map(item => ({
+        id: item.place_id,
+        name: item.name,
+        coords: item.geometry.location,
+        address: item.vicinity,
+        rating: item.rating,
+        priceLevel: item.price_level,
+        photos: item.photos
+      }))
+      .sort((a, b) =>
+        distanceBetweenCoords({ lat }, a.coords) >
+        distanceBetweenCoords({ lat }, b.coords)
+          ? 1
+          : -1
+      )
+      .slice(0, options.first || response.results.length);
   }
 
-  async getPubDetails(id) {
+  async getPubDetails(id, options = {}) {
     const params = {
       key: config.google.key,
       place_id: id,
       fields:
-        "place_id,name,geometry,vicinity,rating,price_level,opening_hours,opening_hours,photos"
+        "place_id,name,geometry,vicinity,rating,price_level,opening_hours,photos"
     };
     const response = await this.get("place/details/json", params);
-
     const {
       place_id,
       name,
@@ -103,6 +110,26 @@ class GoogleMaps extends RESTDataSource {
       photos
     } = response.result;
 
+    const openTimes = options.today
+      ? opening_hours.periods.filter(item => {
+          const { open, close } = item;
+          console.log(name, open.day, close.day);
+          const today = moment(options.today);
+          const openMoment = moment(`${open.day} ${open.time}`, "e HHmm");
+          const closeMoment = moment(`${close.day} ${close.time}`, "e HHmm");
+          // If opens on Sat and closes on Sun
+          if (close.day < open.day) {
+            if (today.day() === 6) closeMoment.add(1, "w"); // closes 'next week'
+            if (today.day() === 0) openMoment.subtract(1, "w"); // opened 'last week'
+          }
+
+          return (
+            openMoment.isBefore(options.today) &&
+            closeMoment.isAfter(options.today)
+          );
+        })
+      : opening_hours.periods;
+
     return {
       id: place_id,
       name,
@@ -110,7 +137,7 @@ class GoogleMaps extends RESTDataSource {
       address: vicinity,
       rating,
       priceLevel: price_level,
-      openTimes: opening_hours.periods,
+      openTimes,
       photos
     };
   }

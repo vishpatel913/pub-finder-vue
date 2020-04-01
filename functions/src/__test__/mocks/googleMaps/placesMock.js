@@ -102,6 +102,53 @@ const placesMockResponse = {
       types: ["bar", "point_of_interest", "establishment"],
       user_ratings_total: 226,
       vicinity: "82-86 Osborne Rd, Jesmond, Newcastle upon Tyne"
+    },
+    {
+      geometry: {
+        location: {
+          lat: 54.9916667,
+          lng: -1.6036111
+        },
+        viewport: {
+          northeast: {
+            lat: 54.99303622989272,
+            lng: -1.602388070107278
+          },
+          southwest: {
+            lat: 54.99033657010727,
+            lng: -1.605087729892722
+          }
+        }
+      },
+      icon: "https://maps.gstatic.com/mapfiles/place_api/icons/bar-71.png",
+      id: "6d78fc620d048a810cfed427883b3ad9a937443d",
+      name: "Bar Blanc",
+      opening_hours: {
+        open_now: true
+      },
+      photos: [
+        {
+          height: 1368,
+          html_attributions: [
+            '<a href="https://maps.google.com/maps/contrib/113309438607030788373">Spy Bar</a>'
+          ],
+          photo_reference:
+            "CmRaAAAAjunP3yD4xV5AIs4bYp5yDfzhwaaq7r50xpYCUwEqe8fUgBQL9enFNHonR6GjLVlV6NSqnKvSnPBLxJUsS6fPkoV8_4esqMfqbLBjnCqKnbcadh0kY6JCBqjJzbEYGhlXEhCWnhnXBnGpu_8TOsWawfzxGhTl6kCrupIL6wtgbhnk3GObbZWdOQ",
+          width: 1824
+        }
+      ],
+      place_id: "ChIJUcgKA9lwfkgRz34D578dDQc",
+      plus_code: {
+        compound_code: "X9RW+MH Newcastle upon Tyne",
+        global_code: "9C6WX9RW+MH"
+      },
+      price_level: 2,
+      rating: 3.9,
+      reference: "ChIJUcgKA9lwfkgRz34D578dDQc",
+      scope: "GOOGLE",
+      types: ["bar", "point_of_interest", "establishment"],
+      user_ratings_total: 226,
+      vicinity: "62 Osborne Rd, Jesmond, Newcastle upon Tyne"
     }
   ],
   status: "OK"
