@@ -113,7 +113,6 @@ class GoogleMaps extends RESTDataSource {
     const openTimes = options.today
       ? opening_hours.periods.filter(item => {
           const { open, close } = item;
-          console.log(name, open.day, close.day);
           const today = moment(options.today);
           const openMoment = moment(`${open.day} ${open.time}`, "e HHmm");
           const closeMoment = moment(`${close.day} ${close.time}`, "e HHmm");
