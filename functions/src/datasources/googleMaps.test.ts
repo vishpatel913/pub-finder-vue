@@ -16,31 +16,31 @@ describe('[GoogleMaps]', () => {
   });
 });
 
-// describe('[GoogleMaps.getGeocoding]', () => {
-//   let response;
-//   beforeEach(async () => {
-//     mocks.get.mockReturnValueOnce(geocodingMockResponse);
-//     response = await gm.getGeocoding({ lat: 7, lng: 12 });
-//   });
+describe('[GoogleMaps.getGeocoding]', () => {
+  let response;
+  beforeEach(async () => {
+    mocks.get.mockReturnValueOnce(geocodingMockResponse);
+    response = await gm.getGeocoding({ lat: 7, lng: 12 });
+  });
 
-//   it('returns an object with the correct keys', () => {
-//     expect(Object.keys(response)).toEqual(
-//       expect.arrayContaining(['address', 'area', 'borough', 'county', 'postalArea'])
-//     );
-//   });
+  it('returns an object with the correct keys', () => {
+    expect(Object.keys(response)).toEqual(
+      expect.arrayContaining(['address', 'area', 'borough', 'county', 'postalArea'])
+    );
+  });
 
-//   it('returns the geocoding data in the correct format', () => {
-//     expect(response).toEqual(
-//       expect.objectContaining({
-//         address: '66 Sisters Ave, London SW11 5SN, UK',
-//         area: 'London',
-//         borough: 'London Borough of Wandsworth',
-//         county: 'Greater London',
-//         postalArea: 'London SW11, UK',
-//       })
-//     );
-//   });
-// });
+  it('returns the geocoding data in the correct format', () => {
+    expect(response).toEqual(
+      expect.objectContaining({
+        address: '66 Sisters Ave, London SW11 5SN, UK',
+        area: 'London',
+        borough: 'London Borough of Wandsworth',
+        county: 'Greater London',
+        postalArea: 'London SW11, UK',
+      })
+    );
+  });
+});
 
 describe('[GoogleMaps.getPubsNear]', () => {
   let response;
@@ -66,10 +66,10 @@ describe('[GoogleMaps.getPubsNear]', () => {
     );
   });
 
-  // it('returns the first n amount of pubs', async () => {
-  //   response = await gm.getPubsNear({ lat: 7, lng: 12 }, { first: 2 });
-  //   expect(response).toHaveLength(2);
-  // });
+  it('returns the first n amount of pubs', async () => {
+    response = await gm.getPubsNear({ lat: 7, lng: 12 }, { first: 2 });
+    expect(response).toHaveLength(2);
+  });
 });
 
 describe('[GoogleMaps.getPubDetails]', () => {
@@ -177,49 +177,49 @@ describe('[GoogleMaps.getPubDetails]', () => {
   });
 });
 
-// describe('[GoogleMaps.getDirections]', () => {
-//   let response;
-//   beforeEach(async () => {
-//     mocks.get.mockReturnValueOnce(directionsMockResponse);
-//     response = await gm.getDirections({ lat: 7, lng: 12 }, { lat: 19, lng: 95 });
-//   });
+describe('[GoogleMaps.getDirections]', () => {
+  let response;
+  beforeEach(async () => {
+    mocks.get.mockReturnValueOnce(directionsMockResponse);
+    response = await gm.getDirections({ lat: 7, lng: 12 }, { lat: 19, lng: 95 });
+  });
 
-//   it('returns the direction object in the correct format', () => {
-//     expect(Object.keys(response)).toEqual(
-//       expect.arrayContaining(['distance', 'duration', 'bearing'])
-//     );
-//   });
+  it('returns the direction object in the correct format', () => {
+    expect(Object.keys(response)).toEqual(
+      expect.arrayContaining(['distance', 'duration', 'bearing'])
+    );
+  });
 
-//   it('returns the direction with the correct values', () => {
-//     expect(response).toEqual(
-//       expect.objectContaining({
-//         distance: 398,
-//         duration: 114,
-//       })
-//     );
-//   });
+  it('returns the direction with the correct values', () => {
+    expect(response).toEqual(
+      expect.objectContaining({
+        distance: 398,
+        duration: 114,
+      })
+    );
+  });
 
-//   it('returns a valid bearing', () => {
-//     const { bearing } = response;
-//     expect(bearing >= 0 && bearing <= 360).toBeTruthy();
-//   });
-// });
+  it('returns a valid bearing', () => {
+    const { bearing } = response;
+    expect(bearing >= 0 && bearing <= 360).toBeTruthy();
+  });
+});
 
-// describe('[GoogleMaps.getPhotoSrcUrl]', () => {
-//   let response;
-//   beforeEach(async () => {
-//     mocks.get.mockReturnValueOnce('image-source-code');
-//     response = await gm.getPhotoSrcUrl({
-//       photo_reference: 'imagereference',
-//       html_attributions: ['<a href="test">John Smith</a>'],
-//     });
-//   });
+describe('[GoogleMaps.getPhotoData]', () => {
+  let response;
+  beforeEach(async () => {
+    mocks.get.mockReturnValueOnce('image-source-code');
+    response = await gm.getPhotoData({
+      photo_reference: 'imagereference',
+      html_attributions: ['<a href="test">John Smith</a>'],
+    });
+  });
 
-//   it('returns the photo references in the correct format', () => {
-//     expect(Object.keys(response)).toEqual(expect.arrayContaining(['url', 'attribution']));
-//   });
+  it('returns the photo references in the correct format', () => {
+    expect(Object.keys(response)).toEqual(expect.arrayContaining(['url', 'attribution']));
+  });
 
-//   it('returns the attributers in the correct format', () => {
-//     expect(response.attribution).toBe('John Smith');
-//   });
-// });
+  it('returns the attributers in the correct format', () => {
+    expect(response.attribution).toBe('John Smith');
+  });
+});

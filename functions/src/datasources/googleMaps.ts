@@ -61,7 +61,7 @@ export class GoogleMaps extends RESTDataSource {
     };
   }
 
-  async getPubsNear({ lat, lng }: Coords) {
+  async getPubsNear({ lat, lng }: Coords, args?) {
     const params = {
       // key: config.google.key,
       location: `${lat},${lng}`,
@@ -86,11 +86,11 @@ export class GoogleMaps extends RESTDataSource {
         distanceBetweenCoords({ lat, lng }, b.coords)
           ? 1
           : -1
-      );
-    // .slice(0, first || response.results.length);
+      )
+      .slice(0, args?.first || response.results.length);
   }
 
-  async getPubDetails(id: String, options?) {
+  async getPubDetails(id: String, args?) {
     const params = {
       // key: config.google.key,
       place_id: id,
@@ -108,10 +108,10 @@ export class GoogleMaps extends RESTDataSource {
       photos,
     } = response.result;
 
-    const openTimes = options?.today
+    const openTimes = args?.today
       ? opening_hours.periods.filter(item => {
           const { open, close } = item;
-          const today = moment(options.today);
+          const today = moment(args.today);
           const openMoment = moment(today)
             .day(open.day)
             .hour(open.time.slice(0, 2))
@@ -126,7 +126,7 @@ export class GoogleMaps extends RESTDataSource {
             if (today.day() === 0) openMoment.subtract(1, 'w'); // opened 'last week'
           }
 
-          return openMoment.isBefore(options.today) && closeMoment.isAfter(options.today);
+          return openMoment.isBefore(args.today) && closeMoment.isAfter(args.today);
         })
       : opening_hours.periods;
 
@@ -142,7 +142,37 @@ export class GoogleMaps extends RESTDataSource {
     };
   }
 
-  async getDirections(from: Coords, to: Coords) {
-    return {};
+  async getDirections(origin: Coords, dest: Coords) {
+    const params = {
+      // key: config.google.key,
+      mode: 'walking',
+      origin: Object.values(origin).join(','),
+      destination: Object.values(dest).join(','),
+    };
+
+    const response = await this.get('directions/json', params);
+    const { legs } = response.routes[0];
+
+    return {
+      distance: legs[0].distance.value,
+      duration: legs[0].duration.value,
+      bearing: bearingBetweenCoords(origin, dest),
+    };
+  }
+
+  async getPhotoData({ photo_reference, html_attributions }, size = 500) {
+    const params = {
+      // key: config.google.key,
+      photoreference: photo_reference,
+      maxwidth: size,
+      maxheight: size,
+    };
+
+    const response = await this.get('place/photo', params);
+
+    return {
+      url: response.url,
+      attribution: html_attributions[0].replace(/<\s*a[^>]*>|<\s*\/\s*a>/g, ''),
+    };
   }
 }
