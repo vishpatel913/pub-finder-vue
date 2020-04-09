@@ -12,8 +12,22 @@ export class PubResolver {
         name: 'The Merchant',
         coords: { lat: 1.5, lng: -0.6 },
         address: 'Battersea Rise',
-        rating: 4.5,
-        priceLevel: 2,
+        rating: undefined,
+        priceLevel: undefined,
+        directions: undefined,
+        openTimes: [
+          {
+            open: {
+              day: '1',
+              time: '1',
+            },
+            close: {
+              day: '1',
+              time: '1',
+            },
+          },
+        ],
+        photos: [{ url: 'https://test.com', attribution: undefined }],
       },
     ];
   }

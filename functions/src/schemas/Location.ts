@@ -1,19 +1,19 @@
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field } from 'type-graphql';
 
-@ObjectType({ description: 'The Location model' })
+@ObjectType({ description: 'The Location data of coords' })
 export class Location {
   @Field()
-  address: String;
+  address: string;
 
   @Field()
-  area: String;
+  area: string;
 
   @Field()
-  borough: String;
+  borough: string;
 
   @Field()
-  county: String;
+  county: string;
 
   @Field()
-  postalArea: String;
+  postalArea: string;
 }

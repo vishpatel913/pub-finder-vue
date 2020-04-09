@@ -19,12 +19,12 @@ export const mocks = {
       lat: () => faker.address.latitude(),
       lng: () => faker.address.longitude(),
     }),
-    rating: () => faker.random.number({ min: 0, max: 5 }),
-    priceLevel: () => faker.random.number({ min: 0, max: 5 }),
+    rating: () => faker.random.number({ min: 0, max: 5, precision: 0.1 }),
+    priceLevel: () => faker.random.number({ min: 1, max: 5 }),
     directions: () => ({
       distance: () => faker.random.number({ min: 1, max: 1000 }),
       duration: () => faker.random.number({ min: 1, max: 1200 }),
-      bearing: () => faker.random.number({ min: 1, max: 360 }),
+      bearing: () => faker.random.number({ min: 1, max: 360, precision: 0.01 }),
     }),
     openTimes: [
       {
