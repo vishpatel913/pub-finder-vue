@@ -11,6 +11,7 @@
       "es2015.promise",
       "esnext.asynciterable"
     ],
+    "declaration": true,
     "noImplicitAny": false,
     "sourceMap": true,
     "allowJs": true,
@@ -24,5 +25,6 @@
     //   "*": ["node_modules/*", "src/types/*"]
     // }
   },
-  "include": ["src/**/*.ts", "spec/**/*.ts"]
+  "include": ["src/**/*.ts", "spec/**/*.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
