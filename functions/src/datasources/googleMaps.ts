@@ -108,12 +108,18 @@ export class GoogleMaps extends RESTDataSource {
       photos,
     } = response.result;
 
-    const openTimes = options.today
+    const openTimes = options?.today
       ? opening_hours.periods.filter(item => {
           const { open, close } = item;
           const today = moment(options.today);
-          const openMoment = moment(`${open.day} ${open.time}`, 'e HHmm');
-          const closeMoment = moment(`${close.day} ${close.time}`, 'e HHmm');
+          const openMoment = moment(today)
+            .day(open.day)
+            .hour(open.time.slice(0, 2))
+            .minute(open.time.slice(2, 4));
+          const closeMoment = moment(today)
+            .day(close.day)
+            .hour(close.time.slice(0, 2))
+            .minute(close.time.slice(2, 4));
           // If opens on Sat and closes on Sun
           if (close.day < open.day) {
             if (today.day() === 6) closeMoment.add(1, 'w'); // closes 'next week'

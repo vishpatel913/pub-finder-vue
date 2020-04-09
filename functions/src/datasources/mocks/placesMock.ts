@@ -233,8 +233,8 @@ export const placeDetailsMockResponse = {
         },
         {
           close: {
-            day: 6,
-            time: '2300',
+            day: 0,
+            time: '0300',
           },
           open: {
             day: 6,
@@ -248,7 +248,7 @@ export const placeDetailsMockResponse = {
         'Wednesday: 11:00 AM – 11:00 PM',
         'Thursday: 11:00 AM – 11:00 PM',
         'Friday: 11:00 AM – 11:00 PM',
-        'Saturday: 10:00 AM – 11:00 PM',
+        'Saturday: 10:00 AM – 03:00 AM',
         'Sunday: 10:00 AM – 10:30 PM',
       ],
     },
