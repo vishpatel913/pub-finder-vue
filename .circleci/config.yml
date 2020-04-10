@@ -125,9 +125,9 @@ workflows:
       - build_functions:
           requires:
             - configure_firebase
-            - build_app:
-              requires:
-                - configure_firebase
+      - build_app:
+          requires:
+            - configure_firebase
       - test_functions:
           requires:
             - build_functions
