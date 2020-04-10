@@ -59,6 +59,23 @@ jobs:
           paths:
             - dist
 
+  build_functions:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - run:
+          name: Check for updates
+          command: bash ./scripts/check-functions-commit.sh
+      - install_dependencies:
+          directory: functions
+      # - run:
+      #     name: Lint functions
+      #     command: yarn --cwd functions run lint
+      - run:
+          name: Build functions
+          command: yarn --cwd functions run build
+
   test_functions:
     docker:
       - image: circleci/node:10
@@ -69,9 +86,6 @@ jobs:
           command: bash ./scripts/check-functions-commit.sh
       - install_dependencies:
           directory: functions
-      - run:
-          name: Lint functions
-          command: yarn --cwd functions run lint
       - run:
           name: Test functions
           command: yarn --cwd functions run test-ci
@@ -108,9 +122,15 @@ workflows:
   build_and_deploy:
     jobs:
       - configure_firebase
-      - test_functions
+      - build_functions:
+          requires:
+            - configure_firebase
       - build_app:
           requires:
+            - configure_firebase
+      - test_functions:
+          requires:
+            - build_functions
             - configure_firebase
       - deploy_app:
           requires:
@@ -121,6 +141,7 @@ workflows:
       - deploy_functions:
           requires:
             - configure_firebase
+            - build_functions
             - test_functions
           filters:
             branches:

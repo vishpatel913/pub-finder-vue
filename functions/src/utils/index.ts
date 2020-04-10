@@ -1,21 +1,29 @@
-const toTitleCase = string =>
+import { Coords } from '../schemas/Coords';
+
+export const toTitleCase = (string: string): string =>
   string
     .split(/\s|-|_/)
     .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-    .join(" ");
+    .join(' ');
 
-const toCamelCase = string =>
+export const toCamelCase = (string: string): string =>
   string
     .split(/\s|-|_/)
     .map((s, i) => (i === 0 ? s : s.charAt(0).toUpperCase() + s.substring(1)))
-    .join("");
+    .join('');
 
-const distanceBetweenCoords = (from, to, dp = 2) => {
+// Converts from degrees to radians.
+const toRad = (deg: number) => (deg * Math.PI) / 180;
+
+// Converts from radians to degrees.
+const toDeg = (rad: number) => (rad * 180) / Math.PI;
+
+export const distanceBetweenCoords = (from: Coords, to: Coords, dp = 2) => {
   const earthRadius = 6371; // mi
-  const x1 = parseFloat(from.lat);
-  const x2 = parseFloat(to.lat);
-  const y1 = parseFloat(from.lng);
-  const y2 = parseFloat(to.lng);
+  const x1 = parseFloat(String(from.lat));
+  const x2 = parseFloat(String(to.lat));
+  const y1 = parseFloat(String(from.lng));
+  const y2 = parseFloat(String(to.lng));
 
   const dx = toRad(x2 - x1);
   const dy = toRad(y2 - y1);
@@ -31,29 +39,14 @@ const distanceBetweenCoords = (from, to, dp = 2) => {
   return Math.round(d * Math.pow(10, dp)) / Math.pow(10, dp);
 };
 
-const bearingBetweenCoords = (from, to) => {
+export const bearingBetweenCoords = (from: Coords, to: Coords) => {
   const x1 = toRad(from.lat);
   const x2 = toRad(to.lat);
   const y1 = toRad(from.lng);
   const y2 = toRad(to.lng);
 
   const y = Math.sin(y2 - y1) * Math.cos(x2);
-  const x =
-    Math.cos(x1) * Math.sin(x2) -
-    Math.sin(x1) * Math.cos(x2) * Math.cos(y2 - y1);
+  const x = Math.cos(x1) * Math.sin(x2) - Math.sin(x1) * Math.cos(x2) * Math.cos(y2 - y1);
   const brng = toDeg(Math.atan2(y, x));
   return (brng + 360) % 360;
-};
-
-// Converts from degrees to radians.
-const toRad = deg => (deg * Math.PI) / 180;
-
-// Converts from radians to degrees.
-const toDeg = rad => (rad * 180) / Math.PI;
-
-module.exports = {
-  toTitleCase,
-  toCamelCase,
-  distanceBetweenCoords,
-  bearingBetweenCoords
 };

@@ -21,8 +21,8 @@ Vue.use(Antd);
 const apolloClient = new ApolloClient({
   uri:
     process.env.NODE_ENV === 'production'
-      ? 'https://us-central1-pubs-nearby.cloudfunctions.net/api/graphql'
-      : 'http://localhost:5001/pubs-nearby/us-central1/api/graphql',
+      ? 'https://us-central1-pubs-nearby.cloudfunctions.net/graphql'
+      : 'http://localhost:5001/pubs-nearby/us-central1/graphql',
 });
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
