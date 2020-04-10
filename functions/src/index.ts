@@ -29,7 +29,7 @@ const main = async (req, res) => {
 
   const app = server.createHandler({
     cors: {
-      origin: '*',
+      origin: true,
       credentials: true,
     },
   });
