@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions';
 import fs from 'fs';
-import { firebaseConfig } from 'firebase-functions';
 
 export interface Config {
   env: {

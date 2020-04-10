@@ -5,6 +5,7 @@ import {
   placeDetailsMockResponse,
   directionsMockResponse,
 } from './mocks';
+
 const gm = new GoogleMaps();
 const mocks = {
   get: jest.fn(),

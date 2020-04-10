@@ -7,6 +7,7 @@ import { LocationResolver } from './resolvers/location';
 import { PubResolver } from './resolvers/pub';
 import { GoogleMaps } from './datasources/googleMaps';
 
+import { config } from './config';
 import { mocks } from './mocks';
 
 const main = async (req, res) => {
@@ -23,7 +24,7 @@ const main = async (req, res) => {
   const server = new ApolloServer({
     schema,
     dataSources,
-    // mocks,
+    mocks: config.env.mocks ? mocks : false,
   });
 
   const app = server.createHandler({

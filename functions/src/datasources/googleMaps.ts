@@ -1,7 +1,7 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
 import moment from 'moment';
 import { Coords, Location, Pub, Photo, Direction } from '../schemas';
-import { ResultsArgs } from '../resolvers/types';
+import { PubFilterArgs } from '../resolvers/types';
 import { distanceBetweenCoords, bearingBetweenCoords } from '../utils';
 import { config } from '../config';
 
@@ -16,15 +16,14 @@ export class GoogleMaps extends RESTDataSource {
   // }
 
   async didReceiveResponse(response) {
-    let body;
-
+    let res;
     if (response.url.includes('googleusercontent')) {
-      body = { url: await response.url };
+      res = { url: await response.url };
     } else {
-      body = await this.parseBody(response);
+      res = await this.parseBody(response);
     }
 
-    return { ...body };
+    return res;
   }
 
   async getGeocoding({ lat, lng }: Coords): Promise<Location> {
@@ -61,7 +60,7 @@ export class GoogleMaps extends RESTDataSource {
     };
   }
 
-  async getPubsNear({ lat, lng }: Coords, args?: ResultsArgs): Promise<Pub[]> {
+  async getPubsNear({ lat, lng }: Coords, args?: PubFilterArgs): Promise<Pub[]> {
     const params = {
       key: config.env.google.key,
       location: `${lat},${lng}`,
@@ -72,7 +71,7 @@ export class GoogleMaps extends RESTDataSource {
     const response = await this.get('place/nearbysearch/json', params);
 
     return response.results
-      .map(item => ({
+      .map((item: any) => ({
         id: item.place_id,
         name: item.name,
         coords: item.geometry.location,
@@ -90,7 +89,7 @@ export class GoogleMaps extends RESTDataSource {
       .slice(0, args?.first || response.results.length);
   }
 
-  async getPubDetails(id: String, args?): Promise<Pub> {
+  async getPubDetails(id: String, args?: { date: any }): Promise<Pub> {
     const params = {
       key: config.env.google.key,
       place_id: id,
@@ -109,7 +108,7 @@ export class GoogleMaps extends RESTDataSource {
     } = response.result;
 
     const openTimes = args?.date
-      ? opening_hours.periods.filter(item => {
+      ? opening_hours.periods.filter((item: { open: any; close: any }) => {
           const { open, close } = item;
           const today = moment(args.date);
           const openMoment = moment(today)

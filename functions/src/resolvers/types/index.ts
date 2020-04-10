@@ -1,5 +1,5 @@
 // TODO: need to import these properly
 import { CoordsInput } from './coords-input';
-import { ResultsArgs } from './results-args';
+import { PubFilterArgs } from './pub-filter-args';
 
-export { CoordsInput, ResultsArgs };
+export { CoordsInput, PubFilterArgs };

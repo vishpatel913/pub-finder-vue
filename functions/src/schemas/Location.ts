@@ -5,15 +5,15 @@ export class Location {
   @Field()
   address: string;
 
-  @Field()
+  @Field({ nullable: true })
   area: string;
 
-  @Field()
+  @Field({ nullable: true })
   borough: string;
 
-  @Field()
+  @Field({ nullable: true })
   county: string;
 
-  @Field()
+  @Field({ nullable: true })
   postalArea: string;
 }

@@ -1,23 +1,13 @@
-import {
-  Resolver,
-  Query,
-  Arg,
-  Ctx,
-  ResolverInterface,
-  FieldResolver,
-  Root,
-  Info,
-  Args,
-} from 'type-graphql';
+import { Resolver, Query, Arg, Ctx, FieldResolver, Root, Info, Args } from 'type-graphql';
 import { Pub } from '../schemas/Pub';
-import { CoordsInput, ResultsArgs } from './types';
+import { CoordsInput, PubFilterArgs } from './types';
 
 @Resolver(of => Pub)
 export class PubResolver {
   @Query(returns => [Pub], { nullable: false })
   async pubs(
     @Arg('coords') coords: CoordsInput,
-    @Args() { first }: ResultsArgs,
+    @Args() { first }: PubFilterArgs,
     @Ctx('dataSources') { googleMaps }
   ): Promise<Pub[]> {
     const results = await googleMaps.getPubsNear(coords, { first });

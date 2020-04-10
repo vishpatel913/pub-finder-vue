@@ -2,7 +2,7 @@ import { ArgsType, Field, Int } from 'type-graphql';
 import { Min, Max } from 'class-validator';
 
 @ArgsType()
-export class ResultsArgs {
+export class PubFilterArgs {
   @Field(type => Int, { nullable: true })
   skip?: number;
 

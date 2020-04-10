@@ -1,4 +1,3 @@
-// TODO: need to import these properly
 import { Location } from './Location';
 import { Pub } from './Pub';
 import { Coords } from './Coords';

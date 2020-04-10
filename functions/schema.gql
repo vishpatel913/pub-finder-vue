@@ -27,18 +27,18 @@ type DayTime {
 
 """Directions to a Pub"""
 type Direction {
-  distance: Int!
-  duration: Int!
-  bearing: Float!
+  distance: Int
+  duration: Int
+  bearing: Float
 }
 
 """The Location data of coords"""
 type Location {
   address: String!
-  area: String!
-  borough: String!
-  county: String!
-  postalArea: String!
+  area: String
+  borough: String
+  county: String
+  postalArea: String
 }
 
 """A Pub Open Time object with closing"""
