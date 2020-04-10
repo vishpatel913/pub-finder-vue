@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg, Ctx, FieldResolver, Root, Info, Args } from 'type-graphql';
-import { Pub } from '../schemas';
+import { Pub, Direction } from '../schemas';
 import { CoordsInput, PubFilterArgs } from './types';
 
 @Resolver(of => Pub)
@@ -39,12 +39,14 @@ export class PubResolver {
     @Info() { variableValues },
     @Arg('from', { nullable: true }) from?: CoordsInput
   ) {
-    let directions = null;
+    let directions: Direction | null;
     try {
       directions = await googleMaps.getDirections(from || variableValues.coords, coords);
-    } finally {
-      return directions;
+    } catch {
+      directions = null;
     }
+
+    return directions;
   }
 
   @FieldResolver()

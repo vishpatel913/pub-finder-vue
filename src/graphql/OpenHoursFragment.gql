@@ -1,4 +1,4 @@
-fragment openHours on OpenTimes {
+fragment openHours on OpenTime {
   open {
     day
     time

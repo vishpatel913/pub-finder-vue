@@ -11,9 +11,9 @@
     "test-app": "vue-cli-service test:unit",
     "deploy": "firebase deploy",
     "deploy-app": "firebase deploy --only hosting",
-    "serve": "yarn --cwd functions run serve",
-    "serve-mock": "MOCK=true yarn --cwd functions run serve",
+    "serve": "yarn build-func && yarn --cwd functions run serve",
     "test-func": "yarn --cwd functions run test",
+    "build-func": "yarn --cwd functions run build",
     "deploy-func": "firebase deploy --only functions"
   },
   "dependencies": {
