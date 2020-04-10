@@ -1,34 +1,70 @@
-import { Resolver, Arg, Query } from 'type-graphql';
+import {
+  Resolver,
+  Query,
+  Arg,
+  Ctx,
+  ResolverInterface,
+  FieldResolver,
+  Root,
+  Info,
+  Args,
+} from 'type-graphql';
 import { Pub } from '../schemas/Pub';
-import { CoordsInput } from './types/coords-input';
+import { CoordsInput, ResultsArgs } from './types';
 
-@Resolver()
+@Resolver(of => Pub)
 export class PubResolver {
-  @Query(_returns => Pub, { nullable: false })
-  pubs(@Arg('coords') coords: CoordsInput): [Pub] {
-    return [
-      {
-        id: '1',
-        name: 'The Merchant',
-        coords: { lat: 1.5, lng: -0.6 },
-        address: 'Battersea Rise',
-        rating: undefined,
-        priceLevel: undefined,
-        directions: undefined,
-        openTimes: [
-          {
-            open: {
-              day: '1',
-              time: '1',
-            },
-            close: {
-              day: '1',
-              time: '1',
-            },
-          },
-        ],
-        photos: [{ url: 'https://test.com', attribution: undefined }],
-      },
-    ];
+  @Query(returns => [Pub], { nullable: false })
+  async pubs(
+    @Arg('coords') coords: CoordsInput,
+    @Args() { first }: ResultsArgs,
+    @Ctx('dataSources') { googleMaps }
+  ): Promise<Pub[]> {
+    const results = await googleMaps.getPubsNear(coords, { first });
+    return results;
+  }
+
+  @Query(returns => Pub, { nullable: false })
+  async pub(@Arg('id') id: string, @Ctx('dataSources') { googleMaps }): Promise<Pub> {
+    const details = await googleMaps.getPubDetails(id);
+    return details;
+  }
+
+  @FieldResolver()
+  async openTimes(
+    @Root() { id }: Pub,
+    @Ctx('dataSources') { googleMaps },
+    @Arg('date', { nullable: true }) date?: Date
+  ) {
+    const details = await googleMaps.getPubDetails(id, {
+      date,
+    });
+    return details.openTimes;
+  }
+
+  @FieldResolver()
+  async directions(
+    @Root() { coords }: Pub,
+    @Ctx('dataSources') { googleMaps },
+    @Info() { variableValues },
+    @Arg('from', { nullable: true }) from?: CoordsInput
+  ) {
+    let directions = null;
+    try {
+      directions = await googleMaps.getDirections(from || variableValues.coords, coords);
+    } finally {
+      return directions;
+    }
+  }
+
+  @FieldResolver()
+  async photos(
+    @Root() { photos }: Pub,
+    @Ctx('dataSources') { googleMaps },
+    @Arg('size', { nullable: true }) size?: number
+  ) {
+    const images = photos.map(item => googleMaps.getPhotoData(item, size));
+
+    return images;
   }
 }

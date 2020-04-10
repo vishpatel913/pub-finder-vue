@@ -5,6 +5,7 @@ import { buildSchema } from 'type-graphql';
 
 import { LocationResolver } from './resolvers/location';
 import { PubResolver } from './resolvers/pub';
+import { GoogleMaps } from './datasources/googleMaps';
 
 import { mocks } from './mocks';
 
@@ -15,9 +16,14 @@ const main = async (req, res) => {
     validate: false,
   });
 
+  const dataSources = () => ({
+    googleMaps: new GoogleMaps(),
+  });
+
   const server = new ApolloServer({
     schema,
-    mocks,
+    dataSources,
+    // mocks,
   });
 
   const app = server.createHandler({
@@ -31,6 +37,3 @@ const main = async (req, res) => {
 };
 
 export const graphql = functions.https.onRequest(main);
-// export const test = functions.https.onRequest(async (request, response) => {
-//   response.send('Hello from Firebase!\n\n');
-// });

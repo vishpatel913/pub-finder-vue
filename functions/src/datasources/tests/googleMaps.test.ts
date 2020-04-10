@@ -1,8 +1,10 @@
-import { directionsMockResponse } from './mocks/directionsMock';
-import { placesMockResponse, placeDetailsMockResponse } from './mocks/placesMock';
-import { GoogleMaps } from './googleMaps';
-import { geocodingMockResponse } from './mocks/geocodeMock';
-
+import { GoogleMaps } from '../googleMaps';
+import {
+  geocodingMockResponse,
+  placesMockResponse,
+  placeDetailsMockResponse,
+  directionsMockResponse,
+} from './mocks';
 const gm = new GoogleMaps();
 const mocks = {
   get: jest.fn(),
@@ -123,14 +125,14 @@ describe('[GoogleMaps.getPubDetails]', () => {
 
   it('returns one opentime when given a moment', async () => {
     const response = await gm.getPubDetails('uuid', {
-      today: '2020-01-31T20:47:41+01:00',
+      date: '2020-01-31T20:47:41+01:00',
     });
     expect(response.openTimes).toHaveLength(1);
   });
 
   it('returns the correct opentime when given a moment', async () => {
     const response = await gm.getPubDetails('uuid', {
-      today: '2020-03-31T20:47:41+01:00',
+      date: '2020-03-31T20:47:41+01:00',
     });
     expect(response.openTimes[0]).toMatchObject({
       open: {
@@ -146,7 +148,7 @@ describe('[GoogleMaps.getPubDetails]', () => {
 
   it('returns the correct opentime on a saturday', async () => {
     const response = await gm.getPubDetails('uuid', {
-      today: '2020-01-11T20:47:41+01:00',
+      date: '2020-01-11T20:47:41+01:00',
     });
     expect(response.openTimes[0]).toMatchObject({
       open: {
@@ -162,7 +164,7 @@ describe('[GoogleMaps.getPubDetails]', () => {
 
   it('returns the correct opentime on a saturday night/sunday morning', async () => {
     const response = await gm.getPubDetails('uuid', {
-      today: '2020-01-12T00:17:41+00:00',
+      date: '2020-01-12T00:17:41+00:00',
     });
     expect(response.openTimes[0]).toMatchObject({
       open: {

@@ -1,17 +1,15 @@
-import { Resolver, Arg, Query } from 'type-graphql';
+import { Resolver, Query, Arg, Ctx } from 'type-graphql';
 import { Location } from '../schemas/Location';
-import { CoordsInput } from './types/coords-input';
+import { CoordsInput } from './types';
 
 @Resolver()
 export class LocationResolver {
-  @Query(_returns => Location, { nullable: false })
-  location(@Arg('coords') coords: CoordsInput): Location {
-    return {
-      address: '62, Sisters Ave',
-      area: 'Battersea',
-      borough: 'Wandsworth',
-      county: 'London',
-      postalArea: 'London, SW11',
-    };
+  @Query(returns => Location, { nullable: false })
+  async location(
+    @Arg('coords') coords: CoordsInput,
+    @Ctx('dataSources') { googleMaps }
+  ): Promise<Location> {
+    const response = await googleMaps.getGeocoding(coords);
+    return response;
   }
 }

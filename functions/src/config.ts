@@ -1,20 +1,23 @@
 import * as functions from 'firebase-functions';
 import fs from 'fs';
+import { firebaseConfig } from 'firebase-functions';
 
-export interface EnvVars {
-  google?: string;
-  // {
-  //   key: string;
-  //   maps_uri: string;
-  // };
+export interface Config {
+  env: {
+    google: {
+      key: string;
+      maps_uri: string;
+    };
+    mocks?: boolean;
+  };
 }
 
-export const env = (): EnvVars => {
-  if (process.env.NODE_ENV === 'production') {
-    return functions.config().env;
-  } else if (fs.existsSync('../.env.json')) {
-    return require('../.env.json');
-  } else {
-    return { google: undefined };
-  }
+const in_prod = process.env.NODE_ENV === 'production';
+
+export const config: Config = {
+  env: in_prod
+    ? { ...functions.config().env, mocks: false }
+    : fs.existsSync('./.env.json')
+    ? require('../.env.json')
+    : { google: undefined, mocks: true },
 };

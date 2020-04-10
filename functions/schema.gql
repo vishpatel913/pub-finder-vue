@@ -14,6 +14,11 @@ input CoordsInput {
   lng: Float!
 }
 
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
 """a Day Time object"""
 type DayTime {
   day: String!
@@ -56,12 +61,13 @@ type Pub {
   address: String!
   rating: Float
   priceLevel: Int
-  directions: Direction
-  openTimes: [OpenTime!]!
-  photos: [Photo!]!
+  directions(from: CoordsInput): Direction
+  openTimes(date: DateTime): [OpenTime!]!
+  photos(size: Float): [Photo!]!
 }
 
 type Query {
   location(coords: CoordsInput!): Location!
-  pubs(coords: CoordsInput!): [Pub!]!
+  pubs(skip: Int, first: Int = 10, coords: CoordsInput!): [Pub!]!
+  pub(id: String!): Pub!
 }

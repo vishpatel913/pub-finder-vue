@@ -1,35 +1,35 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
 import moment from 'moment';
-// import * as config from '../config';
-import { Coords } from '../schemas/Coords';
-import { Location } from '../schemas/Location';
-import { Pub } from '../schemas/Pub';
-import { PubArgs } from '../resolvers/types/pub-args';
+import { Coords, Location, Pub, Photo, Direction } from '../schemas';
+import { ResultsArgs } from '../resolvers/types';
 import { distanceBetweenCoords, bearingBetweenCoords } from '../utils';
+import { config } from '../config';
 
 export class GoogleMaps extends RESTDataSource {
   constructor() {
     super();
-    // this.baseURL = `${config.env.google.maps_uri}/`;
-    this.baseURL = `${'config.env.google.maps_uri'}/`;
+    this.baseURL = `${config.env.google.maps_uri}/`;
   }
 
   // willSendRequest(request: RequestOptions) {
   //   request.headers.set('Authorization', this.context.token);
   // }
 
-  //  async didReceiveResponse(response) {
-  //    let body = await this.parseBody(response);
-  //    if (response.url.includes('googleusercontent')) {
-  //      body = { url: await response.url };
-  //    }
+  async didReceiveResponse(response) {
+    let body;
 
-  //    return { ...body };
-  //  }
+    if (response.url.includes('googleusercontent')) {
+      body = { url: await response.url };
+    } else {
+      body = await this.parseBody(response);
+    }
 
-  async getGeocoding({ lat, lng }: Coords) {
+    return { ...body };
+  }
+
+  async getGeocoding({ lat, lng }: Coords): Promise<Location> {
     const params = {
-      // key: config.google.key,
+      key: config.env.google.key,
       latlng: `${lat},${lng}`,
     };
     const response = await this.get('geocode/json', params);
@@ -61,9 +61,9 @@ export class GoogleMaps extends RESTDataSource {
     };
   }
 
-  async getPubsNear({ lat, lng }: Coords, args?) {
+  async getPubsNear({ lat, lng }: Coords, args?: ResultsArgs): Promise<Pub[]> {
     const params = {
-      // key: config.google.key,
+      key: config.env.google.key,
       location: `${lat},${lng}`,
       radius: '1500',
       keyword: 'pub,bar',
@@ -90,9 +90,9 @@ export class GoogleMaps extends RESTDataSource {
       .slice(0, args?.first || response.results.length);
   }
 
-  async getPubDetails(id: String, args?) {
+  async getPubDetails(id: String, args?): Promise<Pub> {
     const params = {
-      // key: config.google.key,
+      key: config.env.google.key,
       place_id: id,
       fields: 'place_id,name,geometry,vicinity,rating,price_level,opening_hours,photos',
     };
@@ -108,10 +108,10 @@ export class GoogleMaps extends RESTDataSource {
       photos,
     } = response.result;
 
-    const openTimes = args?.today
+    const openTimes = args?.date
       ? opening_hours.periods.filter(item => {
           const { open, close } = item;
-          const today = moment(args.today);
+          const today = moment(args.date);
           const openMoment = moment(today)
             .day(open.day)
             .hour(open.time.slice(0, 2))
@@ -126,7 +126,7 @@ export class GoogleMaps extends RESTDataSource {
             if (today.day() === 0) openMoment.subtract(1, 'w'); // opened 'last week'
           }
 
-          return openMoment.isBefore(args.today) && closeMoment.isAfter(args.today);
+          return openMoment.isBefore(args.date) && closeMoment.isAfter(args.date);
         })
       : opening_hours.periods;
 
@@ -142,9 +142,9 @@ export class GoogleMaps extends RESTDataSource {
     };
   }
 
-  async getDirections(origin: Coords, dest: Coords) {
+  async getDirections(origin: Coords, dest: Coords): Promise<Direction> {
     const params = {
-      // key: config.google.key,
+      key: config.env.google.key,
       mode: 'walking',
       origin: Object.values(origin).join(','),
       destination: Object.values(dest).join(','),
@@ -160,9 +160,9 @@ export class GoogleMaps extends RESTDataSource {
     };
   }
 
-  async getPhotoData({ photo_reference, html_attributions }, size = 500) {
+  async getPhotoData({ photo_reference, html_attributions }, size = 500): Promise<Photo> {
     const params = {
-      // key: config.google.key,
+      key: config.env.google.key,
       photoreference: photo_reference,
       maxwidth: size,
       maxheight: size,
