@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg, Ctx, FieldResolver, Root, Info, Args } from 'type-graphql';
-import { Pub } from '../schemas/Pub';
+import { Pub } from '../schemas';
 import { CoordsInput, PubFilterArgs } from './types';
 
 @Resolver(of => Pub)

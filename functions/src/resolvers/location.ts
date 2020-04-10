@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg, Ctx } from 'type-graphql';
-import { Location } from '../schemas/Location';
+import { Location } from '../schemas';
 import { CoordsInput } from './types';
 
 @Resolver()

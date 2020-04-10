@@ -1,9 +1,6 @@
 import { ObjectType, Field, ID, Int, Float } from 'type-graphql';
 import { Min, Max, IsOptional } from 'class-validator';
-import { Coords } from './Coords';
-import { Direction } from './Direction';
-import { OpenTime } from './OpenTime';
-import { Photo } from './Photo';
+import { Coords, Direction, OpenTime, Photo } from './';
 
 @ObjectType({ description: 'A Pub' })
 export class Pub {

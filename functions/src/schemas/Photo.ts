@@ -1,5 +1,5 @@
 import { ObjectType, Field } from 'type-graphql';
-import { IsUrl } from 'class-validator';
+import { IsUrl, IsOptional } from 'class-validator';
 
 @ObjectType({ description: 'A Photo of a Pub' })
 export class Photo {
@@ -8,5 +8,6 @@ export class Photo {
   url: string;
 
   @Field({ nullable: true })
+  @IsOptional()
   attribution?: string;
 }
