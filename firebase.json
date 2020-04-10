@@ -1,6 +1,6 @@
 {
   "functions": {
-    "predeploy": "yarn --cwd functions run build"
+    "predeploy": ["yarn run build-func"]
   },
   "hosting": {
     "public": "dist",
