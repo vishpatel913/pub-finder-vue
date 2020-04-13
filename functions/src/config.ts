@@ -19,7 +19,7 @@ export const config: Config = {
     ? { ...functions.config().env }
     : fs.existsSync('./.env.json')
     ? require('../.env.json')
-    : { google: undefined },
+    : { google: { key: '', maps_uri: '' } },
   in_prod,
   mocks: !!process.env.MOCK,
 };
