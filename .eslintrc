@@ -3,7 +3,10 @@
   "env": {
     "node": true
   },
-  "extends": ["plugin:vue/recommended", "@vue/airbnb"],
+  "extends": [
+    "plugin:vue/recommended",
+    "@vue/airbnb"
+  ],
   "parserOptions": {
     "parser": "babel-eslint"
   },
@@ -13,8 +16,8 @@
   "overrides": [
     {
       "files": [
-        "**/__tests__/*.{j,t}s?(x)",
-        "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        "**/__tests__/*.js?(x)",
+        "**/tests/unit/**/*.spec.js?(x)"
       ],
       "env": {
         "jest": true

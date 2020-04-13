@@ -9,6 +9,7 @@ export interface Config {
     };
     mocks?: boolean;
   };
+  in_prod: boolean;
 }
 
 const in_prod = process.env.NODE_ENV === 'production';
@@ -19,4 +20,5 @@ export const config: Config = {
     : fs.existsSync('./.env.json')
     ? require('../.env.json')
     : { google: undefined, mocks: true },
+  in_prod,
 };
