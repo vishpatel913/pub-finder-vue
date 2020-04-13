@@ -7,8 +7,8 @@ export interface Config {
       key: string;
       maps_uri: string;
     };
-    mocks?: boolean;
   };
+  mocks?: boolean;
   in_prod: boolean;
 }
 
@@ -16,9 +16,10 @@ const in_prod = process.env.NODE_ENV === 'production';
 
 export const config: Config = {
   env: in_prod
-    ? { ...functions.config().env, mocks: false }
+    ? { ...functions.config().env }
     : fs.existsSync('./.env.json')
     ? require('../.env.json')
-    : { google: undefined, mocks: true },
+    : { google: undefined },
   in_prod,
+  mocks: !!process.env.MOCK,
 };

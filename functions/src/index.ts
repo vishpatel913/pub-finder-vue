@@ -23,7 +23,7 @@ const dataSources = () => ({
 const server = new ApolloServer({
   schema,
   dataSources,
-  mocks: config.env.mocks ? mocks : false,
+  mocks: config.mocks ? mocks : false,
 });
 
 const app = server.createHandler({

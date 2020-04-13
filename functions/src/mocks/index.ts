@@ -13,7 +13,8 @@ export const mocks = {
   }),
   Pub: () => ({
     id: () => faker.random.uuid(),
-    name: () => faker.fake('The {{commerce.productName}}').replace(/s$/g, ''),
+    name: () =>
+      faker.fake('The {{commerce.productAdjective}} {{commerce.product}}').replace(/s$/g, ''),
     address: () => faker.address.streetAddress(),
     coords: () => ({
       lat: () => faker.address.latitude(),

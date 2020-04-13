@@ -12,6 +12,7 @@
     "deploy": "firebase deploy",
     "deploy-app": "firebase deploy --only hosting",
     "serve": "yarn build-func && yarn --cwd functions run serve",
+    "serve-mock": "yarn build-func && yarn --cwd functions run serve-mock",
     "test-func": "yarn --cwd functions run test-ci",
     "build-func": "yarn --cwd functions run build",
     "deploy-func": "firebase deploy --only functions"
