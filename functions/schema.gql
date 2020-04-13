@@ -14,11 +14,6 @@ input CoordsInput {
   lng: Float!
 }
 
-"""
-The javascript `Date` as string. Type represents date and time as the ISO Date string.
-"""
-scalar DateTime
-
 """a Day Time object"""
 type DayTime {
   day: String!
@@ -62,7 +57,7 @@ type Pub {
   rating: Float
   priceLevel: Int
   directions(from: CoordsInput): Direction
-  openTimes(date: DateTime): [OpenTime!]!
+  openTimes(date: String): [OpenTime!]!
   photos(size: Float): [Photo!]!
 }
 

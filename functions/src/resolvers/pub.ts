@@ -24,7 +24,7 @@ export class PubResolver {
   async openTimes(
     @Root() { id }: Pub,
     @Ctx('dataSources') { googleMaps },
-    @Arg('date', { nullable: true }) date?: Date
+    @Arg('date', { nullable: true }) date?: string
   ) {
     const details = await googleMaps.getPubDetails(id, {
       date,
@@ -45,7 +45,6 @@ export class PubResolver {
     } catch {
       directions = null;
     }
-
     return directions;
   }
 
@@ -56,7 +55,6 @@ export class PubResolver {
     @Arg('size', { nullable: true }) size?: number
   ) {
     const images = photos.map(item => googleMaps.getPhotoData(item, size));
-
     return images;
   }
 }

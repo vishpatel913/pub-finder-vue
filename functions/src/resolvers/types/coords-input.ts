@@ -3,7 +3,7 @@ import { IsLatitude, IsLongitude } from 'class-validator';
 import { Coords } from '../../schemas';
 
 @InputType()
-export class CoordsInput implements Partial<Coords> {
+export class CoordsInput implements Coords {
   @Field()
   @IsLatitude()
   lat: number;

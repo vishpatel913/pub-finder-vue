@@ -1,6 +1,6 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
 import moment from 'moment';
-import { Coords, Location, Pub, Photo, Direction } from '../schemas';
+import { Coords, Location, Pub, Photo, Direction, OpenTime } from '../schemas';
 import { PubFilterArgs } from '../resolvers/types';
 import { distanceBetweenCoords, bearingBetweenCoords } from '../utils';
 import { config } from '../config';
@@ -35,7 +35,7 @@ export class GoogleMaps extends RESTDataSource {
 
     const { formatted_address } = response.results[0];
     const { borough, county, postalArea, area, neighborhood } = response.results.reduce(
-      (result, item) => {
+      (result: any, item: any) => {
         if (item.types.includes('administrative_area_level_3'))
           result.borough = item.address_components[0].long_name;
         if (item.types.includes('administrative_area_level_2'))
@@ -89,7 +89,7 @@ export class GoogleMaps extends RESTDataSource {
       .slice(0, args?.first || response.results.length);
   }
 
-  async getPubDetails(id: String, args?: { date: any }): Promise<Pub> {
+  async getPubDetails(id: String, args?: { date: string }): Promise<Pub> {
     const params = {
       key: config.env.google.key,
       place_id: id,
@@ -108,17 +108,17 @@ export class GoogleMaps extends RESTDataSource {
     } = response.result;
 
     const openTimes = args?.date
-      ? opening_hours.periods.filter((item: { open: any; close: any }) => {
+      ? opening_hours.periods.filter((item: OpenTime) => {
           const { open, close } = item;
           const today = moment(args.date);
           const openMoment = moment(today)
             .day(open.day)
-            .hour(open.time.slice(0, 2))
-            .minute(open.time.slice(2, 4));
+            .hour(+open.time.slice(0, 2))
+            .minute(+open.time.slice(2, 4));
           const closeMoment = moment(today)
             .day(close.day)
-            .hour(close.time.slice(0, 2))
-            .minute(close.time.slice(2, 4));
+            .hour(+close.time.slice(0, 2))
+            .minute(+close.time.slice(2, 4));
           // If opens on Sat and closes on Sun
           if (close.day < open.day) {
             if (today.day() === 6) closeMoment.add(1, 'w'); // closes 'next week'
