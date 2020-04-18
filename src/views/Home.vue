@@ -1,4 +1,6 @@
 <template>
+  <!-- v-infinite-scroll="loadMoreResults"
+      :infinite-scroll-disabled="loaded" -->
   <div class="page-container">
     <location-heading :location="location" />
     <div class="content">
@@ -18,15 +20,25 @@
         />
       </a-list>
     </div>
-    <!-- <a-spin v-if="location && first <= 20" /> -->
+
+    <a-button
+      v-if="0 < pubs.length && pubs.length < 20"
+      class="show-more-button"
+      type="default"
+      :loading="isLoading"
+      @click="loadMoreResults"
+    >
+      Show more
+    </a-button>
+
     <a-button
       class="search-button"
       type="primary"
+      size="large"
+      shape="circle"
       icon="environment"
       @click="getGeolocation"
-    >
-      Get Location
-    </a-button>
+    />
   </div>
 </template>
 
@@ -49,7 +61,7 @@ export default {
   data: () => ({
     pubs: [],
     location: null,
-    // first: 5,
+    first: 5,
   }),
   computed: {
     ...mapState(['coords', 'loading']),
@@ -67,7 +79,7 @@ export default {
         return {
           coords: this.coords,
           now: moment().format(),
-          // first: this.first,
+          first: this.first,
         };
       },
       result({ data, error }) {
@@ -93,7 +105,7 @@ export default {
     ...mapActions(['getGeolocation']),
     ...mapMutations({ setError: 'SET_ERROR' }),
     loadMoreResults() {
-      if (this.first <= 20) this.first += 5;
+      this.first += 5;
     },
   },
 };
@@ -115,6 +127,7 @@ export default {
   .search-button {
     position: fixed;
     bottom: @padding-xl;
+    right: @padding-xl;
   }
 }
 </style>
