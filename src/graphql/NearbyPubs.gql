@@ -1,7 +1,7 @@
 #import "./LocationFragment.gql"
 #import "./OpenHoursFragment.gql"
 
-query NearbyPubsQuery($coords: CoordsInput!, $first: Int, $now: DateTime) {
+query NearbyPubsQuery($coords: CoordsInput!, $first: Int, $now: String) {
   location(coords: $coords) {
     ...locationDetails
   }
