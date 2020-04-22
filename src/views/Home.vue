@@ -1,9 +1,12 @@
+      <!-- v-infinite-scroll="loadMoreResults"
+      :infinite-scroll-disabled="!loadMore"
+      infinite-scroll-distance="0" -->
 <template>
-  <!-- v-infinite-scroll="loadMoreResults"
-      :infinite-scroll-disabled="loaded" -->
   <div class="page-container">
     <location-heading :location="location" />
-    <div class="content">
+    <div
+      class="content"
+    >
       <a-list
         :data-source="pubs"
         :loading="isLoading"
@@ -22,7 +25,7 @@
     </div>
 
     <a-button
-      v-if="0 < pubs.length && pubs.length < 20"
+      v-if="loadMore"
       class="show-more-button"
       type="default"
       :loading="isLoading"
@@ -30,6 +33,7 @@
     >
       Show more
     </a-button>
+    <!-- <a-spin v-if="isLoading && loadMore" /> -->
 
     <a-button
       class="search-button"
@@ -71,6 +75,9 @@ export default {
     noResults() {
       return this.pubs.length < 1;
     },
+    loadMore() {
+      return this.pubs.length > 0 && this.pubs.length < 20;
+    },
   },
   apollo: {
     data: {
@@ -105,7 +112,7 @@ export default {
     ...mapActions(['getGeolocation']),
     ...mapMutations({ setError: 'SET_ERROR' }),
     loadMoreResults() {
-      this.first += 5;
+      if (this.first < 20) this.first += 5;
     },
   },
 };
