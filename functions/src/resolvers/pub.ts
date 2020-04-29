@@ -1,6 +1,7 @@
 import { Resolver, Query, Arg, Ctx, FieldResolver, Root, Info, Args } from 'type-graphql';
 import { Pub, Direction } from '../schemas';
 import { CoordsInput, PubFilterArgs } from './types';
+import { distanceBetweenCoords, bearingBetweenCoords, timeToWalkDistance } from '../utils';
 
 @Resolver(of => Pub)
 export class PubResolver {
@@ -35,17 +36,22 @@ export class PubResolver {
   @FieldResolver()
   async directions(
     @Root() { coords }: Pub,
-    @Ctx('dataSources') { googleMaps },
     @Info() { variableValues },
     @Arg('from', { nullable: true }) from?: CoordsInput
   ) {
     let directions: Direction | null;
+    let start = (from || variableValues.coords) ?? null;
+
     try {
-      directions = await googleMaps.getDirections(from || variableValues.coords, coords);
+      const distance = Math.ceil(distanceBetweenCoords(start, coords));
+      const bearing = bearingBetweenCoords(start, coords);
+      const duration = Math.ceil(timeToWalkDistance(distance));
+      directions = { distance, bearing, duration, }
     } catch {
-      directions = null;
+      directions = null
     }
-    return directions;
+
+    return directions
   }
 
   @FieldResolver()

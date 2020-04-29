@@ -19,7 +19,7 @@ const toRad = (deg: number) => (deg * Math.PI) / 180;
 const toDeg = (rad: number) => (rad * 180) / Math.PI;
 
 export const distanceBetweenCoords = (from: Coords, to: Coords, dp = 2) => {
-  const earthRadius = 6371; // mi
+  const earthRadius = 6371000; // meters
   const x1 = parseFloat(String(from.lat));
   const x2 = parseFloat(String(to.lat));
   const y1 = parseFloat(String(from.lng));
@@ -50,3 +50,10 @@ export const bearingBetweenCoords = (from: Coords, to: Coords) => {
   const brng = toDeg(Math.atan2(y, x));
   return (brng + 360) % 360;
 };
+
+export const timeToWalkDistance = (distance: number) => {
+  const walkingSpeed = 1.4; // m/s
+  const time = distance / walkingSpeed;
+
+  return time;
+}
