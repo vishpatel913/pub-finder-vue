@@ -6,7 +6,7 @@ export const mocks = {
   Int: () => 7,
   String: () => 'Something about mocks',
   Query: () => ({
-    pubs: (parent: any, args: { first: number }) => new MockList(args.first || 20),
+    pubs: (parent: any, args: { first: number }) => new MockList(args.first < 20 ? args.first : 20),
   }),
   Location: () => ({
     address: () => faker.address.streetAddress(),
