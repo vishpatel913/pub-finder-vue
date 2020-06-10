@@ -1,54 +1,37 @@
 module.exports = {
+  root: true,
+  parser: '@typescript-eslint/parser',
   parserOptions: {
+    sourceType: 'module',
     ecmaVersion: 2017
   },
-  plugins: ["promise", "jest"],
-  extends: ["eslint:recommended", "plugin:jest/recommended"],
+  plugins: ['@typescript-eslint', 'prettier', 'promise', 'jest'],
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
+
+    'plugin:jest/recommended'
+  ],
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts']
+    },
+    'import/resolver': {
+      typescript: {}
+    }
+  },
   rules: {
-    "no-console": "off",
-    "no-regex-spaces": "off",
-    "no-debugger": "off",
-    "no-unused-vars": "warn",
-    "no-mixed-spaces-and-tabs": "off",
-    "no-undef": "warn",
-    "no-template-curly-in-string": 1,
-    "consistent-return": 1,
-    "array-callback-return": 1,
-    eqeqeq: 2,
-    "no-alert": 2,
-    "no-caller": 2,
-    "no-eq-null": 2,
-    "no-eval": 2,
-    "no-extend-native": 1,
-    "no-extra-bind": 1,
-    "no-extra-label": 1,
-    "no-floating-decimal": 2,
-    "no-implicit-coercion": 1,
-    "no-loop-func": 1,
-    "no-new-func": 2,
-    "no-new-wrappers": 1,
-    "no-throw-literal": 2,
-    "prefer-promise-reject-errors": 2,
-    "for-direction": 2,
-    "getter-return": 2,
-    "no-await-in-loop": 2,
-    "no-compare-neg-zero": 2,
-    "no-catch-shadow": 1,
-    "no-shadow-restricted-names": 2,
-    "callback-return": 2,
-    "handle-callback-err": 2,
-    "no-path-concat": 1,
-    "no-useless-escape": 1,
+    'arrow-parens': ['error', 'as-needed'],
+    'prefer-arrow-callback': 1,
+    'promise/always-return': 2,
+    'promise/catch-or-return': 2,
+    'promise/no-nesting': 1,
 
-    "prefer-arrow-callback": 1,
-    "promise/always-return": 2,
-    "promise/catch-or-return": 2,
-    "promise/no-nesting": 1,
-
-    "jest/no-disabled-tests": "warn",
-    "jest/no-focused-tests": "error",
-    "jest/no-identical-title": "error",
-    "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error",
+    'jest/no-disabled-tests': 'warn',
+    'jest/no-focused-tests': 'error',
+    'jest/no-identical-title': 'error',
+    'jest/prefer-to-have-length': 'warn',
+    'jest/valid-expect': 'error'
   }
 };

@@ -1,7 +1,20 @@
-import { Resolver, Query, Arg, Ctx, FieldResolver, Root, Info, Args } from 'type-graphql';
+import {
+  Resolver,
+  Query,
+  Arg,
+  Ctx,
+  FieldResolver,
+  Root,
+  Info,
+  Args,
+} from 'type-graphql';
 import { Pub, Direction } from '../schemas';
 import { CoordsInput, PubFilterArgs } from './types';
-import { distanceBetweenCoords, bearingBetweenCoords, timeToWalkDistance } from '../utils';
+import {
+  distanceBetweenCoords,
+  bearingBetweenCoords,
+  timeToWalkDistance,
+} from '../utils';
 
 @Resolver(of => Pub)
 export class PubResolver {
@@ -16,7 +29,10 @@ export class PubResolver {
   }
 
   @Query(returns => Pub, { nullable: false })
-  async pub(@Arg('id') id: string, @Ctx('dataSources') { googleMaps }): Promise<Pub> {
+  async pub(
+    @Arg('id') id: string,
+    @Ctx('dataSources') { googleMaps }
+  ): Promise<Pub> {
     const details = await googleMaps.getPubDetails(id);
     return details;
   }
@@ -40,18 +56,18 @@ export class PubResolver {
     @Arg('from', { nullable: true }) from?: CoordsInput
   ) {
     let directions: Direction | null;
-    let start = (from || variableValues.coords) ?? null;
+    const start = (from || variableValues.coords) ?? null;
 
     try {
       const distance = Math.ceil(distanceBetweenCoords(start, coords));
       const bearing = bearingBetweenCoords(start, coords);
       const duration = Math.ceil(timeToWalkDistance(distance));
-      directions = { distance, bearing, duration, }
+      directions = { distance, bearing, duration };
     } catch {
-      directions = null
+      directions = null;
     }
 
-    return directions
+    return directions;
   }
 
   @FieldResolver()

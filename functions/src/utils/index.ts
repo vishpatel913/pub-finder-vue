@@ -46,7 +46,9 @@ export const bearingBetweenCoords = (from: Coords, to: Coords) => {
   const y2 = toRad(to.lng);
 
   const y = Math.sin(y2 - y1) * Math.cos(x2);
-  const x = Math.cos(x1) * Math.sin(x2) - Math.sin(x1) * Math.cos(x2) * Math.cos(y2 - y1);
+  const x =
+    Math.cos(x1) * Math.sin(x2) -
+    Math.sin(x1) * Math.cos(x2) * Math.cos(y2 - y1);
   const brng = toDeg(Math.atan2(y, x));
   return (brng + 360) % 360;
 };
@@ -56,4 +58,4 @@ export const timeToWalkDistance = (distance: number) => {
   const time = distance / walkingSpeed;
 
   return time;
-}
+};

@@ -6,19 +6,25 @@ export const mocks = {
   Int: () => 7,
   String: () => 'Something about mocks',
   Query: () => ({
-    pubs: (parent: any, args: { first: number }) => new MockList(args.first < 20 ? args.first : 20),
+    pubs: (parent: any, args: { first: number }) =>
+      new MockList(args.first < 20 ? args.first : 20),
   }),
   Location: () => ({
     address: () => faker.address.streetAddress(),
     area: () => faker.fake('{{address.cityPrefix}}{{address.citySuffix}}'),
     borough: () => faker.address.county(),
     county: () => faker.address.state(),
-    postalArea: () => faker.fake('{{address.city}} {{address.zipCode}}, {{address.countryCode}}'),
+    postalArea: () =>
+      faker.fake(
+        '{{address.city}} {{address.zipCode}}, {{address.countryCode}}'
+      ),
   }),
   Pub: () => ({
     id: () => faker.random.uuid(),
     name: () =>
-      faker.fake('The {{commerce.productAdjective}} {{commerce.product}}').replace(/s$/g, ''),
+      faker
+        .fake('The {{commerce.productAdjective}} {{commerce.product}}')
+        .replace(/s$/g, ''),
     address: () => faker.address.streetAddress(),
     coords: () => ({
       lat: () => faker.address.latitude(),
@@ -46,7 +52,8 @@ export const mocks = {
     photos: () => [
       {
         attribution: faker.fake('{{name.firstName}} {{name.lastName}}'),
-        url: 'https://media-cdn.tripadvisor.com/media/photo-s/11/d7/76/bf/the-pagoda.jpg',
+        url:
+          'https://media-cdn.tripadvisor.com/media/photo-s/11/d7/76/bf/the-pagoda.jpg',
       },
     ],
   }),

@@ -8,7 +8,13 @@ export const directionsMockResponse = {
     {
       geocoder_status: 'OK',
       place_id: 'ChIJe_W0LJoFdkgRcWspCshbNmA',
-      types: ['bar', 'establishment', 'food', 'point_of_interest', 'restaurant'],
+      types: [
+        'bar',
+        'establishment',
+        'food',
+        'point_of_interest',
+        'restaurant',
+      ],
     },
   ],
   routes: [
@@ -82,10 +88,12 @@ export const directionsMockResponse = {
                 lat: 51.4617561,
                 lng: -0.1733293,
               },
-              html_instructions: "Turn <b>left</b> onto <b>St John's Hill</b>/<wbr/><b>A3036</b>",
+              html_instructions:
+                "Turn <b>left</b> onto <b>St John's Hill</b>/<wbr/><b>A3036</b>",
               maneuver: 'turn-left',
               polyline: {
-                points: 'okbyHzd`@d@jCH^F\\FXBHH\\BNHTLb@HVBJN`@?@HRDNJX^~@Tl@Pb@b@~@',
+                points:
+                  'okbyHzd`@d@jCH^F\\FXBHH\\BNHTLb@HVBJN`@?@HRDNJX^~@Tl@Pb@b@~@',
               },
               start_location: {
                 lat: 51.46311679999999,

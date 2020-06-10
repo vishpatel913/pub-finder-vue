@@ -34,22 +34,27 @@ export class GoogleMaps extends RESTDataSource {
     const response = await this.get('geocode/json', params);
 
     const { formatted_address } = response.results[0];
-    const { borough, county, postalArea, area, neighborhood } = response.results.reduce(
-      (result: any, item: any) => {
-        if (item.types.includes('administrative_area_level_3'))
-          result.borough = item.address_components[0].long_name;
-        if (item.types.includes('administrative_area_level_2'))
-          result.county = item.address_components[0].long_name;
-        if (item.types.includes('postal_code_prefix')) result.postalArea = item.formatted_address;
-        if (item.types.includes('neighborhood'))
-          result.neighborhood = item.address_components[0].long_name;
-        if (item.types.includes('sublocality')) result.area = item.address_components[0].long_name;
-        else if (!result.area && item.types.includes('locality'))
-          result.area = item.address_components[0].long_name;
-        return result;
-      },
-      {}
-    );
+    const {
+      borough,
+      county,
+      postalArea,
+      area,
+      neighborhood,
+    } = response.results.reduce((result: any, item: any) => {
+      if (item.types.includes('administrative_area_level_3'))
+        result.borough = item.address_components[0].long_name;
+      if (item.types.includes('administrative_area_level_2'))
+        result.county = item.address_components[0].long_name;
+      if (item.types.includes('postal_code_prefix'))
+        result.postalArea = item.formatted_address;
+      if (item.types.includes('neighborhood'))
+        result.neighborhood = item.address_components[0].long_name;
+      if (item.types.includes('sublocality'))
+        result.area = item.address_components[0].long_name;
+      else if (!result.area && item.types.includes('locality'))
+        result.area = item.address_components[0].long_name;
+      return result;
+    }, {});
 
     return {
       address: formatted_address,
@@ -60,7 +65,10 @@ export class GoogleMaps extends RESTDataSource {
     };
   }
 
-  async getPubsNear({ lat, lng }: Coords, args?: PubFilterArgs): Promise<Pub[]> {
+  async getPubsNear(
+    { lat, lng }: Coords,
+    args?: PubFilterArgs
+  ): Promise<Pub[]> {
     const params = {
       key: config.env.google.key,
       location: `${lat},${lng}`,
@@ -89,11 +97,12 @@ export class GoogleMaps extends RESTDataSource {
       .slice(0, args?.first || response.results.length);
   }
 
-  async getPubDetails(id: String, args?: { date: string }): Promise<Pub> {
+  async getPubDetails(id: string, args?: { date: string }): Promise<Pub> {
     const params = {
       key: config.env.google.key,
       place_id: id,
-      fields: 'place_id,name,geometry,vicinity,rating,price_level,opening_hours,photos',
+      fields:
+        'place_id,name,geometry,vicinity,rating,price_level,opening_hours,photos',
     };
     const response = await this.get('place/details/json', params);
     const {
@@ -125,7 +134,9 @@ export class GoogleMaps extends RESTDataSource {
             if (today.day() === 0) openMoment.subtract(1, 'w'); // opened 'last week'
           }
 
-          return openMoment.isBefore(args.date) && closeMoment.isAfter(args.date);
+          return (
+            openMoment.isBefore(args.date) && closeMoment.isAfter(args.date)
+          );
         })
       : opening_hours.periods;
 
@@ -159,7 +170,10 @@ export class GoogleMaps extends RESTDataSource {
     };
   }
 
-  async getPhotoData({ photo_reference, html_attributions }, size = 500): Promise<Photo> {
+  async getPhotoData(
+    { photo_reference, html_attributions },
+    size = 500
+  ): Promise<Photo> {
     const params = {
       key: config.env.google.key,
       photoreference: photo_reference,

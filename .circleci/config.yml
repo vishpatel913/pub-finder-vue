@@ -87,6 +87,9 @@ jobs:
       - install_dependencies:
           directory: functions
       - run:
+          name: Lint functions
+          command: yarn --cwd functions run lint --fix
+      - run:
           name: Test functions
           command: yarn --cwd functions run test-ci
 

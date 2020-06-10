@@ -28,7 +28,13 @@ describe('[GoogleMaps.getGeocoding]', () => {
 
   it('returns an object with the correct keys', () => {
     expect(Object.keys(response)).toEqual(
-      expect.arrayContaining(['address', 'area', 'borough', 'county', 'postalArea'])
+      expect.arrayContaining([
+        'address',
+        'area',
+        'borough',
+        'county',
+        'postalArea',
+      ])
     );
   });
 
@@ -184,7 +190,10 @@ describe('[GoogleMaps.getDirections]', () => {
   let response;
   beforeEach(async () => {
     mocks.get.mockReturnValueOnce(directionsMockResponse);
-    response = await gm.getDirections({ lat: 7, lng: 12 }, { lat: 19, lng: 95 });
+    response = await gm.getDirections(
+      { lat: 7, lng: 12 },
+      { lat: 19, lng: 95 }
+    );
   });
 
   it('returns the direction object in the correct format', () => {
@@ -219,7 +228,9 @@ describe('[GoogleMaps.getPhotoData]', () => {
   });
 
   it('returns the photo references in the correct format', () => {
-    expect(Object.keys(response)).toEqual(expect.arrayContaining(['url', 'attribution']));
+    expect(Object.keys(response)).toEqual(
+      expect.arrayContaining(['url', 'attribution'])
+    );
   });
 
   it('returns the attributers in the correct format', () => {

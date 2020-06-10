@@ -250,7 +250,8 @@ export const geocodingMockResponse = {
           },
         },
       },
-      place_id: 'EhoyMCBKZWRidXJnaCBTdCwgTG9uZG9uLCBVSyIaEhgKFAoSCfc8iQCwBXZIEavMabwPHaT7EBQ',
+      place_id:
+        'EhoyMCBKZWRidXJnaCBTdCwgTG9uZG9uLCBVSyIaEhgKFAoSCfc8iQCwBXZIEavMabwPHaT7EBQ',
       types: ['street_address'],
     },
     {
