@@ -14,9 +14,9 @@ export class DayTime {
 
 @ObjectType({ description: 'A Pub Open Time object with closing' })
 export class OpenTime {
-  @Field(type => DayTime)
+  @Field(_type => DayTime)
   open: DayTime;
 
-  @Field(type => DayTime)
+  @Field(_type => DayTime)
   close: DayTime;
 }

@@ -4,7 +4,7 @@ import { CoordsInput } from './types';
 
 @Resolver()
 export class LocationResolver {
-  @Query(returns => Location, { nullable: false })
+  @Query(_returns => Location, { nullable: false })
   async location(
     @Arg('coords') coords: CoordsInput,
     @Ctx('dataSources') { googleMaps }

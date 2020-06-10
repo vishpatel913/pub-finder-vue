@@ -221,10 +221,9 @@ describe('[GoogleMaps.getPhotoData]', () => {
   let response;
   beforeEach(async () => {
     mocks.get.mockReturnValueOnce('image-source-code');
-    response = await gm.getPhotoData({
-      photo_reference: 'imagereference',
-      html_attributions: ['<a href="test">John Smith</a>'],
-    });
+    response = await gm.getPhotoData('imagereference', [
+      '<a href="test">John Smith</a>',
+    ]);
   });
 
   it('returns the photo references in the correct format', () => {

@@ -16,25 +16,25 @@ export class Pub {
   @Field()
   address: string;
 
-  @Field(type => Float, { nullable: true })
+  @Field(_type => Float, { nullable: true })
   @Min(0)
   @Max(5)
   @IsOptional()
   rating?: number;
 
-  @Field(type => Int, { nullable: true })
+  @Field(_type => Int, { nullable: true })
   @Min(0)
   @Max(5)
   @IsOptional()
   priceLevel?: number;
 
-  @Field(type => Direction, { nullable: true })
+  @Field(_type => Direction, { nullable: true })
   @IsOptional()
   directions?: Direction;
 
-  @Field(type => [OpenTime])
+  @Field(_type => [OpenTime])
   openTimes: OpenTime[];
 
-  @Field(type => [Photo])
+  @Field(_type => [Photo])
   photos: Photo[];
 }

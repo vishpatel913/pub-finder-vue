@@ -8,7 +8,7 @@ import {
   Info,
   Args,
 } from 'type-graphql';
-import { Pub, Direction } from '../schemas';
+import { Pub, Direction, OpenTime, Photo, PhotoResponse } from '../schemas';
 import { CoordsInput, PubFilterArgs } from './types';
 import {
   distanceBetweenCoords,
@@ -16,9 +16,9 @@ import {
   timeToWalkDistance,
 } from '../utils';
 
-@Resolver(of => Pub)
+@Resolver(_of => Pub)
 export class PubResolver {
-  @Query(returns => [Pub], { nullable: false })
+  @Query(_returns => [Pub], { nullable: false })
   async pubs(
     @Arg('coords') coords: CoordsInput,
     @Args() { first }: PubFilterArgs,
@@ -28,7 +28,7 @@ export class PubResolver {
     return results;
   }
 
-  @Query(returns => Pub, { nullable: false })
+  @Query(_returns => Pub, { nullable: false })
   async pub(
     @Arg('id') id: string,
     @Ctx('dataSources') { googleMaps }
@@ -42,7 +42,7 @@ export class PubResolver {
     @Root() { id }: Pub,
     @Ctx('dataSources') { googleMaps },
     @Arg('date', { nullable: true }) date?: string
-  ) {
+  ): Promise<OpenTime[]> {
     const details = await googleMaps.getPubDetails(id, {
       date,
     });
@@ -54,7 +54,7 @@ export class PubResolver {
     @Root() { coords }: Pub,
     @Info() { variableValues },
     @Arg('from', { nullable: true }) from?: CoordsInput
-  ) {
+  ): Promise<Direction | null> {
     let directions: Direction | null;
     const start = (from || variableValues.coords) ?? null;
 
@@ -72,11 +72,13 @@ export class PubResolver {
 
   @FieldResolver()
   async photos(
-    @Root() { photos }: Pub,
+    @Root() { photos }: { photos: PhotoResponse[] },
     @Ctx('dataSources') { googleMaps },
     @Arg('size', { nullable: true }) size?: number
-  ) {
-    const images = photos.map(item => googleMaps.getPhotoData(item, size));
+  ): Promise<Photo[]> {
+    const images = photos.map(item =>
+      googleMaps.getPhotoData(item.photo_reference, item.html_attribution, size)
+    );
     return images;
   }
 }

@@ -1,14 +1,21 @@
 import faker from 'faker';
 import moment from 'moment';
 import { MockList } from 'apollo-server-cloud-functions';
+import { Pub } from '../schemas';
 
 export const mocks = {
-  Int: () => 7,
-  String: () => 'Something about mocks',
-  Query: () => ({
-    pubs: (parent: any, args: { first: number }) =>
-      new MockList(args.first < 20 ? args.first : 20),
-  }),
+  Int: (): number => 7,
+  String: (): string => 'Something about mocks',
+  Query: (): any => {
+    return {
+      pubs: (
+        parent: Pub,
+        args: {
+          first: number;
+        }
+      ) => new MockList(args.first < 20 ? args.first : 20),
+    };
+  },
   Location: () => ({
     address: () => faker.address.streetAddress(),
     area: () => faker.fake('{{address.cityPrefix}}{{address.citySuffix}}'),

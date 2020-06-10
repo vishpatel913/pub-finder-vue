@@ -18,7 +18,11 @@ const toRad = (deg: number) => (deg * Math.PI) / 180;
 // Converts from radians to degrees.
 const toDeg = (rad: number) => (rad * 180) / Math.PI;
 
-export const distanceBetweenCoords = (from: Coords, to: Coords, dp = 2) => {
+export const distanceBetweenCoords = (
+  from: Coords,
+  to: Coords,
+  dp = 2
+): number => {
   const earthRadius = 6371000; // meters
   const x1 = parseFloat(String(from.lat));
   const x2 = parseFloat(String(to.lat));
@@ -39,7 +43,7 @@ export const distanceBetweenCoords = (from: Coords, to: Coords, dp = 2) => {
   return Math.round(d * Math.pow(10, dp)) / Math.pow(10, dp);
 };
 
-export const bearingBetweenCoords = (from: Coords, to: Coords) => {
+export const bearingBetweenCoords = (from: Coords, to: Coords): number => {
   const x1 = toRad(from.lat);
   const x2 = toRad(to.lat);
   const y1 = toRad(from.lng);
@@ -53,7 +57,7 @@ export const bearingBetweenCoords = (from: Coords, to: Coords) => {
   return (brng + 360) % 360;
 };
 
-export const timeToWalkDistance = (distance: number) => {
+export const timeToWalkDistance = (distance: number): number => {
   const walkingSpeed = 1.4; // m/s
   const time = distance / walkingSpeed;
 

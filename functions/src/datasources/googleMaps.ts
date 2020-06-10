@@ -1,4 +1,4 @@
-import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
+import { RESTDataSource, Response } from 'apollo-datasource-rest';
 import moment from 'moment';
 import { Coords, Location, Pub, Photo, Direction, OpenTime } from '../schemas';
 import { PubFilterArgs } from '../resolvers/types';
@@ -11,11 +11,12 @@ export class GoogleMaps extends RESTDataSource {
     this.baseURL = `${config.env.google.maps_uri}/`;
   }
 
-  // willSendRequest(request: RequestOptions) {
+  // async willSendRequest(request: RequestOptions) {
+  //   console.log('HIT willSendRequest');
   //   request.headers.set('Authorization', this.context.token);
   // }
 
-  async didReceiveResponse(response) {
+  async didReceiveResponse(response: Response): Promise<any> {
     let res;
     if (response.url.includes('googleusercontent')) {
       res = { url: await response.url };
@@ -104,7 +105,9 @@ export class GoogleMaps extends RESTDataSource {
       fields:
         'place_id,name,geometry,vicinity,rating,price_level,opening_hours,photos',
     };
-    const response = await this.get('place/details/json', params);
+    const response = await this.get('place/details/json', params, {
+      cacheOptions: { ttl: 360 },
+    });
     const {
       place_id,
       name,
@@ -160,7 +163,9 @@ export class GoogleMaps extends RESTDataSource {
       destination: Object.values(dest).join(','),
     };
 
-    const response = await this.get('directions/json', params);
+    const response = await this.get('directions/json', params, {
+      cacheOptions: { ttl: 360 },
+    });
     const { legs } = response.routes[0];
 
     return {
@@ -171,21 +176,24 @@ export class GoogleMaps extends RESTDataSource {
   }
 
   async getPhotoData(
-    { photo_reference, html_attributions },
+    photoRef: string,
+    htmlAttribution?: string[],
     size = 500
   ): Promise<Photo> {
     const params = {
       key: config.env.google.key,
-      photoreference: photo_reference,
+      photoreference: photoRef,
       maxwidth: size,
       maxheight: size,
     };
 
-    const response = await this.get('place/photo', params);
+    const response = await this.get('place/photo', params, {
+      cacheOptions: { ttl: 360 },
+    });
 
     return {
       url: response.url,
-      attribution: html_attributions[0].replace(/<\s*a[^>]*>|<\s*\/\s*a>/g, ''),
+      attribution: htmlAttribution?.[0].replace(/<\s*a[^>]*>|<\s*\/\s*a>/g, ''),
     };
   }
 }

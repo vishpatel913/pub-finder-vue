@@ -3,23 +3,22 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 2017
+    ecmaVersion: 2017,
   },
   plugins: ['@typescript-eslint', 'prettier', 'promise', 'jest'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
-
-    'plugin:jest/recommended'
+    'plugin:jest/recommended',
   ],
   settings: {
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts']
+      '@typescript-eslint/parser': ['.ts'],
     },
     'import/resolver': {
-      typescript: {}
-    }
+      typescript: {},
+    },
   },
   rules: {
     'arrow-parens': ['error', 'as-needed'],
@@ -32,6 +31,8 @@ module.exports = {
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
-    'jest/valid-expect': 'error'
-  }
+    'jest/valid-expect': 'error',
+
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+  },
 };

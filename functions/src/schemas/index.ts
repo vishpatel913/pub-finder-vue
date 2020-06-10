@@ -3,6 +3,6 @@ import { Pub } from './Pub';
 import { Coords } from './Coords';
 import { OpenTime } from './OpenTime';
 import { Direction } from './Direction';
-import { Photo } from './Photo';
+import { Photo, PhotoResponse } from './Photo';
 
-export { Location, Pub, Coords, OpenTime, Direction, Photo };
+export { Location, Pub, Coords, OpenTime, Direction, Photo, PhotoResponse };
