@@ -1,6 +1,7 @@
-import { ObjectType, Field } from 'type-graphql';
+import { ObjectType, Field, Directive } from 'type-graphql';
 import { IsNumberString } from 'class-validator';
 
+@Directive('@cacheControl(maxAge: 3600)')
 @ObjectType({ description: 'a Day Time object' })
 export class DayTime {
   @Field()

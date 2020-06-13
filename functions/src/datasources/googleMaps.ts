@@ -11,7 +11,7 @@ export class GoogleMaps extends RESTDataSource {
     this.baseURL = `${config.env.google.maps_uri}/`;
   }
 
-  // async willSendRequest(request: RequestOptions) {
+  // async willSendRequest(request: RequestOptions): Promise<void> {
   //   console.log('HIT willSendRequest');
   //   request.headers.set('Authorization', this.context.token);
   // }

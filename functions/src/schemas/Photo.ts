@@ -1,6 +1,7 @@
-import { ObjectType, Field } from 'type-graphql';
+import { ObjectType, Field, Directive } from 'type-graphql';
 import { IsUrl, IsOptional } from 'class-validator';
 
+@Directive('@cacheControl(maxAge: 3600)')
 @ObjectType({ description: 'A Photo of a Pub' })
 export class Photo {
   @Field()

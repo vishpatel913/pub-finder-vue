@@ -23,6 +23,9 @@ const dataSources = () => ({
 const server = new ApolloServer({
   schema,
   dataSources,
+  cacheControl: {
+    defaultMaxAge: 60,
+  },
   mocks: config.mocks ? mocks : false,
 });
 
