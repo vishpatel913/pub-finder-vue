@@ -21,11 +21,12 @@ export class PubResolver {
   @Query(_returns => [Pub], { nullable: false })
   async pubs(
     @Arg('coords') coords: CoordsInput,
-    @Args() { first }: PubFilterArgs,
+    @Args() { first, skip }: PubFilterArgs,
     @Ctx('dataSources') { googleMaps }
   ): Promise<Pub[]> {
-    const results = await googleMaps.getPubsNear(coords, { first });
-    return results;
+    const results = await googleMaps.getPubsNear(coords);
+
+    return results.slice(skip, first + skip);
   }
 
   @Query(_returns => Pub, { nullable: false })

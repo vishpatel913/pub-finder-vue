@@ -74,11 +74,6 @@ describe('[GoogleMaps.getPubsNear]', () => {
       ])
     );
   });
-
-  it('returns the first n amount of pubs', async () => {
-    response = await gm.getPubsNear({ lat: 7, lng: 12 }, { first: 2 });
-    expect(response).toHaveLength(2);
-  });
 });
 
 describe('[GoogleMaps.getPubDetails]', () => {

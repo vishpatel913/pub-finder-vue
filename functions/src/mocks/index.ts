@@ -13,7 +13,7 @@ export const mocks = {
         args: {
           first: number;
         }
-      ) => new MockList(args.first < 20 ? args.first : 20),
+      ) => new MockList(args.first),
     };
   },
   Location: () => ({

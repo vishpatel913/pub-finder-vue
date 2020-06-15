@@ -64,5 +64,5 @@ type Pub {
 type Query {
   location(coords: CoordsInput!): Location!
   pub(id: String!): Pub!
-  pubs(coords: CoordsInput!, first: Int = 10, skip: Int): [Pub!]!
+  pubs(coords: CoordsInput!, first: Int = 10, skip: Int = 0): [Pub!]!
 }

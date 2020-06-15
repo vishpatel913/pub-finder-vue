@@ -6,7 +6,7 @@ export class PubFilterArgs {
   @Field(_type => Int, { nullable: true })
   @Min(0)
   @Max(19)
-  skip?: number;
+  skip = 0;
 
   @Field(_type => Int, { nullable: true })
   @Min(1)

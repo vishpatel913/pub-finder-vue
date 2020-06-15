@@ -66,10 +66,7 @@ export class GoogleMaps extends RESTDataSource {
     };
   }
 
-  async getPubsNear(
-    { lat, lng }: Coords,
-    args?: PubFilterArgs
-  ): Promise<Pub[]> {
+  async getPubsNear({ lat, lng }: Coords): Promise<Pub[]> {
     const params = {
       key: config.env.google.key,
       location: `${lat},${lng}`,
@@ -94,8 +91,7 @@ export class GoogleMaps extends RESTDataSource {
         distanceBetweenCoords({ lat, lng }, b.coords)
           ? 1
           : -1
-      )
-      .slice(0, args?.first || response.results.length);
+      );
   }
 
   async getPubDetails(id: string, args?: { date: string }): Promise<Pub> {

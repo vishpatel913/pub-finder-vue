@@ -24,19 +24,32 @@
       </a-list>
     </div>
 
-    <a-button
-      v-if="loadMore"
-      class="show-more-button"
-      type="default"
-      :loading="isLoading"
-      @click="loadMoreResults"
-    >
-      Show more
-    </a-button>
-    <!-- <a-spin v-if="isLoading && loadMore" /> -->
+    <div class="footer">
+      <a-button-group
+        v-if="!noResults && (!isFirstPage || !isLastPage)"
+        type="default"
+      >
+        <a-button
+          type="primary"
+          ghost
+          :disabled="isFirstPage"
+          @click="previousPage"
+        >
+          <a-icon type="left" />
+        </a-button>
+        <a-button
+          type="primary"
+          ghost
+          :disabled="isLastPage"
+          @click="nextPage"
+        >
+          <a-icon type="right" />
+        </a-button>
+      </a-button-group>
+    </div>
 
     <a-button
-      class="search-button"
+      class="fab"
       type="primary"
       size="large"
       shape="circle"
@@ -66,6 +79,7 @@ export default {
     pubs: [],
     location: null,
     first: 5,
+    skip: 0,
   }),
   computed: {
     ...mapState(['coords', 'loading']),
@@ -75,8 +89,11 @@ export default {
     noResults() {
       return this.pubs.length < 1;
     },
-    loadMore() {
-      return this.pubs.length > 0 && this.pubs.length < 20;
+    isFirstPage() {
+      return this.skip === 0;
+    },
+    isLastPage() {
+      return this.skip === 20 - this.first || this.pubs.length % this.first !== 0;
     },
   },
   apollo: {
@@ -87,6 +104,7 @@ export default {
           coords: this.coords,
           now: moment().format(),
           first: this.first,
+          skip: this.skip,
         };
       },
       result({ data, error }) {
@@ -111,8 +129,11 @@ export default {
   methods: {
     ...mapActions(['getGeolocation']),
     ...mapMutations({ setError: 'SET_ERROR' }),
-    loadMoreResults() {
-      if (this.first < 20) this.first += 5;
+    nextPage() {
+      if (!this.isLastPage) this.skip += 5;
+    },
+    previousPage() {
+      if (!this.isFirstPage) this.skip -= 5;
     },
   },
 };
@@ -131,10 +152,15 @@ export default {
     margin-bottom: 3rem;
     width: 100%;
   }
-  .search-button {
+  .fab {
     position: fixed;
     bottom: @padding-xl;
     right: @padding-xl;
+  }
+  .footer {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
   }
 }
 </style>

@@ -1,11 +1,16 @@
 #import "./LocationFragment.gql"
 #import "./OpenHoursFragment.gql"
 
-query NearbyPubsQuery($coords: CoordsInput!, $first: Int, $now: String) {
+query NearbyPubsQuery(
+  $coords: CoordsInput!
+  $first: Int
+  $skip: Int
+  $now: String
+) {
   location(coords: $coords) {
     ...locationDetails
   }
-  pubs(coords: $coords, first: $first) {
+  pubs(coords: $coords, first: $first, skip: $skip) {
     id
     name
     address
