@@ -4,13 +4,15 @@
     class="location-container"
   >
     <div class="heading">
+      <h2>{{ location.district }}</h2>
+    </div>
+    <span class="sub">
       <a-icon
         class="icon"
         type="environment"
       />
-      <h2>{{ displayLocation }}</h2>
-    </div>
-    <span class="sub">{{ location.borough }}</span>
+      {{ subLocation }}
+    </span>
   </div>
 </template>
 
@@ -24,8 +26,9 @@ export default {
     },
   },
   computed: {
-    displayLocation() {
-      return this.location.area !== 'London' ? this.location.area : this.location.postalArea;
+    subLocation() {
+      return this.location.district !== this.location.city
+        ? this.location.city : this.location.county;
     },
   },
 };
@@ -39,18 +42,16 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: baseline;
-    .icon {
-      color: @primary-color;
-      font-size: @padding-md;
-      margin-right: @padding-sm;
-    }
     h2 {
-      margin: 0;
+      margin-bottom: @padding-sm;
     }
   }
   .sub {
     color: @text-color-secondary;
-    font-size: @font-size-sm;
+    font-size: @font-size-base;
+    .icon {
+      margin-right: @padding-xs;
+    }
   }
 }
 </style>

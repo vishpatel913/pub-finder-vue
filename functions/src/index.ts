@@ -1,11 +1,11 @@
 import * as functions from 'firebase-functions';
-import { ApolloServer, gql } from 'apollo-server-cloud-functions';
+import { ApolloServer } from 'apollo-server-cloud-functions';
 import 'reflect-metadata';
 import { buildSchemaSync } from 'type-graphql';
 
 import { LocationResolver } from './resolvers/location';
 import { PubResolver } from './resolvers/pub';
-import { GoogleMaps } from './datasources/googleMaps';
+import { GoogleMaps, Here } from './datasources';
 
 import { config } from './config';
 import { mocks } from './mocks';
@@ -18,6 +18,7 @@ const schema = buildSchemaSync({
 
 const dataSources = () => ({
   googleMaps: new GoogleMaps(),
+  here: new Here(),
 });
 
 const server = new ApolloServer({

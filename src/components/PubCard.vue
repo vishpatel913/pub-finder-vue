@@ -126,6 +126,10 @@ export default {
       if (closeMoment.format('a') === 'am' && moment().format('a') !== 'am') closeMoment.add(1, 'd');
       return closeMoment.fromNow();
     },
+    pubLink() {
+      const dest = `${this.details.coords.lat},${this.details.coords.lng}`;
+      return `https://www.google.com/maps/place/${dest}`;
+    },
     directionsLink() {
       const current = `${this.coords.lat},${this.coords.lng}`;
       const dest = `${this.details.coords.lat},${this.details.coords.lng}`;
@@ -145,12 +149,12 @@ export default {
         navigator.share({
           title: this.details.name,
           text,
-          url: this.directionsLink,
+          url: this.pubLink,
         });
       } else {
         window.location.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(
           `${text} - `,
-        )}${this.directionsLink}`;
+        )}${this.pubLink}`;
       }
     },
   },

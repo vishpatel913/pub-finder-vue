@@ -30,16 +30,16 @@ type Direction {
 """The Location data of coords"""
 type Location {
   address: String!
-  area: String
-  borough: String
+  city: String
   county: String
-  postalArea: String
+  district: String
+  postalCode: String
 }
 
 """A Pub Open Time object with closing"""
 type OpenTime {
-  close: DayTime!
-  open: DayTime!
+  close: DayTime
+  open: DayTime
 }
 
 """A Photo of a Pub"""

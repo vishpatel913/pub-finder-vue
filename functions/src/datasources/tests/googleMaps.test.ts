@@ -1,6 +1,5 @@
-import { GoogleMaps } from '../googleMaps';
+import GoogleMaps from '../googleMaps';
 import {
-  geocodingMockResponse,
   placesMockResponse,
   placeDetailsMockResponse,
   directionsMockResponse,
@@ -16,38 +15,6 @@ Object.defineProperty(gm, 'get', { value: mocks.get });
 describe('[GoogleMaps]', () => {
   it('constructs with a base url', () => {
     expect(gm.baseURL).not.toHaveLength(0);
-  });
-});
-
-describe('[GoogleMaps.getGeocoding]', () => {
-  let response;
-  beforeEach(async () => {
-    mocks.get.mockReturnValueOnce(geocodingMockResponse);
-    response = await gm.getGeocoding({ lat: 7, lng: 12 });
-  });
-
-  it('returns an object with the correct keys', () => {
-    expect(Object.keys(response)).toEqual(
-      expect.arrayContaining([
-        'address',
-        'area',
-        'borough',
-        'county',
-        'postalArea',
-      ])
-    );
-  });
-
-  it('returns the geocoding data in the correct format', () => {
-    expect(response).toEqual(
-      expect.objectContaining({
-        address: '66 Sisters Ave, London SW11 5SN, UK',
-        area: 'London',
-        borough: 'London Borough of Wandsworth',
-        county: 'Greater London',
-        postalArea: 'London SW11, UK',
-      })
-    );
   });
 });
 

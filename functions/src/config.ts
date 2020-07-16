@@ -7,6 +7,10 @@ export interface Config {
       key: string;
       maps_uri: string;
     };
+    here: {
+      key: string;
+      geocode_uri: string;
+    };
   };
   mocks?: boolean;
   in_prod: boolean;
@@ -19,7 +23,7 @@ export const config: Config = {
     ? { ...functions.config().env }
     : fs.existsSync('./.env.json')
     ? require('../.env.json')
-    : { google: { key: '', maps_uri: '' } },
+    : { google: { key: '', maps_uri: '' }, here: { key: '', geocode_uri: '' } },
   in_prod,
   mocks: !!process.env.MOCK,
 };

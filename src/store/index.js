@@ -25,7 +25,7 @@ export default new Vuex.Store({
       if (navigator.geolocation) {
         commit('SET_ERROR', false);
         commit('SET_LOADING', true);
-        await navigator.geolocation.getCurrentPosition(
+        navigator.geolocation.getCurrentPosition(
           ({ coords }) => {
             commit('SET_ERROR', false);
             commit('SET_COORDINATES', coords);

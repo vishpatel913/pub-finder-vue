@@ -1,7 +1,7 @@
 fragment locationDetails on Location {
   address
-  area
-  borough
+  district
+  city
   county
-  postalArea
+  postalCode
 }

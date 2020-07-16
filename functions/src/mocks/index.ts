@@ -16,17 +16,15 @@ export const mocks = {
       ) => new MockList(args.first),
     };
   },
-  Location: () => ({
+  Location: (): any => ({
     address: () => faker.address.streetAddress(),
-    area: () => faker.fake('{{address.cityPrefix}}{{address.citySuffix}}'),
-    borough: () => faker.address.county(),
-    county: () => faker.address.state(),
-    postalArea: () =>
-      faker.fake(
-        '{{address.city}} {{address.zipCode}}, {{address.countryCode}}'
-      ),
+    district: () => faker.address.city(),
+    city: () => faker.fake('{{address.cityPrefix}}{{address.citySuffix}}'),
+    county: () => faker.address.county(),
+    postalCode: () =>
+      faker.fake('{{address.stateAbbr}}{{random.number({"min":1,"max":20})}}'),
   }),
-  Pub: () => ({
+  Pub: (): any => ({
     id: () => faker.random.uuid(),
     name: () =>
       faker
@@ -59,8 +57,7 @@ export const mocks = {
     photos: () => [
       {
         attribution: faker.fake('{{name.firstName}} {{name.lastName}}'),
-        url:
-          'https://media-cdn.tripadvisor.com/media/photo-s/11/d7/76/bf/the-pagoda.jpg',
+        url: faker.image.nightlife(),
       },
     ],
   }),

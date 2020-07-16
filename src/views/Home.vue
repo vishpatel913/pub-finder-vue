@@ -1,6 +1,3 @@
-      <!-- v-infinite-scroll="loadMoreResults"
-      :infinite-scroll-disabled="!loadMore"
-      infinite-scroll-distance="0" -->
 <template>
   <div class="page-container">
     <location-heading :location="location" />

@@ -1,11 +1,14 @@
-import { RESTDataSource, Response } from 'apollo-datasource-rest';
+import {
+  RESTDataSource,
+  Response,
+  // RequestOptions,
+} from 'apollo-datasource-rest';
 import moment from 'moment';
-import { Coords, Location, Pub, Photo, Direction, OpenTime } from '../schemas';
-import { PubFilterArgs } from '../resolvers/types';
+import { Coords, Pub, Photo, Direction, OpenTime } from '../schemas';
 import { distanceBetweenCoords, bearingBetweenCoords } from '../utils';
 import { config } from '../config';
 
-export class GoogleMaps extends RESTDataSource {
+class GoogleMaps extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = `${config.env.google.maps_uri}/`;
@@ -25,45 +28,6 @@ export class GoogleMaps extends RESTDataSource {
     }
 
     return res;
-  }
-
-  async getGeocoding({ lat, lng }: Coords): Promise<Location> {
-    const params = {
-      key: config.env.google.key,
-      latlng: `${lat},${lng}`,
-    };
-    const response = await this.get('geocode/json', params);
-
-    const { formatted_address } = response.results[0];
-    const {
-      borough,
-      county,
-      postalArea,
-      area,
-      neighborhood,
-    } = response.results.reduce((result: any, item: any) => {
-      if (item.types.includes('administrative_area_level_3'))
-        result.borough = item.address_components[0].long_name;
-      if (item.types.includes('administrative_area_level_2'))
-        result.county = item.address_components[0].long_name;
-      if (item.types.includes('postal_code_prefix'))
-        result.postalArea = item.formatted_address;
-      if (item.types.includes('neighborhood'))
-        result.neighborhood = item.address_components[0].long_name;
-      if (item.types.includes('sublocality'))
-        result.area = item.address_components[0].long_name;
-      else if (!result.area && item.types.includes('locality'))
-        result.area = item.address_components[0].long_name;
-      return result;
-    }, {});
-
-    return {
-      address: formatted_address,
-      borough,
-      county,
-      postalArea,
-      area: neighborhood || area,
-    };
   }
 
   async getPubsNear({ lat, lng }: Coords): Promise<Pub[]> {
@@ -118,6 +82,9 @@ export class GoogleMaps extends RESTDataSource {
     const openTimes = args?.date
       ? opening_hours.periods.filter((item: OpenTime) => {
           const { open, close } = item;
+          if (!open || !close) {
+            return false;
+          }
           const today = moment(args.date);
           const openMoment = moment(today)
             .day(open.day)
@@ -193,3 +160,5 @@ export class GoogleMaps extends RESTDataSource {
     };
   }
 }
+
+export default GoogleMaps;

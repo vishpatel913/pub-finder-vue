@@ -7,9 +7,9 @@ export class LocationResolver {
   @Query(_returns => Location, { nullable: false })
   async location(
     @Arg('coords') coords: CoordsInput,
-    @Ctx('dataSources') { googleMaps }
+    @Ctx('dataSources') { here }
   ): Promise<Location> {
-    const response = await googleMaps.getGeocoding(coords);
+    const response = await here.getGeocoding(coords);
     return response;
   }
 }

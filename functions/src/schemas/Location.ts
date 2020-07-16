@@ -8,11 +8,11 @@ export class Location {
 
   @Field({ nullable: true })
   @IsOptional()
-  area: string;
+  district: string;
 
   @Field({ nullable: true })
   @IsOptional()
-  borough: string;
+  city: string;
 
   @Field({ nullable: true })
   @IsOptional()
@@ -20,5 +20,5 @@ export class Location {
 
   @Field({ nullable: true })
   @IsOptional()
-  postalArea: string;
+  postalCode: string;
 }
