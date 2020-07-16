@@ -44,6 +44,8 @@ jobs:
             ./node_modules/.bin/firebase functions:config:unset env --token "$FIREBASE_DEPLOY_TOKEN"
             ./node_modules/.bin/firebase functions:config:set env.google.key="$GOOGLE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
             ./node_modules/.bin/firebase functions:config:set env.google.maps_uri="$GOOGLE_MAPS_URI" --token "$FIREBASE_DEPLOY_TOKEN"
+            ./node_modules/.bin/firebase functions:config:set env.here.key="$HERE_API_KEY" --token "$FIREBASE_DEPLOY_TOKEN"
+            ./node_modules/.bin/firebase functions:config:set env.here.geocode_uri="$HERE_GEOCODE_URI" --token "$FIREBASE_DEPLOY_TOKEN"
 
   build_app:
     docker:
