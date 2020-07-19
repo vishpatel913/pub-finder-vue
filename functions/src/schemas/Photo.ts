@@ -4,9 +4,10 @@ import { IsUrl, IsOptional } from 'class-validator';
 @Directive('@cacheControl(maxAge: 3600)')
 @ObjectType({ description: 'A Photo of a Pub' })
 export class Photo {
-  @Field()
+  @Field({ nullable: true })
   @IsUrl()
-  url: string;
+  @IsOptional()
+  url?: string;
 
   @Field({ nullable: true })
   @IsOptional()
