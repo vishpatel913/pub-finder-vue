@@ -16,6 +16,7 @@
         </a-list-item>
         <empty-list
           v-if="noResults"
+          text="No Pubs Open"
           :loading="isLoading"
         />
       </a-list>

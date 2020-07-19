@@ -2,12 +2,11 @@ module.exports = {
   // The prefix to use on all css classes from ant.
   'ant-prefix': 'ant',
 
-  '@theme-primary': '#1da57a',
-  '@theme-primary-dark': '#156064',
-  '@theme-primary-light': '#00c49a',
-  '@theme-secondary': '#f8e16c',
-  '@theme-secondary-light': '#ffc2b4',
-  '@theme-secondary-dark': '#fb8f67',
+  '@theme-primary': '#F0A011',
+  '@theme-primary-dark': '#363537',
+  '@theme-primary-light': '#FFC551',
+  '@theme-secondary': '#00C49A',
+  '@theme-secondary-light': '#48E5C2',
   '@theme-red': '#fc224c',
   '@theme-yellow': '#ffeb3b',
   '@theme-gold': '#ffc72d',
