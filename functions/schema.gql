@@ -45,7 +45,7 @@ type OpenTime {
 """A Photo of a Pub"""
 type Photo {
   attribution: String
-  url: String!
+  url: String
 }
 
 """A Pub"""
