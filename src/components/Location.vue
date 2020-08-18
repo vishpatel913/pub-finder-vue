@@ -13,7 +13,7 @@
         class="icon"
         type="environment"
       />
-      {{ city }}
+      {{ subheading }}
     </span>
   </div>
 </template>
@@ -29,6 +29,15 @@ export default {
     city: {
       type: String,
       default: null,
+    },
+    county: {
+      type: String,
+      default: null,
+    },
+  },
+  computed: {
+    subheading() {
+      return this.title !== this.city ? this.city : this.county;
     },
   },
 };

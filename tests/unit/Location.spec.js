@@ -7,6 +7,7 @@ describe('Location.vue Test', () => {
       propsData: {
         title: 'Battersea',
         city: 'London',
+        county: 'London',
       },
     });
 
@@ -19,5 +20,18 @@ describe('Location.vue Test', () => {
 
     expect(wrapper.find('.heading').text()).toMatch('Loading');
     expect(wrapper.findAll('.sub-heading').length).toEqual(0);
+  });
+
+  it('renders different sub heading if duplicate', () => {
+    const wrapper = shallowMount(Location, {
+      propsData: {
+        title: 'Leicester',
+        city: 'Leicester',
+        county: 'Leicestershire',
+      },
+    });
+
+    expect(wrapper.find('.heading').text()).toMatch('Leicester');
+    expect(wrapper.find('.sub-heading').text()).toMatch('Leicestershire');
   });
 });

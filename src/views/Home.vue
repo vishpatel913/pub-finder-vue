@@ -3,6 +3,7 @@
     <location
       :title="location.district"
       :city="location.city"
+      :county="location.county"
     />
     <div
       class="content"
