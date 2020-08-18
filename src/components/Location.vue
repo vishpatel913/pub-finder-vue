@@ -1,34 +1,34 @@
 <template>
   <div
-    v-if="location"
     class="location-container"
   >
     <div class="heading">
-      <h2>{{ location.district }}</h2>
+      <h2>{{ title }}</h2>
     </div>
-    <span class="sub">
+    <span
+      v-if="city"
+      class="sub-heading"
+    >
       <a-icon
         class="icon"
         type="environment"
       />
-      {{ subLocation }}
+      {{ city }}
     </span>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'LocationHeading',
+  name: 'Location',
   props: {
-    location: {
-      type: Object,
-      default: null,
+    title: {
+      type: String,
+      default: 'Loading',
     },
-  },
-  computed: {
-    subLocation() {
-      return this.location.district !== this.location.city
-        ? this.location.city : this.location.county;
+    city: {
+      type: String,
+      default: null,
     },
   },
 };
@@ -46,7 +46,7 @@ export default {
       margin-bottom: @padding-sm;
     }
   }
-  .sub {
+  .sub-heading {
     color: @text-color-secondary;
     font-size: @font-size-base;
     .icon {

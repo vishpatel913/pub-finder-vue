@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import PubPhotosQuery from '@/graphql/PubPhotos.gql';
+// import PubPhotosQuery from '@/graphql/PubPhotos.gql';
 import LazyImage from './LazyImage.vue';
 
 export default {
@@ -43,7 +43,7 @@ export default {
   props: {
     id: {
       type: String,
-      required: true,
+      default: '',
     },
     preview: {
       type: Object,
@@ -64,30 +64,30 @@ export default {
       if (current === -1) console.log('current', current);
     },
   },
-  apollo: {
-    data: {
-      query: PubPhotosQuery,
-      variables() {
-        return {
-          id: this.id,
-        };
-      },
-      result({ data, error }) {
-        if (!error) {
-          // this.images = data.pub.photos;
-          this.name = data.pub.name;
-        }
-      },
-      update: ({ pub }) => pub.photos,
-      error() {
-        this.images = [this.preview];
-        this.$message.error('Issues pulling the rest of the images');
-      },
-      skip() {
-        return !this.id;
-      },
-    },
-  },
+  // apollo: {
+  //   data: {
+  //     query: PubPhotosQuery,
+  //     variables() {
+  //       return {
+  //         id: this.id,
+  //       };
+  //     },
+  //     result({ data, error }) {
+  //       if (!error) {
+  //         // this.images = data.pub.photos;
+  //         this.name = data.pub.name;
+  //       }
+  //     },
+  //     update: ({ pub }) => pub.photos,
+  //     error() {
+  //       this.images = [this.preview];
+  //       this.$message.error('Issues pulling the rest of the images');
+  //     },
+  //     skip() {
+  //       return !this.id;
+  //     },
+  //   },
+  // },
 };
 </script>
 

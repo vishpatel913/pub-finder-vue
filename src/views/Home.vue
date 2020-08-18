@@ -1,6 +1,9 @@
 <template>
   <div class="page-container">
-    <location-heading :location="location" />
+    <location
+      :title="location.district"
+      :city="location.city"
+    />
     <div
       class="content"
     >
@@ -12,7 +15,16 @@
           slot="renderItem"
           slot-scope="item"
         >
-          <pub-card :details="item" />
+          <pub-card
+            :name="item.name"
+            :address="item.address"
+            :coords="item.coords"
+            :rating="item.rating"
+            :price-level="item.priceLevel"
+            :directions="item.directions"
+            :photos="item.photos"
+            :open-times="item.openTimes[0]"
+          />
         </a-list-item>
         <empty-list
           v-if="noResults"
@@ -61,21 +73,24 @@
 import { mapState, mapMutations, mapActions } from 'vuex';
 import moment from 'moment';
 import infiniteScroll from 'vue-infinite-scroll';
-import LocationHeading from '@/components/LocationHeading.vue';
+import Location from '@/components/Location.vue';
 import PubCard from '@/components/PubCard.vue';
 import EmptyList from '@/components/EmptyList.vue';
 import NearbyPubsQuery from '@/graphql/NearbyPubs.gql';
 
 export default {
   components: {
-    LocationHeading,
+    Location,
     PubCard,
     EmptyList,
   },
   directives: { infiniteScroll },
   data: () => ({
     pubs: [],
-    location: null,
+    location: {
+      district: undefined,
+      city: undefined,
+    },
     first: 5,
     skip: 0,
   }),

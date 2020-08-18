@@ -78,6 +78,19 @@ jobs:
           name: Build functions
           command: yarn --cwd functions run build
 
+  test_app:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - install_dependencies
+      - run:
+          name: Lint app
+          command: yarn lint --fix
+      - run:
+          name: Test app
+          command: yarn test --coverage
+
   test_functions:
     docker:
       - image: circleci/node:10

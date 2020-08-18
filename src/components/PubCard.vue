@@ -3,18 +3,18 @@
     <div @click="handleModal">
       <div class="header">
         <h3>
-          {{ details.name }} <span class="distance">({{ walkingDistance }}min walk)</span>
+          {{ name }} <span class="distance">({{ walkingDistance }}min walk)</span>
         </h3>
         <!-- <compass-direction
           class="compass"
-          :bearing="details.directions.bearing"
+          :bearing="directions.bearing"
         /> -->
       </div>
       <div class="content">
         <p class="address">
-          {{ details.address }}
+          {{ address }}
         </p>
-        <p v-if="details.openTimes[0]">
+        <p v-if="openHours">
           Closes: {{ openHours.closes.time }} <strong>({{ closesIn }})</strong>
         </p>
       </div>
@@ -23,14 +23,14 @@
       <div class="ratings">
         <a-rate
           class="price"
-          :default-value="details.priceLevel"
-          :count="details.priceLevel"
+          :default-value="priceLevel"
+          :count="priceLevel"
           character="£"
           disabled
         />
         <a-rate
           class="stars"
-          :default-value="details.rating"
+          :default-value="rating"
           allow-half
           disabled
         />
@@ -66,7 +66,6 @@
       :closable="false"
     >
       <pub-image-gallery
-        :id="details.id"
         :preview="image"
       />
     </a-modal>
@@ -86,7 +85,35 @@ export default {
     // CompassDirection,
   },
   props: {
-    details: {
+    name: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    coords: {
+      type: Object,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      default: null,
+    },
+    priceLevel: {
+      type: Number,
+      default: null,
+    },
+    directions: {
+      type: Object,
+      default: null,
+    },
+    photos: {
+      type: Array,
+      default: null,
+    },
+    openTimes: {
       type: Object,
       default: null,
     },
@@ -95,28 +122,27 @@ export default {
     imageModal: false,
   }),
   computed: {
-    ...mapState(['coords']),
+    ...mapState({ currentCoords: 'coords' }),
     walkingDistance() {
-      const { distance } = this.details.directions;
+      const { distance } = this.directions;
       return Math.round(distance / 1.34 / 60);
     },
     image() {
-      const { url, attribution } = this.details.photos[0];
+      const { url, attribution } = this.photos[0];
       return {
         url,
         attribution,
       };
     },
     openHours() {
-      const { open, close } = this.details.openTimes[0];
-      return {
+      return this.openTimes && {
         opens: {
-          day: moment(open.day, 'e').format('ddd'),
-          time: moment(open.time, 'HHmm').format('h:mma'),
+          day: moment(this.openTimes.open.day, 'e').format('ddd'),
+          time: moment(this.openTimes.open.time, 'HHmm').format('h:mma'),
         },
         closes: {
-          day: moment(close.day, 'e').format('ddd'),
-          time: moment(close.time, 'HHmm').format('h:mma'),
+          day: moment(this.openTimes.close.day, 'e').format('ddd'),
+          time: moment(this.openTimes.close.time, 'HHmm').format('h:mma'),
         },
       };
     },
@@ -127,12 +153,12 @@ export default {
       return closeMoment.fromNow();
     },
     pubLink() {
-      const dest = `${this.details.coords.lat},${this.details.coords.lng}`;
+      const dest = `${this.coords.lat},${this.coords.lng}`;
       return `https://www.google.com/maps/place/${dest}`;
     },
     directionsLink() {
-      const current = `${this.coords.lat},${this.coords.lng}`;
-      const dest = `${this.details.coords.lat},${this.details.coords.lng}`;
+      const current = `${this.currentCoords.lat},${this.currentCoords.lng}`;
+      const dest = `${this.coords.lat},${this.coords.lng}`;
       return `https://www.google.com/maps/dir/${current}/${dest}/data=!4m2!4m1!3e2`;
     },
   },
@@ -147,7 +173,7 @@ export default {
       const text = "I'm going here...";
       if ('share' in navigator) {
         navigator.share({
-          title: this.details.name,
+          title: this.name,
           text,
           url: this.pubLink,
         });

@@ -2,12 +2,44 @@
   "data": {
     "location": {
       "address": "30C Eckstein Rd, London SW11 1QF, UK",
-      "area": "Battersea",
-      "borough": "London Borough of Wandsworth",
+      "district": "Battersea",
+      "city": "London",
       "county": "Greater London",
-      "postalArea": "London SW11, UK"
+      "postalCode": "London SW11, UK"
     },
     "pubs": [
+      {
+        "name": "The Magic Garden",
+        "address": "231 Battersea Park Rd, London",
+        "coords": {
+          "lat": 51.4753333,
+          "lng": -0.1508611
+        },
+        "rating": 4.2,
+        "priceLevel": 2,
+        "directions": {
+          "distance": 123,
+          "bearing": 149.28
+        },
+        "photos": [
+          {
+            "url": "http://lorempixel.com/640/480/nightlife",
+            "attribution": "Fernando De Franceschi"
+          }
+        ],
+        "openTimes": [
+          {
+            "open": {
+              "day": "5",
+              "time": "1030"
+            },
+            "close": {
+              "day": "6",
+              "time": "0100"
+            }
+          }
+        ]
+      },
       {
         "name": "The Plough Bar & Kitchen",
         "address": "89 St John's Hill, London",
@@ -17,9 +49,13 @@
         },
         "rating": 4,
         "priceLevel": 2,
-        "distance": 399,
+        "directions": {
+          "distance": 190,
+          "bearing": 149.28
+        },
         "photos": [
           {
+            "url": "http://lorempixel.com/640/480/nightlife",
             "attribution": "Alex Rutherford"
           }
         ],
@@ -45,9 +81,13 @@
         },
         "rating": 4,
         "priceLevel": 2,
-        "distance": 520,
+        "directions": {
+          "distance": 190,
+          "bearing": 149.28
+        },
         "photos": [
           {
+            "url": "http://lorempixel.com/640/480/nightlife",
             "attribution": "Youngs Driver2"
           }
         ],
@@ -73,9 +113,13 @@
         },
         "rating": 4.1,
         "priceLevel": null,
-        "distance": 773,
+        "directions": {
+          "distance": 132,
+          "bearing": 149.28
+        },
         "photos": [
           {
+            "url": "http://lorempixel.com/640/480/nightlife",
             "attribution": "Scratch Bar"
           }
         ],
@@ -101,9 +145,13 @@
         },
         "rating": 4.2,
         "priceLevel": 1,
-        "distance": 997,
+        "directions": {
+          "distance": 152,
+          "bearing": 149.28
+        },
         "photos": [
           {
+            "url": "http://lorempixel.com/640/480/nightlife",
             "attribution": "A Google User"
           }
         ],
@@ -129,9 +177,13 @@
         },
         "rating": 4,
         "priceLevel": 1,
-        "distance": 995,
+        "directions": {
+          "distance": 136,
+          "bearing": 149.28
+        },
         "photos": [
           {
+            "url": "http://lorempixel.com/640/480/nightlife",
             "attribution": "Mick Hicks"
           }
         ],
@@ -157,9 +209,13 @@
         },
         "rating": 4.1,
         "priceLevel": null,
-        "distance": 1124,
+        "directions": {
+          "distance": 910,
+          "bearing": 149.28
+        },
         "photos": [
           {
+            "url": "http://lorempixel.com/640/480/nightlife",
             "attribution": "Giulio Bontadini"
           }
         ],
@@ -185,9 +241,13 @@
         },
         "rating": 4.4,
         "priceLevel": null,
-        "distance": 1458,
+        "directions": {
+          "distance": 90,
+          "bearing": 149.28
+        },
         "photos": [
           {
+            "url": "http://lorempixel.com/640/480/nightlife",
             "attribution": "A Google User"
           }
         ],
@@ -196,34 +256,6 @@
             "open": {
               "day": "5",
               "time": "0700"
-            },
-            "close": {
-              "day": "6",
-              "time": "0000"
-            }
-          }
-        ]
-      },
-      {
-        "name": "The Magic Garden",
-        "address": "231 Battersea Park Rd, London",
-        "coords": {
-          "lat": 51.4753333,
-          "lng": -0.1508611
-        },
-        "rating": 4.2,
-        "priceLevel": 2,
-        "distance": 2510,
-        "photos": [
-          {
-            "attribution": "Fernando De Franceschi"
-          }
-        ],
-        "openTimes": [
-          {
-            "open": {
-              "day": "5",
-              "time": "1030"
             },
             "close": {
               "day": "6",
