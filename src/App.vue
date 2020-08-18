@@ -21,7 +21,8 @@
 <script>
 import { mapState } from 'vuex';
 import TitleHeader from '@/components/TitleHeader.vue';
-import logo from './assets/logo.png';
+
+const LOGO_PATH = 'https://pubs-nearby.firebaseapp.com/img/meta-banner.png';
 
 export default {
   components: {
@@ -38,6 +39,7 @@ export default {
         content:
           'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no',
       },
+      { name: 'title', content: 'Pubs Nearby' },
       {
         name: 'description',
         content: 'Shows you pubs around you that are still open. Fancy a bev?',
@@ -59,7 +61,13 @@ export default {
         content: 'Shows you pubs around you that are still open. Fancy a bev?',
       },
       { property: 'og:type', content: 'article' },
-      { property: 'og:image', content: logo },
+      { property: 'og:image', content: LOGO_PATH },
+      { property: 'twitter:card', content: 'summary_large_image' },
+      { property: 'twitter:url', content: 'https://pubs-nearby.firebaseapp.com/' },
+      { property: 'twitter:title', content: 'Pubs Nearby' },
+      { property: 'twitter:description', content: 'Shows you pubs around you that are still open. Fancy a bev?' },
+      { property: 'twitter:image', content: LOGO_PATH },
+
     ],
   },
 };
