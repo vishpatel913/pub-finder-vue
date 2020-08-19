@@ -196,7 +196,6 @@ export default {
     justify-content: space-between;
     align-items: baseline;
     margin-bottom: @padding-sm;
-    // line-height: 1.5;
     h3 {
       color: @heading-black-color;
     }

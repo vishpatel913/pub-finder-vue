@@ -59,14 +59,14 @@
       </a-button-group>
     </div>
 
-    <a-button
+    <!-- <a-button
       class="fab"
       type="primary"
       size="large"
       shape="circle"
       icon="environment"
       @click="getGeolocation"
-    />
+    /> -->
   </div>
 </template>
 
@@ -158,8 +158,6 @@ export default {
   margin: 0 auto 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   .content {
     justify-content: space-between;
     align-items: center;

@@ -1,5 +1,5 @@
 module.exports = {
-  presets: ['@vue/cli-plugin-unit-jest'],
+  preset: '@vue/cli-plugin-unit-jest',
   modulePathIgnorePatterns: ['<rootDir>/functions/', '<rootDir>/node_modules/'],
   moduleFileExtensions: [
     'js',
@@ -14,4 +14,9 @@ module.exports = {
     '.*\\.(vue)$': '<rootDir>/node_modules/vue-jest',
   },
   setupFiles: ['<rootDir>/jest.setup.js'],
+  collectCoverageFrom: [
+    'src/**/*.{js,vue}',
+    '!src/main.js', // No need to cover bootstrap file
+  ],
+
 };

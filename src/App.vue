@@ -7,7 +7,6 @@
     <title-header />
     <a-alert
       v-if="error"
-      class="error"
       :message="error.message"
       type="error"
       show-icon
@@ -15,18 +14,23 @@
     <div id="layout">
       <router-view />
     </div>
+    <div id="nav">
+      <navigation />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import TitleHeader from '@/components/TitleHeader.vue';
+import Navigation from '@/components/Navigation.vue';
 
 const LOGO_PATH = 'https://pubs-nearby.firebaseapp.com/img/meta-banner.png';
 
 export default {
   components: {
     TitleHeader,
+    Navigation,
   },
   computed: {
     ...mapState(['error']),
@@ -78,14 +82,23 @@ export default {
   font-family: Quicksand, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-bottom: 48px;
 }
 
 #layout {
-  padding: 0 @padding-xl;
+  position: relative;
   margin: @padding-md 0;
+  padding: 0 @padding-xl;
 }
 
-.error {
+#nav {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.ant-alert {
   margin: 0 @padding-xl !important;
 }
 </style>

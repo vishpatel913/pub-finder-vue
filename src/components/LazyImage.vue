@@ -60,6 +60,7 @@ figure {
     max-width: 100%;
   }
 }
+
 .image-container {
   min-height: 10rem;
   height: auto;

@@ -127,7 +127,7 @@ export default {
     &-next {
       right: 10px;
     }
-    &:before {
+    &::before {
       display: none;
     }
     &:hover {
