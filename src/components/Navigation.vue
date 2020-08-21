@@ -6,13 +6,19 @@
     >
       <a-menu-item key="/">
         <router-link to="/">
-          <a-icon type="home" />
+          <a-icon
+            type="home"
+            class="icon"
+          />
           Home
         </router-link>
       </a-menu-item>
       <a-menu-item key="/search">
         <router-link to="/search">
-          <a-icon type="search" />
+          <a-icon
+            type="search"
+            class="icon"
+          />
           Search
         </router-link>
       </a-menu-item>

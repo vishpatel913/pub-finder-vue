@@ -18,7 +18,7 @@ describe('Location.vue Test', () => {
   it('renders correct loading state when no props', () => {
     const wrapper = shallowMount(Location);
 
-    expect(wrapper.find('.heading').text()).toMatch('Loading');
+    expect(wrapper.find('.heading').text()).toMatch('Loading...');
     expect(wrapper.findAll('.sub-heading').length).toEqual(0);
   });
 

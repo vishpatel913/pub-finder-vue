@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container">
+  <div>
     <location
       :title="location.district"
       :city="location.city"
@@ -154,25 +154,22 @@ export default {
 </script>
 
 <style scoped lang="less">
-.page-container {
-  margin: 0 auto 2rem;
+.content {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.fab {
+  position: fixed;
+  bottom: @padding-xl;
+  right: @padding-xl;
+}
+
+.footer {
   display: flex;
-  flex-direction: column;
-  .content {
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 3rem;
-    width: 100%;
-  }
-  .fab {
-    position: fixed;
-    bottom: @padding-xl;
-    right: @padding-xl;
-  }
-  .footer {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-  }
+  justify-content: flex-start;
+  width: 100%;
 }
 </style>

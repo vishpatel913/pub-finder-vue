@@ -74,18 +74,22 @@
 @control-padding-horizontal: 8px;
 @control-padding-horizontal-sm: 4px;
 
-
 // Button color
 @btn-primary-color: @white;
 
 // Border color
-@border-color-base: darken(@theme-primary-dark, 15%); // base border outline a component
-@border-color-split: darken(@theme-primary-dark, 6%); // split border inside a component
+@border-color-base: lighten(@theme-primary-dark, 15%); // base border outline a component
+@border-color-split: lighten(@theme-primary-dark, 6%); // split border inside a component
 @border-color-inverse: @theme-primary-dark;
 
 // Background colors
 @background-color-light: darken(@theme-primary-dark, 2%); // background of header and selected item
 @background-color-base: darken(@theme-primary-dark, 4%); // Default grey background color
+
+// Disabled states
+@disabled-color: fade(#fff, 25%);
+@disabled-bg: @background-color-base;
+@disabled-color-dark: fade(#000, 35%);
 
 // Skeleton color
 @skeleton-color: lighten(@theme-primary-dark, 5%);
@@ -105,5 +109,3 @@
 @alert-error-border-color: @error-color;
 @alert-error-bg-color: darken(@error-color, 30%);
 @alert-error-icon-color: @error-color;
-
-@import './_variablesDark';

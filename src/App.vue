@@ -87,7 +87,9 @@ export default {
 
 #layout {
   position: relative;
-  margin: @padding-md 0;
+  display: flex;
+  flex-direction: column;
+  margin: @padding-md 0 @padding-xl;
   padding: 0 @padding-xl;
 }
 

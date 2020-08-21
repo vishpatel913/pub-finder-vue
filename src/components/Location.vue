@@ -24,7 +24,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Loading',
+      default: 'Loading...',
     },
     city: {
       type: String,
