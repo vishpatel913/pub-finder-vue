@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
     <title-header />
     <a-alert
       v-if="error"
@@ -14,9 +10,9 @@
     <div id="layout">
       <router-view />
     </div>
-    <div id="nav">
+    <!-- <div id="nav">
       <navigation />
-    </div>
+    </div> -->
   </div>
 </template>
 
