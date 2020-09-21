@@ -19,14 +19,14 @@
 <script>
 import { mapState } from 'vuex';
 import TitleHeader from '@/components/TitleHeader.vue';
-import Navigation from '@/components/Navigation.vue';
+// import Navigation from '@/components/Navigation.vue';
 
 const LOGO_PATH = 'https://pubs-nearby.firebaseapp.com/img/meta-banner.png';
 
 export default {
   components: {
     TitleHeader,
-    Navigation,
+    // Navigation,
   },
   computed: {
     ...mapState(['error']),
