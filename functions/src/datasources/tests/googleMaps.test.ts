@@ -45,9 +45,9 @@ describe('[GoogleMaps.getPubsNear]', () => {
   });
 
   it('builds and returns the correct google maps links', () => {
-    expect(response[1].links).toEqual({
+    expect(response[0].links).toEqual({
       place:
-        'https://www.google.com/maps/search/?api=1&query=54.9916667,-1.6036111&query_place_id=ChIJUcgKA9lwfkgRz34D578dDQc',
+        'https://www.google.com/maps/search/?api=1&query=54.9900241,-1.606599&query_place_id=ChIJUcgKA9lwfkgRz34D578dDQc',
       directions:
         'https://www.google.com/maps/dir/?api=1&origin=54.9,-1.6&destination=Bar%20Blanc&destination_place_id=ChIJUcgKA9lwfkgRz34D578dDQc&travelmode=walking',
     });
