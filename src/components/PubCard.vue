@@ -15,7 +15,8 @@
           {{ address }}
         </p>
         <p v-if="openHours">
-          Closes: {{ openHours.closes.time.toLowerCase() }} <strong>({{ closesIn }})</strong>
+          Closes: {{ openHours.closes.time.toLowerCase() }}
+          <strong>({{ closesIn.value }} {{ closesIn.unit }})</strong>
         </p>
       </div>
     </div>
@@ -128,6 +129,7 @@ export default {
         closeDt = closeDt.plus({ hours: 24 });
       }
       const { hours, minutes } = closeDt.diffNow(['hours', 'minutes']).toObject();
+      console.log('{hours, minutes}', { hours, minutes });
       const closesHours = ({
         value: minutes > 30 ? hours + 1 : hours,
         unit: hours > 1 ? 'hours' : 'hours',
