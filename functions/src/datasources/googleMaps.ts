@@ -5,7 +5,11 @@ import {
 } from 'apollo-datasource-rest';
 import moment from 'moment';
 import { Coords, Pub, Photo, Direction } from '../schemas';
-import { PlacesResponse, PlaceDetailsResponse } from './types';
+import {
+  PlacesResponse,
+  PlaceDetailsResponse,
+  PlaceResultResponse,
+} from './types';
 import { distanceBetweenCoords, bearingBetweenCoords } from '../utils';
 import { config } from '../config';
 
@@ -47,16 +51,9 @@ class GoogleMaps extends RESTDataSource {
     );
 
     return response.results
-      .map(item => ({
-        id: item.place_id,
-        name: item.name,
-        coords: item.geometry.location,
-        address: item.vicinity,
-        rating: item.rating,
-        priceLevel: item.price_level,
-        openTimes: [],
-        photos: item.photos,
-      }))
+      .map(result =>
+        GoogleMaps.normalisePlaceResponse(result, { origin: { lat, lng } })
+      )
       .sort((a: Pub, b: Pub) =>
         distanceBetweenCoords({ lat, lng }, a.coords) >
         distanceBetweenCoords({ lat, lng }, b.coords)
@@ -72,61 +69,15 @@ class GoogleMaps extends RESTDataSource {
       fields:
         'place_id,name,geometry,vicinity,rating,price_level,opening_hours,photos',
     };
-    const response: PlaceDetailsResponse = await this.get(
+    const { result }: PlaceDetailsResponse = await this.get(
       'place/details/json',
       params,
       {
         cacheOptions: { ttl: 360 },
       }
     );
-    const {
-      place_id,
-      name,
-      geometry,
-      vicinity,
-      rating,
-      price_level,
-      opening_hours,
-      photos,
-    } = response.result;
 
-    const openTimes = args?.date
-      ? opening_hours.periods?.filter(item => {
-          const { open, close } = item;
-          if (!open || !close) {
-            return false;
-          }
-          const today = moment(args.date);
-          const openMoment = moment(today)
-            .day(open.day)
-            .hour(+open.time.slice(0, 2))
-            .minute(+open.time.slice(2, 4));
-          const closeMoment = moment(today)
-            .day(close.day)
-            .hour(+close.time.slice(0, 2))
-            .minute(+close.time.slice(2, 4));
-          // If opens on Sat and closes on Sun
-          if (close.day < open.day) {
-            if (today.day() === 6) closeMoment.add(1, 'w'); // closes 'next week'
-            if (today.day() === 0) openMoment.subtract(1, 'w'); // opened 'last week'
-          }
-
-          return (
-            openMoment.isBefore(args.date) && closeMoment.isAfter(args.date)
-          );
-        })
-      : opening_hours.periods;
-
-    return {
-      id: place_id,
-      name,
-      coords: geometry.location,
-      address: vicinity,
-      rating,
-      priceLevel: price_level,
-      openTimes: openTimes || [],
-      photos,
-    };
+    return GoogleMaps.normalisePlaceResponse(result, { time: args?.date });
   }
 
   async getDirections(origin: Coords, dest: Coords): Promise<Direction> {
@@ -168,6 +119,66 @@ class GoogleMaps extends RESTDataSource {
     return {
       url: response,
       attribution: htmlAttribution?.[0].replace(/<\s*a[^>]*>|<\s*\/\s*a>/g, ''),
+    };
+  }
+
+  private static normalisePlaceResponse(
+    result: PlaceResultResponse,
+    params?: { origin?: Coords; time?: string }
+  ): Pub {
+    const {
+      place_id,
+      name,
+      geometry: { location },
+      vicinity,
+      rating,
+      price_level,
+      photos,
+      opening_hours,
+    } = result;
+
+    const openTimes = params?.time
+      ? opening_hours.periods?.filter(item => {
+          const { open, close } = item;
+          if (!open || !close) {
+            return false;
+          }
+          const today = moment(params.time);
+          const openMoment = moment(today)
+            .day(open.day)
+            .hour(+open.time.slice(0, 2))
+            .minute(+open.time.slice(2, 4));
+          const closeMoment = moment(today)
+            .day(close.day)
+            .hour(+close.time.slice(0, 2))
+            .minute(+close.time.slice(2, 4));
+          // If opens on Sat and closes on Sun
+          if (close.day < open.day) {
+            if (today.day() === 6) closeMoment.add(1, 'w'); // closes 'next week'
+            if (today.day() === 0) openMoment.subtract(1, 'w'); // opened 'last week'
+          }
+
+          return (
+            openMoment.isBefore(params.time) && closeMoment.isAfter(params.time)
+          );
+        })
+      : opening_hours.periods;
+
+    return {
+      id: place_id,
+      name,
+      coords: location,
+      address: vicinity,
+      rating,
+      priceLevel: price_level,
+      openTimes: openTimes || [],
+      photos,
+      links: params?.origin
+        ? {
+            place: `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${place_id}`,
+            directions: `https://www.google.com/maps/dir/?api=1&origin=${params.origin.lat},${params.origin.lng}&destination=QVB&destination_place_id=${place_id}&travelmode=walking`,
+          }
+        : undefined,
     };
   }
 }

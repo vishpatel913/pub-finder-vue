@@ -37,6 +37,12 @@ type Location {
   postalCode: String
 }
 
+"""Google Maps Links relating to a Pub"""
+type MapLinks {
+  directions: String!
+  place: String!
+}
+
 """A Pub Open Time object with closing"""
 type OpenTime {
   close: DayTime
@@ -55,6 +61,7 @@ type Pub {
   coords: Coords!
   directions(from: CoordsInput): Direction
   id: ID!
+  links: MapLinks
   name: String!
   openTimes(date: String): [OpenTime!]!
   photos(size: Float): [Photo!]!

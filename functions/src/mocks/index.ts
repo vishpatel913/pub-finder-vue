@@ -57,5 +57,11 @@ export const mocks = {
         url: faker.image.nightlife(),
       },
     ],
+    links: {
+      place:
+        'https://www.google.com/maps/search/?api=1&query=51.4608424,-0.1635043&query_place_id=ChIJn6EbZr0FdkgRHniNnrBipTo',
+      directions:
+        'https://www.google.com/maps/dir/?api=1&origin=51.4608372,-0.1629586&destination=QVB&destination_place_id=ChIJn6EbZr0FdkgRHniNnrBipTo&travelmode=walking',
+    },
   }),
 };

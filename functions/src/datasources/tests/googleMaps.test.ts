@@ -34,6 +34,7 @@ describe('[GoogleMaps.getPubsNear]', () => {
     expect(response).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
+          id: 'ChIJL1U5qtlwfkgRfnCJa5aVYr4',
           name: 'Osbornes',
           address: '61-73 Osborne Rd, Jesmond, Newcastle upon Tyne',
           rating: 4.1,
@@ -41,6 +42,15 @@ describe('[GoogleMaps.getPubsNear]', () => {
         }),
       ])
     );
+  });
+
+  it('builds and returns the correct google maps links', () => {
+    expect(response[0].links).toEqual({
+      place:
+        'https://www.google.com/maps/search/?api=1&query=54.991135,-1.604484&query_place_id=ChIJL1U5qtlwfkgRfnCJa5aVYr4',
+      directions:
+        'https://www.google.com/maps/dir/?api=1&origin=7,12&destination=QVB&destination_place_id=ChIJL1U5qtlwfkgRfnCJa5aVYr4&travelmode=walking',
+    });
   });
 });
 

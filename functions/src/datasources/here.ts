@@ -16,7 +16,7 @@ class Here extends RESTDataSource {
     };
     const { items }: GeocodeResponse = await this.get('revgeocode', params);
 
-    return Here.normaliseResponse(items[0]);
+    return Here.normaliseLocationResponse(items[0]);
   }
 
   async getSearchResults(
@@ -30,10 +30,12 @@ class Here extends RESTDataSource {
     };
     const { items }: GeocodeResponse = await this.get('geocode', params);
 
-    return items.map(Here.normaliseResponse);
+    return items.map(Here.normaliseLocationResponse);
   }
 
-  private static normaliseResponse(result: GeocodeResultResponse): Location {
+  private static normaliseLocationResponse(
+    result: GeocodeResultResponse
+  ): Location {
     const { address, position } = result;
     const { label, county, city, district, postalCode } = address;
 
