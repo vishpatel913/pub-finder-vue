@@ -1,8 +1,10 @@
+import { Coords } from '../../schemas';
+
 export interface GeocodeResponse {
-  items: GeocodeResult[];
+  items: GeocodeResultResponse[];
 }
 
-export interface GeocodeResult {
+export interface GeocodeResultResponse {
   title: string;
   id: string;
   resultType: string;
@@ -10,9 +12,9 @@ export interface GeocodeResult {
   addressBlockType: string;
   localityType: string;
   administrativeAreaType: string;
-  address: Address;
-  position: Position;
-  access: Position[];
+  address: AddressResponse;
+  position: Coords;
+  access: Coords[];
   distance: number;
   mapView: {
     west: number;
@@ -26,7 +28,7 @@ export interface GeocodeResult {
   scoring: unknown;
 }
 
-interface Address {
+interface AddressResponse {
   label: string;
   countryCode: string;
   countryName: string;
@@ -42,9 +44,4 @@ interface Address {
   subblock: string;
   postalCode: string;
   houseNumber: string;
-}
-
-interface Position {
-  lat: number;
-  lng: number;
 }

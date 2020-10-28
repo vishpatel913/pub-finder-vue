@@ -36,5 +36,5 @@ export class Pub {
   openTimes: OpenTime[];
 
   @Field(_type => [Photo])
-  photos: Photo[];
+  photos: Photo[] | unknown;
 }

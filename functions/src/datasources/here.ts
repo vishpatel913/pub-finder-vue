@@ -1,7 +1,7 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { Coords, Location } from '../schemas';
+import { GeocodeResponse, GeocodeResultResponse } from './types';
 import { config } from '../config';
-import { GeocodeResponse, GeocodeResult } from './types';
 
 class Here extends RESTDataSource {
   constructor() {
@@ -33,7 +33,7 @@ class Here extends RESTDataSource {
     return items.map(Here.normaliseResponse);
   }
 
-  private static normaliseResponse(result: GeocodeResult): Location {
+  private static normaliseResponse(result: GeocodeResultResponse): Location {
     const { address, position } = result;
     const { label, county, city, district, postalCode } = address;
 

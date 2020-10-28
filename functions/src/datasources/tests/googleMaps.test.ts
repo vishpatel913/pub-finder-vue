@@ -1,4 +1,5 @@
 import GoogleMaps from '../googleMaps';
+import { Pub, Direction, Photo } from '../../schemas';
 import {
   placesMockResponse,
   placeDetailsMockResponse,
@@ -19,7 +20,7 @@ describe('[GoogleMaps]', () => {
 });
 
 describe('[GoogleMaps.getPubsNear]', () => {
-  let response;
+  let response: Pub[];
   beforeEach(async () => {
     mocks.get.mockReturnValue(placesMockResponse);
     response = await gm.getPubsNear({ lat: 7, lng: 12 });
@@ -44,7 +45,7 @@ describe('[GoogleMaps.getPubsNear]', () => {
 });
 
 describe('[GoogleMaps.getPubDetails]', () => {
-  let response;
+  let response: Pub;
   beforeEach(async () => {
     mocks.get.mockReturnValue(placeDetailsMockResponse);
     response = await gm.getPubDetails('uuiid');
@@ -149,7 +150,7 @@ describe('[GoogleMaps.getPubDetails]', () => {
 });
 
 describe('[GoogleMaps.getDirections]', () => {
-  let response;
+  let response: Direction;
   beforeEach(async () => {
     mocks.get.mockReturnValueOnce(directionsMockResponse);
     response = await gm.getDirections(
@@ -180,7 +181,7 @@ describe('[GoogleMaps.getDirections]', () => {
 });
 
 describe('[GoogleMaps.getPhotoData]', () => {
-  let response;
+  let response: Photo;
   beforeEach(async () => {
     mocks.get.mockReturnValueOnce('image-source-code');
     response = await gm.getPhotoData('imagereference', [

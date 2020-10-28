@@ -13,8 +13,3 @@ export class Photo {
   @IsOptional()
   attribution?: string;
 }
-
-export interface PhotoResponse {
-  photo_reference: string;
-  html_attribution: string[];
-}
