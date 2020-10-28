@@ -75,6 +75,7 @@
 import { mapState, mapMutations, mapActions } from 'vuex';
 import moment from 'moment';
 import infiniteScroll from 'vue-infinite-scroll';
+import { DateTime } from 'luxon';
 import Location from '@/components/Location.vue';
 import PubCard from '@/components/PubCard.vue';
 import EmptyList from '@/components/EmptyList.vue';
@@ -117,7 +118,7 @@ export default {
       variables() {
         return {
           coords: this.coords,
-          now: moment().format(),
+          now: DateTime.local().toISO(),
           first: this.first,
           skip: this.skip,
         };

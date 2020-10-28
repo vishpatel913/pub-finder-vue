@@ -74,9 +74,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import moment from 'moment';
-import PubImageGallery from './PubImageGallery.vue';
-// import CompassDirection from './CompassDirection.vue';
+import { DateTime } from 'luxon';
 
 export default {
   name: 'PubCard',
@@ -140,20 +138,21 @@ export default {
     openHours() {
       return this.openTimes && {
         opens: {
-          day: moment(this.openTimes.open.day, 'e').format('ddd'),
-          time: moment(this.openTimes.open.time, 'HHmm').format('h:mma'),
+          day: DateTime.fromFormat(this.openTimes.open.day + 1, 'E').toFormat('ccc'),
+          time: DateTime.fromFormat(this.openTimes.open.time, 'HHmm').toFormat('h:mma'),
         },
         closes: {
-          day: moment(this.openTimes.close.day, 'e').format('ddd'),
-          time: moment(this.openTimes.close.time, 'HHmm').format('h:mma'),
+          day: DateTime.fromFormat(this.openTimes.close.day + 1, 'E').toFormat('ccc'),
+          time: DateTime.fromFormat(this.openTimes.close.time, 'HHmm').toFormat('h:mma'),
         },
       };
     },
     closesIn() {
       const { closes } = this.openHours;
-      const closeMoment = moment(`${closes.time}`, 'h:mma');
-      if (closeMoment.format('a') === 'am' && moment().format('a') !== 'am') closeMoment.add(1, 'd');
-      return closeMoment.fromNow();
+      const closeDt = DateTime.fromFormat(closes.time, 'h:mma');
+      if (closeDt.toFormat('a') === 'AM' && DateTime().toFormat('a') !== 'AM') { closeDt.plus({ day: 1 }); }
+      const { hours, minutes } = closeDt.diffNow(['hours', 'minutes']).toObject();
+      return hours > 0 ? `${minutes > 30 ? hours + 1 : hours} hours` : `${(Math.floor(minutes / 10))}0 minutes`;
     },
   },
   methods: {
