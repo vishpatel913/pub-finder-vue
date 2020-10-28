@@ -23,7 +23,6 @@
             :rating="item.rating"
             :price-level="item.priceLevel"
             :directions="item.directions"
-            :photos="item.photos"
             :open-times="item.openTimes[0]"
             :links="item.links"
           />
@@ -73,7 +72,6 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
-import moment from 'moment';
 import infiniteScroll from 'vue-infinite-scroll';
 import { DateTime } from 'luxon';
 import Location from '@/components/Location.vue';

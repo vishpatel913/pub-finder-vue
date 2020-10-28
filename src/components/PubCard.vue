@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <div @click="handleModal">
+    <div @click="handleClick">
       <div class="header">
         <h3>
           {{ name }} <span class="distance">({{ walkingDistance }}min walk)</span>
@@ -15,7 +15,7 @@
           {{ address }}
         </p>
         <p v-if="openHours">
-          Closes: {{ openHours.closes.time }} <strong>({{ closesIn }})</strong>
+          Closes: {{ openHours.closes.time.toLowerCase() }} <strong>({{ closesIn }})</strong>
         </p>
       </div>
     </div>
@@ -56,19 +56,6 @@
         </a-button-group>
       </div>
     </div>
-    <a-modal
-      v-model="imageModal"
-      class="modal"
-      centered
-      destroy-on-close
-      :footer="null"
-      :body-style="{ padding: '1rem' }"
-      :closable="false"
-    >
-      <pub-image-gallery
-        :preview="image"
-      />
-    </a-modal>
   </div>
 </template>
 
@@ -78,10 +65,7 @@ import { DateTime } from 'luxon';
 
 export default {
   name: 'PubCard',
-  components: {
-    PubImageGallery,
-    // CompassDirection,
-  },
+  components: {},
   props: {
     name: {
       type: String,
@@ -120,20 +104,10 @@ export default {
       default: null,
     },
   },
-  data: () => ({
-    imageModal: false,
-  }),
   computed: {
     ...mapState({ currentCoords: 'coords' }),
     walkingDistance() {
       return this.directions && Math.round(this.directions.distance / 1.34 / 60);
-    },
-    image() {
-      const { url, attribution } = this.photos[0];
-      return {
-        url,
-        attribution,
-      };
     },
     openHours() {
       return this.openTimes && {
@@ -149,18 +123,29 @@ export default {
     },
     closesIn() {
       const { closes } = this.openHours;
-      const closeDt = DateTime.fromFormat(closes.time, 'h:mma');
-      if (closeDt.toFormat('a') === 'AM' && DateTime().toFormat('a') !== 'AM') { closeDt.plus({ day: 1 }); }
+      let closeDt = DateTime.fromFormat(closes.time, 'h:mma');
+      if (closeDt.toFormat('a') === 'AM' && DateTime.local().toFormat('a') !== 'AM') {
+        closeDt = closeDt.plus({ hours: 24 });
+      }
       const { hours, minutes } = closeDt.diffNow(['hours', 'minutes']).toObject();
-      return hours > 0 ? `${minutes > 30 ? hours + 1 : hours} hours` : `${(Math.floor(minutes / 10))}0 minutes`;
+      const closesHours = ({
+        value: minutes > 30 ? hours + 1 : hours,
+        unit: hours > 1 ? 'hours' : 'hours',
+      });
+      const closesMinutes = ({
+        value: (Math.floor(minutes / 10)) * 10,
+        units: minutes > 1 ? 'minutes' : 'minute',
+      });
+
+      return hours > 0 ? closesHours : closesMinutes;
     },
   },
   methods: {
     openDirections() {
       window.open(this.links.directions, '_blank');
     },
-    handleModal() {
-      this.imageModal = !this.imageModal;
+    handleClick() {
+      window.open(this.links.place, '_blank');
     },
     share() {
       const text = "I'm going here...";
