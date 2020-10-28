@@ -30,6 +30,7 @@
     "media-feature-colon-space-after": "always"
   },
   ignoreFiles: [
-    '**/*.js'
+    '**/*.js',
+    'functions/**/*'
   ]
 }

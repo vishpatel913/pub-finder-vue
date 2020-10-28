@@ -1,8 +1,6 @@
-import { Location } from './Location';
-import { Pub } from './Pub';
-import { Coords } from './Coords';
-import { OpenTime } from './OpenTime';
-import { Direction } from './Direction';
-import { Photo, PhotoResponse } from './Photo';
-
-export { Location, Pub, Coords, OpenTime, Direction, Photo, PhotoResponse };
+export * from './Location';
+export * from './Pub';
+export * from './Coords';
+export * from './OpenTime';
+export * from './Direction';
+export * from './Photo';
