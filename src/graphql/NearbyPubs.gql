@@ -20,7 +20,7 @@ query NearbyPubsQuery(
     }
     rating
     priceLevel
-    directions {
+    directions(from: $coords) {
       distance
       bearing
     }
@@ -30,6 +30,10 @@ query NearbyPubsQuery(
     }
     openTimes(date: $now) {
       ...openHours
+    }
+    links {
+      place
+      directions
     }
   }
 }

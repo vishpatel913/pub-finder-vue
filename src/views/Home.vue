@@ -25,6 +25,7 @@
             :directions="item.directions"
             :photos="item.photos"
             :open-times="item.openTimes[0]"
+            :links="item.links"
           />
         </a-list-item>
         <empty-list

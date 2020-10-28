@@ -117,6 +117,10 @@ export default {
       type: Object,
       default: null,
     },
+    links: {
+      type: Object,
+      default: null,
+    },
   },
   data: () => ({
     imageModal: false,
@@ -124,8 +128,7 @@ export default {
   computed: {
     ...mapState({ currentCoords: 'coords' }),
     walkingDistance() {
-      const { distance } = this.directions;
-      return Math.round(distance / 1.34 / 60);
+      return this.directions && Math.round(this.directions.distance / 1.34 / 60);
     },
     image() {
       const { url, attribution } = this.photos[0];
@@ -152,19 +155,10 @@ export default {
       if (closeMoment.format('a') === 'am' && moment().format('a') !== 'am') closeMoment.add(1, 'd');
       return closeMoment.fromNow();
     },
-    pubLink() {
-      const dest = `${this.coords.lat},${this.coords.lng}`;
-      return `https://www.google.com/maps/place/${dest}`;
-    },
-    directionsLink() {
-      const current = `${this.currentCoords.lat},${this.currentCoords.lng}`;
-      const dest = `${this.coords.lat},${this.coords.lng}`;
-      return `https://www.google.com/maps/dir/${current}/${dest}/data=!4m2!4m1!3e2`;
-    },
   },
   methods: {
     openDirections() {
-      window.open(this.directionsLink, '_blank');
+      window.open(this.links.directions, '_blank');
     },
     handleModal() {
       this.imageModal = !this.imageModal;
@@ -175,12 +169,12 @@ export default {
         navigator.share({
           title: this.name,
           text,
-          url: this.pubLink,
+          url: this.links.place,
         });
       } else {
         window.location.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(
           `${text} - `,
-        )}${this.pubLink}`;
+        )}${this.links.place}`;
       }
     },
   },
