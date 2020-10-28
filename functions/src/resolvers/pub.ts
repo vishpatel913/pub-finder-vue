@@ -5,16 +5,16 @@ import {
   Ctx,
   FieldResolver,
   Root,
-  Info,
   Args,
 } from 'type-graphql';
-import { Pub, Direction, OpenTime, Photo, PhotoResponse } from '../schemas';
+import { Pub, Direction, OpenTime, Photo } from '../schemas';
 import { CoordsInput, PubFilterArgs } from './types';
 import {
   distanceBetweenCoords,
   bearingBetweenCoords,
   timeToWalkDistance,
 } from '../utils';
+import { DataSources, PhotoResponse } from '../datasources/types';
 
 @Resolver(_of => Pub)
 export class PubResolver {
@@ -22,7 +22,7 @@ export class PubResolver {
   async pubs(
     @Arg('coords') coords: CoordsInput,
     @Args() { first, skip }: PubFilterArgs,
-    @Ctx('dataSources') { googleMaps }
+    @Ctx('dataSources') { googleMaps }: DataSources
   ): Promise<Pub[]> {
     const results = await googleMaps.getPubsNear(coords);
 
@@ -32,7 +32,7 @@ export class PubResolver {
   @Query(_returns => Pub, { nullable: false })
   async pub(
     @Arg('id') id: string,
-    @Ctx('dataSources') { googleMaps }
+    @Ctx('dataSources') { googleMaps }: DataSources
   ): Promise<Pub> {
     const details = await googleMaps.getPubDetails(id);
     return details;
@@ -41,7 +41,7 @@ export class PubResolver {
   @FieldResolver()
   async openTimes(
     @Root() { id }: Pub,
-    @Ctx('dataSources') { googleMaps },
+    @Ctx('dataSources') { googleMaps }: DataSources,
     @Arg('date', { nullable: true }) date?: string
   ): Promise<OpenTime[]> {
     const details = await googleMaps.getPubDetails(id, {
@@ -53,33 +53,33 @@ export class PubResolver {
   @FieldResolver()
   async directions(
     @Root() { coords }: Pub,
-    @Info() { variableValues },
     @Arg('from', { nullable: true }) from?: CoordsInput
   ): Promise<Direction | null> {
-    let directions: Direction | null;
-    const start = (from || variableValues.coords) ?? null;
+    if (!from) return null;
 
-    try {
-      const distance = Math.ceil(distanceBetweenCoords(start, coords));
-      const bearing = bearingBetweenCoords(start, coords);
-      const duration = Math.ceil(timeToWalkDistance(distance));
-      directions = { distance, bearing, duration };
-    } catch {
-      directions = null;
-    }
+    const distance = Math.ceil(distanceBetweenCoords(from, coords));
+    const bearing = bearingBetweenCoords(from, coords);
+    const duration = Math.ceil(timeToWalkDistance(distance));
 
-    return directions;
+    return { distance, bearing, duration };
   }
 
   @FieldResolver()
   async photos(
     @Root() { photos }: { photos: PhotoResponse[] },
-    @Ctx('dataSources') { googleMaps },
+    @Ctx('dataSources') { googleMaps }: DataSources,
     @Arg('size', { nullable: true }) size?: number
   ): Promise<Photo[]> {
-    const images = photos.map(item =>
-      googleMaps.getPhotoData(item.photo_reference, item.html_attribution, size)
+    const images = await Promise.all(
+      photos.map(item =>
+        googleMaps.getPhotoData(
+          item.photo_reference,
+          item.html_attributions,
+          size
+        )
+      )
     );
+
     return images;
   }
 }

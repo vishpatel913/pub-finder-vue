@@ -4,7 +4,8 @@ import {
   // RequestOptions,
 } from 'apollo-datasource-rest';
 import moment from 'moment';
-import { Coords, Pub, Photo, Direction, OpenTime } from '../schemas';
+import { Coords, Pub, Photo, Direction } from '../schemas';
+import { PlacesResponse, PlaceDetailsResponse } from './types';
 import { distanceBetweenCoords, bearingBetweenCoords } from '../utils';
 import { config } from '../config';
 
@@ -19,15 +20,17 @@ class GoogleMaps extends RESTDataSource {
   //   request.headers.set('Authorization', this.context.token);
   // }
 
-  async didReceiveResponse(response: Response): Promise<any> {
-    let res;
-    if (response.url.includes('googleusercontent')) {
-      res = { url: await response.url };
+  protected async didReceiveResponse<TResult = unknown>(
+    response: Response
+  ): Promise<TResult> {
+    if (response.ok) {
+      if (response.url.includes('googleusercontent')) {
+        return (response.url as unknown) as Promise<TResult>;
+      }
+      return (this.parseBody(response) as unknown) as Promise<TResult>;
     } else {
-      res = await this.parseBody(response);
+      throw await this.errorFromResponse(response);
     }
-
-    return res;
   }
 
   async getPubsNear({ lat, lng }: Coords): Promise<Pub[]> {
@@ -38,16 +41,20 @@ class GoogleMaps extends RESTDataSource {
       keyword: 'pub,bar',
       opennow: true,
     };
-    const response = await this.get('place/nearbysearch/json', params);
+    const response: PlacesResponse = await this.get(
+      'place/nearbysearch/json',
+      params
+    );
 
     return response.results
-      .map((item: any) => ({
+      .map(item => ({
         id: item.place_id,
         name: item.name,
         coords: item.geometry.location,
         address: item.vicinity,
         rating: item.rating,
         priceLevel: item.price_level,
+        openTimes: [],
         photos: item.photos,
       }))
       .sort((a: Pub, b: Pub) =>
@@ -58,16 +65,20 @@ class GoogleMaps extends RESTDataSource {
       );
   }
 
-  async getPubDetails(id: string, args?: { date: string }): Promise<Pub> {
+  async getPubDetails(id: string, args?: { date?: string }): Promise<Pub> {
     const params = {
       key: config.env.google.key,
       place_id: id,
       fields:
         'place_id,name,geometry,vicinity,rating,price_level,opening_hours,photos',
     };
-    const response = await this.get('place/details/json', params, {
-      cacheOptions: { ttl: 360 },
-    });
+    const response: PlaceDetailsResponse = await this.get(
+      'place/details/json',
+      params,
+      {
+        cacheOptions: { ttl: 360 },
+      }
+    );
     const {
       place_id,
       name,
@@ -80,7 +91,7 @@ class GoogleMaps extends RESTDataSource {
     } = response.result;
 
     const openTimes = args?.date
-      ? opening_hours.periods.filter((item: OpenTime) => {
+      ? opening_hours.periods?.filter(item => {
           const { open, close } = item;
           if (!open || !close) {
             return false;
@@ -113,7 +124,7 @@ class GoogleMaps extends RESTDataSource {
       address: vicinity,
       rating,
       priceLevel: price_level,
-      openTimes,
+      openTimes: openTimes || [],
       photos,
     };
   }
@@ -155,7 +166,7 @@ class GoogleMaps extends RESTDataSource {
     });
 
     return {
-      url: response.url,
+      url: response,
       attribution: htmlAttribution?.[0].replace(/<\s*a[^>]*>|<\s*\/\s*a>/g, ''),
     };
   }

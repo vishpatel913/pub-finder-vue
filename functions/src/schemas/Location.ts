@@ -1,8 +1,12 @@
 import { ObjectType, Field } from 'type-graphql';
 import { IsOptional } from 'class-validator';
+import { Coords } from '.';
 
-@ObjectType({ description: 'The Location data of coords' })
+@ObjectType({ description: 'Location data for an area' })
 export class Location {
+  @Field(() => Coords)
+  coords: Coords;
+
   @Field()
   address: string;
 

@@ -27,10 +27,11 @@ type Direction {
   duration: Int
 }
 
-"""The Location data of coords"""
+"""Location data for an area"""
 type Location {
   address: String!
   city: String
+  coords: Coords!
   county: String
   district: String
   postalCode: String
@@ -65,4 +66,5 @@ type Query {
   location(coords: CoordsInput!): Location!
   pub(id: String!): Pub!
   pubs(coords: CoordsInput!, first: Int = 10, skip: Int = 0): [Pub!]!
+  searchLocation(query: String!): [Location!]!
 }
