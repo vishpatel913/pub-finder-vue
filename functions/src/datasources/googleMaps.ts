@@ -164,6 +164,8 @@ class GoogleMaps extends RESTDataSource {
         })
       : opening_hours.periods;
 
+    const encodedName = encodeURIComponent(name);
+
     return {
       id: place_id,
       name,
@@ -176,7 +178,7 @@ class GoogleMaps extends RESTDataSource {
       links: params?.origin
         ? {
             place: `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${place_id}`,
-            directions: `https://www.google.com/maps/dir/?api=1&origin=${params.origin.lat},${params.origin.lng}&destination=QVB&destination_place_id=${place_id}&travelmode=walking`,
+            directions: `https://www.google.com/maps/dir/?api=1&origin=${params.origin.lat},${params.origin.lng}&destination=${encodedName}&destination_place_id=${place_id}&travelmode=walking`,
           }
         : undefined,
     };
