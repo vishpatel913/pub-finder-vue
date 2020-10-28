@@ -23,7 +23,7 @@ describe('[GoogleMaps.getPubsNear]', () => {
   let response: Pub[];
   beforeEach(async () => {
     mocks.get.mockReturnValue(placesMockResponse);
-    response = await gm.getPubsNear({ lat: 7, lng: 12 });
+    response = await gm.getPubsNear({ lat: 54.9, lng: -1.6 });
   });
 
   it('returns all of the pubs', () => {
@@ -49,7 +49,7 @@ describe('[GoogleMaps.getPubsNear]', () => {
       place:
         'https://www.google.com/maps/search/?api=1&query=54.9916667,-1.6036111&query_place_id=ChIJUcgKA9lwfkgRz34D578dDQc',
       directions:
-        'https://www.google.com/maps/dir/?api=1&origin=7,12&destination=Bar%20Blanc&destination_place_id=ChIJUcgKA9lwfkgRz34D578dDQc&travelmode=walking',
+        'https://www.google.com/maps/dir/?api=1&origin=54.9,-1.6&destination=Bar%20Blanc&destination_place_id=ChIJUcgKA9lwfkgRz34D578dDQc&travelmode=walking',
     });
   });
 });
