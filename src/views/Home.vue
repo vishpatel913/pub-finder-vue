@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import infiniteScroll from 'vue-infinite-scroll';
 import { DateTime } from 'luxon';
 import Location from '@/components/Location.vue';
@@ -110,6 +110,15 @@ export default {
       return this.skip === 20 - this.first || this.pubs.length % this.first !== 0;
     },
   },
+  methods: {
+    ...mapMutations({ setError: 'SET_ERROR' }),
+    nextPage() {
+      if (!this.isLastPage) this.skip += 5;
+    },
+    previousPage() {
+      if (!this.isFirstPage) this.skip -= 5;
+    },
+  },
   apollo: {
     data: {
       query: NearbyPubsQuery,
@@ -135,19 +144,6 @@ export default {
       skip() {
         return !this.coords;
       },
-    },
-  },
-  mounted() {
-    this.getGeolocation();
-  },
-  methods: {
-    ...mapActions(['getGeolocation']),
-    ...mapMutations({ setError: 'SET_ERROR' }),
-    nextPage() {
-      if (!this.isLastPage) this.skip += 5;
-    },
-    previousPage() {
-      if (!this.isFirstPage) this.skip -= 5;
     },
   },
 };

@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
+
 import TitleHeader from '@/components/TitleHeader.vue';
 // import Navigation from '@/components/Navigation.vue';
 
@@ -30,6 +31,12 @@ export default {
   },
   computed: {
     ...mapState(['error']),
+  },
+  mounted() {
+    this.getGeolocation();
+  },
+  methods: {
+    ...mapActions(['getGeolocation']),
   },
   metaInfo: {
     title: 'Pubs Nearby',

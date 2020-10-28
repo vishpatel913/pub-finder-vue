@@ -1,6 +1,7 @@
 <template>
   <div
     class="location-container"
+    @click="$router.push({ name: 'location', query: { example: title} })"
   >
     <div class="heading">
       <h2>{{ title }}</h2>

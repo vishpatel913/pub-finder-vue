@@ -10,8 +10,8 @@ export default new Vuex.Store({
     error: false,
   },
   mutations: {
-    SET_COORDINATES(state, { latitude, longitude }) {
-      state.coords = { lat: latitude, lng: longitude };
+    SET_COORDINATES(state, { lat, lng }) {
+      state.coords = { lat, lng };
     },
     SET_LOADING(state, loading) {
       state.loading = loading;
@@ -26,9 +26,9 @@ export default new Vuex.Store({
         commit('SET_ERROR', false);
         commit('SET_LOADING', true);
         navigator.geolocation.getCurrentPosition(
-          ({ coords }) => {
+          ({ coords: { latitude, longitude } }) => {
             commit('SET_ERROR', false);
-            commit('SET_COORDINATES', coords);
+            commit('SET_COORDINATES', { lat: latitude, lng: longitude });
             commit('SET_LOADING', false);
           },
           (error) => {
