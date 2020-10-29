@@ -11,10 +11,6 @@
             ({{ walkingDistance }}min walk)
           </span>
         </h3>
-        <!-- <compass-direction
-          class="compass"
-          :bearing="directions.bearing"
-        /> -->
       </div>
       <div class="content">
         <p class="address">
@@ -22,7 +18,7 @@
         </p>
         <p v-if="closes">
           Closes: {{ closes.time }}
-          <strong>({{ closes.duration.value }} {{ closes.duration.unit }})</strong>
+          <strong>({{ closes.duration }})</strong>
         </p>
       </div>
     </div>
@@ -120,10 +116,11 @@ export default {
     closes() {
       if (!this.openTimes) return null;
       const { close: { day, time } } = this.openTimes;
+      const duration = getDuration(DateTime.local().toISO(), getISOFromTimeString(time));
       return {
         day: DateTime.fromFormat(day.toString(), 'E').toFormat('ccc'),
         time: DateTime.fromFormat(time, 'HHmm').toFormat('h:mma').toLowerCase(),
-        duration: getDuration(DateTime.local().toISO(), getISOFromTimeString(time)),
+        duration: Object.values(duration).join(' '),
       };
     },
   },

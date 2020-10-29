@@ -58,15 +58,6 @@
         </a-button>
       </a-button-group>
     </div>
-
-    <!-- <a-button
-      class="fab"
-      type="primary"
-      size="large"
-      shape="circle"
-      icon="environment"
-      @click="getGeolocation"
-    /> -->
   </div>
 </template>
 
