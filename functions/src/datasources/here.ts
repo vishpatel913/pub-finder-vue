@@ -45,7 +45,7 @@ class Here extends RESTDataSource {
       district,
       city,
       county,
-      postalCode: postalCode.split(' ')[0],
+      postalCode: postalCode?.split(' ')[0],
     };
   }
 }

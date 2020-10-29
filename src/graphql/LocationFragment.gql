@@ -1,4 +1,8 @@
 fragment locationDetails on Location {
+  coords {
+    lat
+    lng
+  }
   address
   district
   city

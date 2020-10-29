@@ -1,0 +1,7 @@
+#import "./LocationFragment.gql"
+
+query SearchLocationQuery($query: String!) {
+  searchLocation(query: $query) {
+    ...locationDetails
+  }
+}

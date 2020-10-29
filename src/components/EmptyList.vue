@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <a-empty>
       <span slot="description">{{ loading ? 'Searching' : text }}</span>
       <div
@@ -37,6 +37,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.container {
+  margin: @padding-lg;
+}
 .empty-image {
   height: 100px;
   svg {

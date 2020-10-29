@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-// import Search from '../views/Search.vue';
+import SearchLocation from '../views/SearchLocation.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home,
     meta: {
       // title: 'Home Page - Example App',
@@ -16,9 +16,9 @@ const routes = [
     },
   },
   {
-    path: '/search',
-    name: 'Search',
-    // component: Search,
+    path: '/location',
+    name: 'location',
+    component: SearchLocation,
   },
   // {
   //   path: '/about',
