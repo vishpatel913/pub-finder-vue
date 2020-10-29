@@ -4,4 +4,3 @@ export * from './Coords';
 export * from './OpenTime';
 export * from './Direction';
 export * from './Photo';
-export * from './MapLinks';
