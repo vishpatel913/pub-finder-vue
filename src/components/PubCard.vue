@@ -88,6 +88,10 @@ export default {
       type: Number,
       default: null,
     },
+    link: {
+      type: String,
+      default: null,
+    },
     directions: {
       type: Object,
       default: null,
@@ -97,10 +101,6 @@ export default {
       default: null,
     },
     openTimes: {
-      type: Object,
-      default: null,
-    },
-    links: {
       type: Object,
       default: null,
     },
@@ -143,10 +143,10 @@ export default {
   },
   methods: {
     openDirections() {
-      window.open(this.links.directions, '_blank');
+      if (this.directions) window.open(this.directions.link, '_blank');
     },
     handleClick() {
-      window.open(this.links.place, '_blank');
+      window.open(this.link, '_blank');
     },
     share() {
       const text = "I'm going here...";
@@ -154,12 +154,12 @@ export default {
         navigator.share({
           title: this.name,
           text,
-          url: this.links.place,
+          url: this.link,
         });
       } else {
         window.location.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(
           `${text} - `,
-        )}${this.links.place}`;
+        )}${this.link}`;
       }
     },
   },

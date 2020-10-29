@@ -20,20 +20,14 @@ query NearbyPubsQuery(
     }
     rating
     priceLevel
+    link
     directions(from: $coords) {
       distance
       bearing
-    }
-    photos(size: 800) {
-      url
-      attribution
+      link
     }
     openTimes(date: $now) {
       ...openHours
-    }
-    links {
-      place
-      directions
     }
   }
 }

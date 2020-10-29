@@ -22,9 +22,9 @@
             :coords="item.coords"
             :rating="item.rating"
             :price-level="item.priceLevel"
+            :link="item.link"
             :directions="item.directions"
             :open-times="item.openTimes[0]"
-            :links="item.links"
           />
         </a-list-item>
         <empty-list
