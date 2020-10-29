@@ -137,40 +137,10 @@ class GoogleMaps extends RESTDataSource {
       opening_hours,
     } = result;
 
-    const openTimes =
-      opening_hours.periods?.reduce((acc: OpenTime[], c) => {
-        const item = c;
-        if (item.open.day === 0) item.open.day = 7;
-        if (item.close.day === 0) item.close.day = 7;
-        if (params?.time) {
-          const { open, close } = item;
-          if (!open || !close) {
-            return acc;
-          }
-          const todayDt = params?.time
-            ? DateTime.fromISO(params.time)
-            : DateTime.local();
-          const openDt = DateTime.fromISO(todayDt.toString()).set({
-            weekday: open.day,
-            hour: parseInt(open.time.slice(0, 2)),
-            minute: parseInt(open.time.slice(2, 4)),
-          });
-          const closeDt = DateTime.fromISO(todayDt.toString()).set({
-            weekday: close.day,
-            hour: parseInt(close.time.slice(0, 2)),
-            minute: parseInt(close.time.slice(2, 4)),
-          });
-          // If opens on Sat and closes on Sun
-          // if (close.day < open.day) {
-          //   if (todayDt.day === 6) closeDt.plus({ days: 7 }); // closes 'next week'
-          //   if (todayDt.day === 7) openDt.minus({ days: 7 }); // opened 'last week'
-          // }
-
-          return openDt < todayDt && closeDt > todayDt ? [item] : acc;
-        } else {
-          return [...acc, item];
-        }
-      }, []) || [];
+    const openTimes = GoogleMaps.filterOpenPeriods(
+      opening_hours.periods,
+      params?.time
+    );
 
     const encodedName = encodeURIComponent(name);
 
@@ -190,6 +160,42 @@ class GoogleMaps extends RESTDataSource {
           }
         : undefined,
     };
+  }
+
+  private static filterOpenPeriods(
+    periods?: OpenTime[],
+    filterDate?: string
+  ): OpenTime[] {
+    return (
+      periods?.reduce((acc: OpenTime[], c) => {
+        const item = c;
+        if (item.open.day === 0) item.open.day = 7;
+        if (item.close.day === 0) item.close.day = 7;
+        if (filterDate) {
+          const { open, close } = item;
+          if (!open || !close) {
+            return acc;
+          }
+          const todayDt = filterDate
+            ? DateTime.fromISO(filterDate)
+            : DateTime.local();
+          const openDt = DateTime.fromISO(todayDt.toString()).set({
+            weekday: open.day,
+            hour: parseInt(open.time.slice(0, 2)),
+            minute: parseInt(open.time.slice(2, 4)),
+          });
+          const closeDt = DateTime.fromISO(todayDt.toString()).set({
+            weekday: close.day,
+            hour: parseInt(close.time.slice(0, 2)),
+            minute: parseInt(close.time.slice(2, 4)),
+          });
+
+          return openDt < todayDt && closeDt > todayDt ? [item] : acc;
+        } else {
+          return [...acc, item];
+        }
+      }, []) || []
+    );
   }
 }
 

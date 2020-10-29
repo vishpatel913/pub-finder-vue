@@ -103,17 +103,11 @@ describe('[GoogleMaps.getPubDetails]', () => {
     });
   });
 
-  it('returns one opentime when given an iso string', async () => {
-    const newResponse = await gm.getPubDetails('TEST_UUID', {
-      date: '2020-01-31T20:47:41+01:00',
-    });
-    expect(newResponse.openTimes).toHaveLength(1);
-  });
-
   it('returns the correct opentime when given an iso string', async () => {
     const newResponse = await gm.getPubDetails('TEST_UUID', {
       date: '2020-03-31T20:47:41+01:00',
     });
+    expect(newResponse.openTimes).toHaveLength(1);
     expect(newResponse.openTimes[0]).toMatchObject({
       open: {
         day: 2,
@@ -145,7 +139,7 @@ describe('[GoogleMaps.getPubDetails]', () => {
 
   it('returns the correct opentime on a saturday night/sunday morning', async () => {
     const newResponse = await gm.getPubDetails('TEST_UUID', {
-      date: '2020-01-12T00:17:41+00:00',
+      date: '2020-01-12T00:44:41+00:00',
     });
     expect(newResponse.openTimes[0]).toMatchObject({
       open: {
