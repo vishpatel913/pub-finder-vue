@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import PubCard from '@/components/PubCard.vue';
-import mockQueryResponse from '../mocks/mockQueryResponse.json';
+import mockQueryResponse from '../mocks/mockNearbyPubsQuery';
 
 describe('PubCard.vue Test', () => {
   let defaultProps;

@@ -45,12 +45,20 @@ export const mocks = {
     openTimes: [
       {
         open: {
-          day: parseInt(DateTime.local().toFormat('c')) - 1,
+          day: parseInt(DateTime.local().toFormat('c')),
           time: `0${faker.random.number({ min: 1, max: 9 })}00`,
         },
         close: {
-          day: parseInt(DateTime.local().toFormat('c')) - 1,
-          time: `2300`,
+          day: parseInt(DateTime.local().toFormat('c')),
+          time: faker.random.arrayElement([
+            '2200',
+            '2230',
+            '2300',
+            '2330',
+            '0000',
+            '0030',
+            '0100',
+          ]),
         },
       },
     ],

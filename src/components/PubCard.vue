@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <div @click="handleClick">
+    <div @click="openMapsPage">
       <div class="header">
         <h3>
           {{ name }}
@@ -20,9 +20,9 @@
         <p class="address">
           {{ address }}
         </p>
-        <p v-if="openHours">
-          Closes: {{ openHours.closes.time.toLowerCase() }}
-          <strong>({{ closesIn.value }} {{ closesIn.unit }})</strong>
+        <p v-if="closes">
+          Closes: {{ closes.time }}
+          <strong>({{ closes.duration.value }} {{ closes.duration.unit }})</strong>
         </p>
       </div>
     </div>
@@ -69,6 +69,7 @@
 <script>
 import { mapState } from 'vuex';
 import { DateTime } from 'luxon';
+import { getDuration, getISOFromTimeString } from '../utils';
 
 export default {
   name: 'PubCard',
@@ -116,42 +117,21 @@ export default {
     walkingDistance() {
       return this.directions && Math.round(this.directions.distance / 1.34 / 60);
     },
-    openHours() {
-      return this.openTimes && {
-        opens: {
-          day: DateTime.fromFormat(this.openTimes.open.day.toString(), 'E').toFormat('ccc'),
-          time: DateTime.fromFormat(this.openTimes.open.time, 'HHmm').toFormat('h:mma'),
-        },
-        closes: {
-          day: DateTime.fromFormat(this.openTimes.close.day.toString(), 'E').toFormat('ccc'),
-          time: DateTime.fromFormat(this.openTimes.close.time, 'HHmm').toFormat('h:mma'),
-        },
+    closes() {
+      if (!this.openTimes) return null;
+      const { close: { day, time } } = this.openTimes;
+      return {
+        day: DateTime.fromFormat(day.toString(), 'E').toFormat('ccc'),
+        time: DateTime.fromFormat(time, 'HHmm').toFormat('h:mma').toLowerCase(),
+        duration: getDuration(DateTime.local().toISO(), getISOFromTimeString(time)),
       };
-    },
-    closesIn() {
-      const { closes } = this.openHours;
-      let closeDt = DateTime.fromFormat(closes.time, 'h:mma');
-      if (closeDt.toFormat('a') === 'AM' && DateTime.local().toFormat('a') !== 'AM') {
-        closeDt = closeDt.plus({ hours: 24 });
-      }
-      const { hours, minutes } = closeDt.diffNow(['hours', 'minutes']).toObject();
-      const closesHours = ({
-        value: minutes > 30 ? hours + 1 : hours,
-        unit: hours > 1 ? 'hours' : 'hours',
-      });
-      const closesMinutes = ({
-        value: (Math.floor(minutes / 10)) * 10,
-        unit: minutes > 1 ? 'minutes' : 'minute',
-      });
-
-      return hours > 0 ? closesHours : closesMinutes;
     },
   },
   methods: {
     openDirections() {
       if (this.directions) window.open(this.directions.link, '_blank');
     },
-    handleClick() {
+    openMapsPage() {
       window.open(this.link, '_blank');
     },
     share() {
