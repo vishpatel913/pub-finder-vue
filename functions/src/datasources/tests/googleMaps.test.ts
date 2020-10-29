@@ -83,11 +83,11 @@ describe('[GoogleMaps.getPubDetails]', () => {
   it('returns a day times in the correct format', () => {
     expect(response.openTimes[0]).toMatchObject({
       open: {
-        day: 0,
+        day: 7,
         time: '1000',
       },
       close: {
-        day: 0,
+        day: 7,
         time: '2230',
       },
     });
@@ -103,15 +103,15 @@ describe('[GoogleMaps.getPubDetails]', () => {
     });
   });
 
-  it('returns one opentime when given a moment', async () => {
-    const newResponse = await gm.getPubDetails('uuid', {
+  it('returns one opentime when given an iso string', async () => {
+    const newResponse = await gm.getPubDetails('TEST_UUID', {
       date: '2020-01-31T20:47:41+01:00',
     });
     expect(newResponse.openTimes).toHaveLength(1);
   });
 
-  it('returns the correct opentime when given a moment', async () => {
-    const newResponse = await gm.getPubDetails('uuid', {
+  it('returns the correct opentime when given an iso string', async () => {
+    const newResponse = await gm.getPubDetails('TEST_UUID', {
       date: '2020-03-31T20:47:41+01:00',
     });
     expect(newResponse.openTimes[0]).toMatchObject({
@@ -127,23 +127,24 @@ describe('[GoogleMaps.getPubDetails]', () => {
   });
 
   it('returns the correct opentime on a saturday', async () => {
-    const newResponse = await gm.getPubDetails('uuid', {
+    const newResponse = await gm.getPubDetails('TEST_UUID', {
       date: '2020-01-11T20:47:41+01:00',
     });
+    expect(newResponse.openTimes).toHaveLength(1);
     expect(newResponse.openTimes[0]).toMatchObject({
       open: {
         day: 6,
         time: '1000',
       },
       close: {
-        day: 0,
+        day: 7,
         time: '0300',
       },
     });
   });
 
   it('returns the correct opentime on a saturday night/sunday morning', async () => {
-    const newResponse = await gm.getPubDetails('uuid', {
+    const newResponse = await gm.getPubDetails('TEST_UUID', {
       date: '2020-01-12T00:17:41+00:00',
     });
     expect(newResponse.openTimes[0]).toMatchObject({
@@ -152,7 +153,7 @@ describe('[GoogleMaps.getPubDetails]', () => {
         time: '1000',
       },
       close: {
-        day: 0,
+        day: 7,
         time: '0300',
       },
     });

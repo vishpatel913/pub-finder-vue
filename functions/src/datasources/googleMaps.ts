@@ -3,8 +3,8 @@ import {
   Response,
   // RequestOptions,
 } from 'apollo-datasource-rest';
-import moment from 'moment';
-import { Coords, Pub, Photo, Direction } from '../schemas';
+import { DateTime } from 'luxon';
+import { Coords, Pub, Photo, Direction, OpenTime } from '../schemas';
 import {
   PlacesResponse,
   PlaceDetailsResponse,
@@ -137,32 +137,40 @@ class GoogleMaps extends RESTDataSource {
       opening_hours,
     } = result;
 
-    const openTimes = params?.time
-      ? opening_hours.periods?.filter(item => {
+    const openTimes =
+      opening_hours.periods?.reduce((acc: OpenTime[], c) => {
+        const item = c;
+        if (item.open.day === 0) item.open.day = 7;
+        if (item.close.day === 0) item.close.day = 7;
+        if (params?.time) {
           const { open, close } = item;
           if (!open || !close) {
-            return false;
+            return acc;
           }
-          const today = moment(params.time);
-          const openMoment = moment(today)
-            .day(open.day)
-            .hour(+open.time.slice(0, 2))
-            .minute(+open.time.slice(2, 4));
-          const closeMoment = moment(today)
-            .day(close.day)
-            .hour(+close.time.slice(0, 2))
-            .minute(+close.time.slice(2, 4));
+          const todayDt = params?.time
+            ? DateTime.fromISO(params.time)
+            : DateTime.local();
+          const openDt = DateTime.fromISO(todayDt.toString()).set({
+            weekday: open.day,
+            hour: parseInt(open.time.slice(0, 2)),
+            minute: parseInt(open.time.slice(2, 4)),
+          });
+          const closeDt = DateTime.fromISO(todayDt.toString()).set({
+            weekday: close.day,
+            hour: parseInt(close.time.slice(0, 2)),
+            minute: parseInt(close.time.slice(2, 4)),
+          });
           // If opens on Sat and closes on Sun
-          if (close.day < open.day) {
-            if (today.day() === 6) closeMoment.add(1, 'w'); // closes 'next week'
-            if (today.day() === 0) openMoment.subtract(1, 'w'); // opened 'last week'
-          }
+          // if (close.day < open.day) {
+          //   if (todayDt.day === 6) closeDt.plus({ days: 7 }); // closes 'next week'
+          //   if (todayDt.day === 7) openDt.minus({ days: 7 }); // opened 'last week'
+          // }
 
-          return (
-            openMoment.isBefore(params.time) && closeMoment.isAfter(params.time)
-          );
-        })
-      : opening_hours.periods;
+          return openDt < todayDt && closeDt > todayDt ? [item] : acc;
+        } else {
+          return [...acc, item];
+        }
+      }, []) || [];
 
     const encodedName = encodeURIComponent(name);
 
@@ -173,7 +181,7 @@ class GoogleMaps extends RESTDataSource {
       address: vicinity,
       rating,
       priceLevel: price_level,
-      openTimes: openTimes || [],
+      openTimes,
       photos,
       links: params?.origin
         ? {

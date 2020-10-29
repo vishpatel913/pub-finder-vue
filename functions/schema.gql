@@ -16,7 +16,7 @@ input CoordsInput {
 
 """a Day Time object"""
 type DayTime {
-  day: String!
+  day: Int!
   time: String!
 }
 

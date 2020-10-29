@@ -1,12 +1,12 @@
-import { ObjectType, Field, Directive } from 'type-graphql';
-import { IsNumberString } from 'class-validator';
+import { ObjectType, Field, Directive, Int } from 'type-graphql';
+import { IsNumber, IsNumberString } from 'class-validator';
 
 @Directive('@cacheControl(maxAge: 3600)')
 @ObjectType({ description: 'a Day Time object' })
 export class DayTime {
-  @Field()
-  @IsNumberString()
-  day: string;
+  @Field(_type => Int)
+  @IsNumber()
+  day: number;
 
   @Field()
   @IsNumberString()

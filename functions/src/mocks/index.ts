@@ -1,5 +1,5 @@
 import faker from 'faker';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 import { MockList } from 'apollo-server-cloud-functions';
 import { Pub, Location } from '../schemas';
 
@@ -42,12 +42,12 @@ export const mocks = {
     openTimes: [
       {
         open: {
-          day: moment().format('e'),
-          time: `0400`,
+          day: `${parseInt(DateTime.local().toFormat('c')) - 1}`,
+          time: `0${faker.random.number({ min: 1, max: 9 })}00`,
         },
         close: {
-          day: moment().format('e'),
-          time: `2355`,
+          day: `${parseInt(DateTime.local().toFormat('c')) - 1}`,
+          time: `2300`,
         },
       },
     ],
