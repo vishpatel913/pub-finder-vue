@@ -113,11 +113,11 @@ export default {
     openHours() {
       return this.openTimes && {
         opens: {
-          day: DateTime.fromFormat(this.openTimes.open.day + 1, 'E').toFormat('ccc'),
+          day: DateTime.fromFormat(this.openTimes.open.day.toString(), 'E').toFormat('ccc'),
           time: DateTime.fromFormat(this.openTimes.open.time, 'HHmm').toFormat('h:mma'),
         },
         closes: {
-          day: DateTime.fromFormat(this.openTimes.close.day + 1, 'E').toFormat('ccc'),
+          day: DateTime.fromFormat(this.openTimes.close.day.toString(), 'E').toFormat('ccc'),
           time: DateTime.fromFormat(this.openTimes.close.time, 'HHmm').toFormat('h:mma'),
         },
       };
