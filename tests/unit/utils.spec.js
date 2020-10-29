@@ -1,9 +1,8 @@
-import { getDuration } from '@/utils/datetime';
+import { getDuration } from '@/utils';
 import { DateTime } from 'luxon';
 
-const getISOFromTime = (hours, minutes) => DateTime.fromObject({ hours, minutes }).toISO();
-
 describe('getDuration', () => {
+  const getISOFromTime = (hours, minutes) => DateTime.fromObject({ hours, minutes }).toISO();
   const testFrom = getISOFromTime(16, 20);
 
   it('should return multiple hours and round down when applicable', () => {
