@@ -38,6 +38,7 @@ export const mocks = {
       distance: faker.random.number({ min: 1, max: 1000 }),
       duration: faker.random.number({ min: 1, max: 1200 }),
       bearing: faker.random.number({ min: 1, max: 360, precision: 0.01 }),
+      link: `https://www.google.com/maps/dir/?api=1&origin=51.46095,-0.13922&destination=encodedname&destination_place_id=ChIJvZviab0FdkgR8w4do7vbgy4&travelmode=walking`,
     },
     openTimes: [
       {
