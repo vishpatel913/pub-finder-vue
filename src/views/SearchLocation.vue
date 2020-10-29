@@ -3,18 +3,23 @@
     <div
       class="content"
     >
+      <h2>Search Location</h2>
       <a-input-search
+        ref="searchInput"
         :loading="isLoading"
         :placeholder="searchPlaceholder"
         size="large"
-        enter-button
+        allow-clear
+        auto-focus
         @search="onSearch"
       >
-        <a-icon
-          slot="prefix"
-          type="environment"
-          @click="getCurrentLocation"
-        />
+        <a-button
+          slot="enterButton"
+          type="primary"
+          ghost
+        >
+          <a-icon type="search" />
+        </a-button>
       </a-input-search>
       <a-list
         v-if="!!query"
@@ -52,7 +57,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex';
+import { mapMutations } from 'vuex';
 import EmptyList from '@/components/EmptyList.vue';
 import SearchLocationQuery from '@/graphql/SearchLocation.gql';
 
@@ -70,14 +75,16 @@ export default {
     noResults() {
       return this.query && this.results.length < 1;
     },
+    currentLocation() {
+      return this.$route.query.example?.split(/\s|-|_/).map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+    },
     searchPlaceholder() {
-      const eg = this.$route.query.example?.split(/\s|-|_/).map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ') || 'Brixton';
+      const eg = this.currentLocation || 'Battersea';
       return `eg. ${eg}`;
     },
   },
   methods: {
     ...mapMutations({ setError: 'SET_ERROR', setCoords: 'SET_COORDINATES' }),
-    ...mapActions(['getGeolocation']),
     onSearch(q) {
       if (q?.length > 0) {
         this.loading = true;
@@ -86,10 +93,6 @@ export default {
     },
     onSelect(result) {
       this.setCoords(result.coords);
-      this.$router.push({ name: 'home' });
-    },
-    getCurrentLocation() {
-      this.getGeolocation();
       this.$router.push({ name: 'home' });
     },
   },
@@ -108,7 +111,7 @@ export default {
           this.loading = false;
         }
       },
-      update: ({ query, searchLocation }) => ({ query, results: searchLocation }),
+      update: ({ searchLocation }) => ({ results: searchLocation }),
       error(error) {
         this.setError(error);
       },
@@ -136,7 +139,7 @@ export default {
     margin: 1rem 0;
   }
   .results-item {
-    display:flex;
+    display: flex;
     justify-content: space-between;
     align-items: center;
   }

@@ -1,10 +1,17 @@
 <template>
   <header class="header-container">
-    <h1><logo class="logo" />{{ title }}</h1>
+    <h1
+      class="title"
+      @click="goHomeWithCurrentLocation"
+    >
+      <logo class="logo" />
+      {{ title }}
+    </h1>
   </header>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Logo from '@/assets/svg/logo.svg';
 
 export default {
@@ -18,6 +25,16 @@ export default {
       default: 'Pubs Nearby',
     },
   },
+  methods: {
+    ...mapActions(['getGeolocation']),
+    goHomeWithCurrentLocation() {
+      this.getGeolocation();
+      const name = 'home';
+      if (this.$route.name !== name) {
+        this.$router.push({ name });
+      }
+    },
+  },
 };
 </script>
 
@@ -28,6 +45,14 @@ export default {
   justify-content: space-between;
   padding: @padding-lg @padding-xl @padding-md;
   width: 100%;
+  .title {
+    transition: 0.2s all;
+    opacity: 1;
+    &:active,
+    &:focus {
+      opacity: 0.5;
+    }
+  }
   .logo {
     height: 2rem;
     margin-right: @padding-sm;

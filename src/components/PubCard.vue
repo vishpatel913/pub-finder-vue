@@ -3,7 +3,13 @@
     <div @click="handleClick">
       <div class="header">
         <h3>
-          {{ name }} <span class="distance">({{ walkingDistance }}min walk)</span>
+          {{ name }}
+          <span
+            v-if="walkingDistance < 60"
+            class="distance"
+          >
+            ({{ walkingDistance }}min walk)
+          </span>
         </h3>
         <!-- <compass-direction
           class="compass"

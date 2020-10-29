@@ -96,7 +96,7 @@ export default {
     skip: 0,
   }),
   computed: {
-    ...mapState(['coords', 'loading']),
+    ...mapState(['coords', 'geolocation', 'loading']),
     isLoading() {
       return this.loading || this.$apollo.loading;
     },
@@ -124,8 +124,9 @@ export default {
       query: NearbyPubsQuery,
       variables() {
         return {
-          coords: this.coords,
-          now: DateTime.local().toISO(),
+          searchCoords: this.coords,
+          geolocationCoords: this.geolocation,
+          isoDate: DateTime.local().toISO(),
           first: this.first,
           skip: this.skip,
         };

@@ -2,15 +2,16 @@
 #import "./OpenHoursFragment.gql"
 
 query NearbyPubsQuery(
-  $coords: CoordsInput!
+  $searchCoords: CoordsInput!
+  $geolocationCoords: CoordsInput
   $first: Int
   $skip: Int
-  $now: String
+  $isoDate: String
 ) {
-  location(coords: $coords) {
+  location(coords: $searchCoords) {
     ...locationDetails
   }
-  pubs(coords: $coords, first: $first, skip: $skip) {
+  pubs(coords: $searchCoords, first: $first, skip: $skip) {
     id
     name
     address
@@ -21,12 +22,12 @@ query NearbyPubsQuery(
     rating
     priceLevel
     link
-    directions(from: $coords) {
+    directions(from: $geolocationCoords) {
       distance
       bearing
       link
     }
-    openTimes(date: $now) {
+    openTimes(date: $isoDate) {
       ...openHours
     }
   }
