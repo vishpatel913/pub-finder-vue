@@ -80,29 +80,6 @@ describe('[GoogleMaps.getPubDetails]', () => {
     expect(response.openTimes).toHaveLength(7);
   });
 
-  it('returns a day times in the correct format', () => {
-    expect(response.openTimes[0]).toMatchObject({
-      open: {
-        day: 7,
-        time: '1000',
-      },
-      close: {
-        day: 7,
-        time: '2230',
-      },
-    });
-    expect(response.openTimes[5]).toMatchObject({
-      close: {
-        day: 5,
-        time: '2300',
-      },
-      open: {
-        day: 5,
-        time: '1100',
-      },
-    });
-  });
-
   it('returns the correct opentime when given an iso string', async () => {
     const newResponse = await gm.getPubDetails('TEST_UUID', {
       date: '2020-03-31T20:47:41+01:00',
@@ -116,39 +93,6 @@ describe('[GoogleMaps.getPubDetails]', () => {
       close: {
         day: 2,
         time: '2300',
-      },
-    });
-  });
-
-  it('returns the correct opentime on a saturday', async () => {
-    const newResponse = await gm.getPubDetails('TEST_UUID', {
-      date: '2020-01-11T20:47:41+01:00',
-    });
-    expect(newResponse.openTimes).toHaveLength(1);
-    expect(newResponse.openTimes[0]).toMatchObject({
-      open: {
-        day: 6,
-        time: '1000',
-      },
-      close: {
-        day: 7,
-        time: '0300',
-      },
-    });
-  });
-
-  it('returns the correct opentime on a saturday night/sunday morning', async () => {
-    const newResponse = await gm.getPubDetails('TEST_UUID', {
-      date: '2020-01-12T00:44:41+00:00',
-    });
-    expect(newResponse.openTimes[0]).toMatchObject({
-      open: {
-        day: 6,
-        time: '1000',
-      },
-      close: {
-        day: 7,
-        time: '0300',
       },
     });
   });

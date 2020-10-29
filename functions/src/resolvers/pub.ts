@@ -13,6 +13,7 @@ import {
   distanceBetweenCoords,
   bearingBetweenCoords,
   timeToWalkDistance,
+  filterOpenPeriods,
 } from '../utils';
 import { DataSources, PhotoResponse } from '../datasources/types';
 
@@ -40,13 +41,15 @@ export class PubResolver {
 
   @FieldResolver()
   async openTimes(
-    @Root() { id }: Pub,
+    @Root() { id, openTimes }: Pub,
     @Ctx('dataSources') { googleMaps }: DataSources,
     @Arg('date', { nullable: true }) date?: string
   ): Promise<OpenTime[]> {
-    const details = await googleMaps.getPubDetails(id, {
-      date,
-    });
+    if (openTimes?.length > 0) {
+      return filterOpenPeriods(openTimes, date);
+    }
+    const details = await googleMaps.getPubDetails(id, { date });
+
     return details.openTimes;
   }
 
