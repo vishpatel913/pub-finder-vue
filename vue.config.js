@@ -4,7 +4,7 @@ module.exports = {
   pwa: {
     name: 'Pubs Nearby',
     themeColor: themeConfig['@theme-primary'],
-    msTileColor: themeConfig['@theme-primary-dark'],
+    msTileColor: themeConfig['@theme-background'],
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'green',
 
@@ -13,7 +13,7 @@ module.exports = {
       skipWaiting: true,
     },
     manifestOptions: {
-      background_color: themeConfig['@theme-primary-dark'],
+      background_color: themeConfig['@theme-background'],
     },
     iconPaths: {
       favicon32: 'img/icons/favicon-32x32.png',

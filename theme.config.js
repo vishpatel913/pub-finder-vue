@@ -3,10 +3,10 @@ module.exports = {
   'ant-prefix': 'ant',
 
   '@theme-primary': '#F0A011',
-  '@theme-primary-dark': '#363537',
   '@theme-primary-light': '#FFC551',
   '@theme-secondary': '#00C49A',
   '@theme-secondary-light': '#48E5C2',
+  '@theme-background': '#363537',
   '@theme-red': '#fc224c',
   '@theme-yellow': '#ffeb3b',
   '@theme-gold': '#ffc72d',
