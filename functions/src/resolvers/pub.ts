@@ -55,16 +55,18 @@ export class PubResolver {
 
   @FieldResolver()
   async directions(
-    @Root() { coords }: Pub,
+    @Root() { coords, id, name }: Pub,
     @Arg('from', { nullable: true }) from?: CoordsInput
   ): Promise<Direction | null> {
     if (!from) return null;
+    const encodedName = encodeURIComponent(name);
 
     const distance = Math.ceil(distanceBetweenCoords(from, coords));
     const bearing = bearingBetweenCoords(from, coords);
     const duration = Math.ceil(timeToWalkDistance(distance));
+    const link = `https://www.google.com/maps/dir/?api=1&origin=${from.lat},${from.lng}&destination=${encodedName}&destination_place_id=${id}&travelmode=walking`;
 
-    return { distance, bearing, duration };
+    return { distance, bearing, duration, link };
   }
 
   @FieldResolver()

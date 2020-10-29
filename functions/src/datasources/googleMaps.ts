@@ -142,8 +142,6 @@ class GoogleMaps extends RESTDataSource {
 
     const openTimes = filterOpenPeriods(opening_hours.periods, params?.time);
 
-    const encodedName = encodeURIComponent(name);
-
     return {
       id: place_id,
       name,
@@ -153,12 +151,7 @@ class GoogleMaps extends RESTDataSource {
       priceLevel: price_level,
       openTimes,
       photos,
-      links: params?.origin
-        ? {
-            place: `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${place_id}`,
-            directions: `https://www.google.com/maps/dir/?api=1&origin=${params.origin.lat},${params.origin.lng}&destination=${encodedName}&destination_place_id=${place_id}&travelmode=walking`,
-          }
-        : undefined,
+      link: `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${place_id}`,
     };
   }
 }

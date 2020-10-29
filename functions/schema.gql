@@ -25,6 +25,7 @@ type Direction {
   bearing: Float
   distance: Int
   duration: Int
+  link: String
 }
 
 """Location data for an area"""
@@ -35,12 +36,6 @@ type Location {
   county: String
   district: String
   postalCode: String
-}
-
-"""Google Maps Links relating to a Pub"""
-type MapLinks {
-  directions: String!
-  place: String!
 }
 
 """A Pub Open Time object with closing"""
@@ -61,7 +56,7 @@ type Pub {
   coords: Coords!
   directions(from: CoordsInput): Direction
   id: ID!
-  links: MapLinks
+  link: String!
   name: String!
   openTimes(date: String): [OpenTime!]!
   photos(size: Float): [Photo!]!

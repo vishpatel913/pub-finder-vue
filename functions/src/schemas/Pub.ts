@@ -1,6 +1,6 @@
 import { ObjectType, Field, ID, Int, Float } from 'type-graphql';
-import { Min, Max, IsOptional } from 'class-validator';
-import { Coords, Direction, MapLinks, OpenTime, Photo } from './';
+import { Min, Max, IsOptional, IsUrl } from 'class-validator';
+import { Coords, Direction, OpenTime, Photo } from './';
 
 @ObjectType({ description: 'A Pub' })
 export class Pub {
@@ -38,7 +38,7 @@ export class Pub {
   @Field(_type => [Photo])
   photos: Photo[] | unknown;
 
-  @Field(_type => MapLinks, { nullable: true })
-  @IsOptional()
-  links?: MapLinks;
+  @Field()
+  @IsUrl()
+  link: string;
 }

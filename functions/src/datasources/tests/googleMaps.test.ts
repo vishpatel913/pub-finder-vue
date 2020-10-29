@@ -45,12 +45,9 @@ describe('[GoogleMaps.getPubsNear]', () => {
   });
 
   it('builds and returns the correct google maps links', () => {
-    expect(response[0].links).toEqual({
-      place:
-        'https://www.google.com/maps/search/?api=1&query=54.9900241,-1.606599&query_place_id=ChIJUcgKA9lwfkgRz34D578dDQc',
-      directions:
-        'https://www.google.com/maps/dir/?api=1&origin=54.9,-1.6&destination=Bar%20Blanc&destination_place_id=ChIJUcgKA9lwfkgRz34D578dDQc&travelmode=walking',
-    });
+    expect(response[0].link).toEqual(
+      'https://www.google.com/maps/search/?api=1&query=54.9900241,-1.606599&query_place_id=ChIJUcgKA9lwfkgRz34D578dDQc'
+    );
   });
 });
 
@@ -125,7 +122,8 @@ describe('[GoogleMaps.getDirections]', () => {
 
   it('returns a valid bearing', () => {
     const { bearing } = response;
-    expect(bearing >= 0 && bearing <= 360).toBeTruthy();
+    expect(bearing).toBeDefined();
+    if (!!bearing) expect(bearing >= 0 && bearing <= 360).toBeTruthy();
   });
 });
 
