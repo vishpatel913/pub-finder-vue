@@ -1,7 +1,7 @@
 <template>
   <div class="direction-container">
     <a-icon
-      :component="Direction"
+      :component="directionIcon"
       :style="rotationStyle"
     />
   </div>
@@ -19,7 +19,8 @@ export default {
     },
   },
   data: () => ({
-    Direction,
+    directionIcon: Direction,
+    alpha: 0,
   }),
   computed: {
     rotationStyle() {
@@ -38,8 +39,14 @@ export default {
       //     console.log('alpha', alpha);
       //   });
       // }
-      return `transform: rotate(${this.bearing}deg);`;
+
+      return `transform: rotate(${this.alpha}deg);`;
     },
+  },
+  created() {
+    window.addEventListener('deviceorientation', (event) => {
+      this.alpha = Math.round(event.alpha);
+    });
   },
 };
 </script>
