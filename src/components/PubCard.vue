@@ -11,6 +11,7 @@
             ({{ walkingDistance }}min walk)
           </span>
         </h3>
+        <compass-direction :bearing="directions.bearing" />
       </div>
       <div class="content">
         <p class="address">
@@ -65,11 +66,12 @@
 <script>
 import { mapState } from 'vuex';
 import { DateTime } from 'luxon';
+import CompassDirection from '@/components/CompassDirection.vue';
 import { getDuration, getISOFromTimeString } from '../utils';
 
 export default {
   name: 'PubCard',
-  components: {},
+  components: { CompassDirection },
   props: {
     name: {
       type: String,

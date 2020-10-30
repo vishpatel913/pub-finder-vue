@@ -1,6 +1,7 @@
 <template>
   <div class="direction-container">
     <a-icon
+      v-if="showCompass"
       :component="directionIcon"
       :style="rotationStyle"
     />
@@ -24,29 +25,21 @@ export default {
   }),
   computed: {
     rotationStyle() {
-      // TODO: return bearing from device position
-      // if (window.DeviceOrientationEvent) {
-      //   window.addEventListener('deviceorientation', (event) => {
-      //     let alpha;
-      //     if (event.webkitCompassHeading) {
-      //       alpha = event.webkitCompassHeading;
-      //     } else {
-      //       alpha = event.alpha;
-      //       if (!window.chrome) {
-      //         alpha -= 270;
-      //       }
-      //     }
-      //     console.log('alpha', alpha);
-      //   });
-      // }
-
-      return `transform: rotate(${this.alpha}deg);`;
+      return `transform: rotate(${this.alpha + this.bearing}deg);`;
+    },
+    showCompass() {
+      return !!window.DeviceOrientationEvent;
     },
   },
   created() {
-    window.addEventListener('deviceorientation', (event) => {
-      this.alpha = Math.round(event.alpha);
-    });
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', (event) => {
+        this.alpha = Math.round(event.alpha);
+        if (!window.chrome) {
+          this.alpha -= 270;
+        }
+      });
+    }
   },
 };
 </script>

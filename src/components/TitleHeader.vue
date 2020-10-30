@@ -7,18 +7,16 @@
       <logo class="logo" />
       {{ title }}
     </h1>
-    <compass-direction />
   </header>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-import CompassDirection from '@/components/CompassDirection.vue';
 import Logo from '@/assets/svg/logo.svg';
 
 export default {
   name: 'TitleHeader',
-  components: { Logo, CompassDirection },
+  components: { Logo },
   props: {
     title: {
       type: String,
