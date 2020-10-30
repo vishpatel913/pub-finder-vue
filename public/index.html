@@ -1,15 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+
+    <!-- Primary Meta Tags -->
+    <title>Pubs Nearby</title>
+    <meta name="title" content="Pubs Nearby" />
+    <meta
+      name="description"
+      content="Shows you pubs around you that are still open. Fancy a bev?"
+    />
+
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="Pubs Nearby" />
+    <meta
+      itemprop="description"
+      content="Shows you pubs around you that are still open. Fancy a bev?"
+    />
+    <meta
+      itemprop="image"
+      content="https://pubs-nearby.firebaseapp.com/img/meta-banner.png"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pubs-nearby.firebaseapp.com/" />
+    <meta property="og:title" content="Pubs Nearby" />
+    <meta
+      property="og:description"
+      content="Shows you pubs around you that are still open. Fancy a bev?"
+    />
+    <meta
+      property="og:image"
+      content="https://pubs-nearby.firebaseapp.com/img/meta-banner.png"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://pubs-nearby.firebaseapp.com/"
+    />
+    <meta property="twitter:title" content="Pubs Nearby" />
+    <meta
+      property="twitter:description"
+      content="Shows you pubs around you that are still open. Fancy a bev?"
+    />
+    <meta
+      property="twitter:image"
+      content="https://pubs-nearby.firebaseapp.com/img/meta-banner.png"
+    />
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
