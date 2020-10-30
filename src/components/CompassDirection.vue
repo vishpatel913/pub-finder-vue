@@ -28,7 +28,7 @@ export default {
       return `transform: rotate(${this.alpha + this.bearing}deg);`;
     },
     showCompass() {
-      return !!window.DeviceOrientationEvent && !!this.alpha;
+      return !!window.DeviceOrientationEvent && this.alpha !== null;
     },
   },
   created() {
