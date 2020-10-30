@@ -21,14 +21,14 @@ export default {
   },
   data: () => ({
     directionIcon: Direction,
-    alpha: 0,
+    alpha: null,
   }),
   computed: {
     rotationStyle() {
       return `transform: rotate(${this.alpha + this.bearing}deg);`;
     },
     showCompass() {
-      return !!window.DeviceOrientationEvent;
+      return !!window.DeviceOrientationEvent && !!this.alpha;
     },
   },
   created() {
