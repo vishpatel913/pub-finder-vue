@@ -60,6 +60,7 @@ export default {
       { name: 'full-screen', content: 'yes' },
       { name: 'browsermode', content: 'application' },
       { name: 'screen-orientation', content: 'portrait' },
+      // Facebook Meta Tags
       { property: 'og:title', content: 'Pubs Nearby' },
       { property: 'og:site_name', content: 'Pubs Nearby' },
       { property: 'og:url', content: 'https://pubs-nearby.firebaseapp.com' },
@@ -67,14 +68,18 @@ export default {
         property: 'og:description',
         content: 'Shows you pubs around you that are still open. Fancy a bev?',
       },
-      { property: 'og:type', content: 'article' },
+      { property: 'og:type', content: 'website' },
       { property: 'og:image', content: LOGO_PATH },
-      { property: 'twitter:card', content: 'summary_large_image' },
-      { property: 'twitter:url', content: 'https://pubs-nearby.firebaseapp.com/' },
-      { property: 'twitter:title', content: 'Pubs Nearby' },
-      { property: 'twitter:description', content: 'Shows you pubs around you that are still open. Fancy a bev?' },
-      { property: 'twitter:image', content: LOGO_PATH },
-
+      // Twitter Meta Tags
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:url', content: 'https://pubs-nearby.firebaseapp.com/' },
+      { name: 'twitter:title', content: 'Pubs Nearby' },
+      { name: 'twitter:description', content: 'Shows you pubs around you that are still open. Fancy a bev?' },
+      { name: 'twitter:image', content: LOGO_PATH },
+      //  Google / Search Engine Tags
+      { itemprop: 'name', content: 'Pubs Nearby' },
+      { itemprop: 'description', content: 'Shows you pubs around you that are still open. Fancy a bev?' },
+      { itemprop: 'image', content: 'https://pubs-nearby.firebaseapp.com/img/meta-banner.png' },
     ],
   },
 };

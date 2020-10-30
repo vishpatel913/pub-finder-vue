@@ -63,7 +63,6 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-import infiniteScroll from 'vue-infinite-scroll';
 import { DateTime } from 'luxon';
 import Location from '@/components/Location.vue';
 import PubCard from '@/components/PubCard.vue';
@@ -76,7 +75,6 @@ export default {
     PubCard,
     EmptyList,
   },
-  directives: { infiniteScroll },
   data: () => ({
     pubs: [],
     location: {
