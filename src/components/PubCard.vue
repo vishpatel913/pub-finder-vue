@@ -11,7 +11,7 @@
             ({{ walkingDistance }}min walk)
           </span>
         </h3>
-        <compass-direction :bearing="directions.bearing" />
+        <compass-direction :bearing="bearing" />
       </div>
       <div class="content">
         <p class="address">
@@ -114,6 +114,9 @@ export default {
     ...mapState({ currentCoords: 'coords' }),
     walkingDistance() {
       return this.directions && Math.round(this.directions.distance / 1.34 / 60);
+    },
+    bearing() {
+      return this.directions?.bearing;
     },
     closes() {
       if (!this.openTimes) return null;
