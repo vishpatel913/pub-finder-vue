@@ -3,6 +3,7 @@ import VueMeta from 'vue-meta';
 import ApolloClient from 'apollo-boost';
 import VueApollo from 'vue-apollo';
 import Antd from 'ant-design-vue';
+import fetch from 'unfetch';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -19,6 +20,7 @@ Vue.use(VueApollo);
 Vue.use(Antd);
 
 const apolloClient = new ApolloClient({
+  fetchOptions: { fetch },
   uri:
     process.env.NODE_ENV === 'production'
       ? 'https://us-central1-pubs-nearby.cloudfunctions.net/graphql'
