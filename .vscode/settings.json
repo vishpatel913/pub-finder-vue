@@ -1,22 +1,44 @@
-"[javascript]": {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true
-},
-"[typescript]": {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": false
-},
-"eslint.autoFixOnSave": true,
-"eslint.validate": [
-  "javascript",
-  "javascriptreact",
-  {
-    "autoFix": true,
-    "language": "typescript"
+{
+  "editor.formatOnSave": true,
+  "prettier.requireConfig": true,
+  "prettier.jsxSingleQuote": true,
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   },
-  {
-    "autoFix": true,
-    "language": "typescriptreact"
-  }
-],
-"prettier.eslintIntegration": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false
+  },
+  "vetur.format.defaultFormatter.js": "prettier-eslint",
+  "vetur.format.defaultFormatter.html": "none",
+  "html.format.enable": false,
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  },
+  "stylelint.enable": true,
+  "css.validate": true,
+  "scss.validate": true,
+  "workbench.colorCustomizations": {
+    // "activityBar.activeBackground": "#363537",
+    "activityBar.activeBorder": "#FFC551",
+    // "activityBar.background": "#363537",
+    "activityBar.foreground": "#F0A011",
+    "activityBar.inactiveForeground": "#F0A01199",
+    "activityBarBadge.background": "#FFC551",
+    "activityBarBadge.foreground": "#363537",
+    "statusBar.background": "#363537",
+    "statusBar.foreground": "#F0A011",
+    // "statusBarItem.hoverBackground": "#363537",
+    // "titleBar.activeBackground": "#363537",
+    "titleBar.activeForeground": "#F0A011",
+    // "titleBar.inactiveBackground": "#363537",
+    "titleBar.inactiveForeground": "#F0A01199"
+  },
+}
