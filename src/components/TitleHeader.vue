@@ -47,6 +47,8 @@ export default {
   .title {
     transition: 0.2s all;
     opacity: 1;
+    cursor: pointer;
+    &:hover,
     &:active,
     &:focus {
       opacity: 0.5;

@@ -2,8 +2,8 @@ import Vue from 'vue';
 import VueMeta from 'vue-meta';
 import ApolloClient from 'apollo-boost';
 import VueApollo from 'vue-apollo';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import Antd from 'ant-design-vue';
-import fetch from 'isomorphic-unfetch';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -20,11 +20,13 @@ Vue.use(VueApollo);
 Vue.use(Antd);
 
 const apolloClient = new ApolloClient({
-  fetchOptions: { fetch },
   uri:
     process.env.NODE_ENV === 'production'
       ? 'https://us-central1-pubs-nearby.cloudfunctions.net/graphql'
       : 'http://localhost:5001/pubs-nearby/us-central1/graphql',
+  cache: new InMemoryCache({
+    addTypename: true,
+  }),
 });
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
